@@ -8,7 +8,13 @@ import { Lock, Eye, EyeOff, Loader2 } from "lucide-react";
 function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirect = searchParams.get("redirect") || "/dashboard";
+
+  // Validate redirect to prevent open redirect to external URLs
+  const rawRedirect = searchParams.get("redirect") || "/dashboard";
+  const redirect =
+    rawRedirect.startsWith("/") && !rawRedirect.startsWith("//")
+      ? rawRedirect
+      : "/dashboard";
 
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
@@ -28,7 +34,12 @@ function LoginForm() {
       });
 
       if (!res.ok) {
-        setError("Invalid password. Please try again.");
+        const data = await res.json().catch(() => ({}));
+        setError(
+          data.error === "Too many attempts. Try again later."
+            ? "Too many failed attempts. Please wait before trying again."
+            : "Invalid password. Please try again."
+        );
         return;
       }
 
@@ -98,11 +109,6 @@ export default function LoginPage() {
             <LoginForm />
           </Suspense>
         </div>
-
-        <p className="text-center text-xs text-gray-400 mt-4">
-          Default password: <code className="bg-gray-100 px-1 py-0.5 rounded">backyard2026</code>
-          <br />Set <code>DASHBOARD_PASSWORD</code> in .env to change it.
-        </p>
       </div>
     </div>
   );

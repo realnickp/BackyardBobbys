@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { sendSMS, sendEmail, SMS_TEMPLATES, EMAIL_TEMPLATES } from "@/lib/automations";
+import { verifySessionToken } from "@/lib/auth";
 import type { AutomationContext } from "@/lib/automations";
 
 // ── POST /api/automations/run ─────────────────────────────
@@ -8,16 +9,23 @@ import type { AutomationContext } from "@/lib/automations";
 // Also callable manually from the dashboard.
 
 export async function POST(request: NextRequest) {
-  // Verify cron secret to prevent unauthorized calls
   const authHeader = request.headers.get("authorization");
   const cronSecret = process.env.CRON_SECRET;
-  if (cronSecret && authHeader !== `Bearer ${cronSecret}`) {
-    // Also allow dashboard calls with dashboard session cookie
-    const cookie = request.cookies.get("dashboard_session");
-    const password = process.env.DASHBOARD_PASSWORD || "backyard2026";
-    if (!cookie || cookie.value !== password) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
+  const dashboardPassword = process.env.DASHBOARD_PASSWORD;
+
+  // Allow valid Vercel Cron Bearer token
+  const cronAuthorized = cronSecret
+    ? authHeader === `Bearer ${cronSecret}`
+    : false;
+
+  // Allow dashboard session cookie (for manual runs)
+  const cookie = request.cookies.get("dashboard_session");
+  const sessionAuthorized = dashboardPassword
+    ? verifySessionToken(cookie?.value, dashboardPassword)
+    : false;
+
+  if (!cronAuthorized && !sessionAuthorized) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   const supabase = getSupabaseAdmin();
@@ -188,8 +196,4 @@ export async function POST(request: NextRequest) {
     },
     logs,
   });
-}
-
-export async function GET(request: NextRequest) {
-  return POST(request);
 }
