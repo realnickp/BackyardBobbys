@@ -44,6 +44,7 @@ export interface Lead {
   job_completion_date?: string;
   review_requested: boolean;
   review_received: boolean;
+  preferred_style?: string;
   chat_transcript?: string;
   chatbot_qualified: boolean;
   status_history?: StatusHistoryEntry[];

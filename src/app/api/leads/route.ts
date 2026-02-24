@@ -172,15 +172,15 @@ export async function POST(request: NextRequest) {
 
     // Score the lead
     const { score, factors, priority } = calculateLeadScore({
-      phone,
-      email,
-      city_or_zip: cityOrZip,
-      service,
-      description,
-      timeframe,
-      budget,
-      source,
-      utm_campaign: utmCampaign,
+      phone: phone || undefined,
+      email: email || undefined,
+      city_or_zip: cityOrZip || undefined,
+      service: service || undefined,
+      description: description || undefined,
+      timeframe: timeframe || undefined,
+      budget: budget ?? undefined,
+      source: source || undefined,
+      utm_campaign: utmCampaign ?? undefined,
       chatbot_qualified: isChatbot,
     });
 
