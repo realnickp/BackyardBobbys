@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -197,7 +198,7 @@ export async function POST(request: NextRequest) {
 
     const response = await openai.chat.completions.create({
       model: "gpt-4o-mini",
-      messages: [{ role: "system", content: systemPrompt }, ...messages],
+      messages: [{ role: "system" as const, content: systemPrompt }, ...messages] as ChatCompletionMessageParam[],
       max_tokens: 300,
       temperature: 0.7,
     });
