@@ -11,6 +11,7 @@ import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { GalleryGrid } from "@/components/shared/GalleryGrid";
 import { FinancingCallout } from "@/components/shared/FinancingCallout";
+import { ScrollReveal, StaggerChildren, StaggerItem, StickyStack, StackOver, ParallaxImage, CountUp } from "@/components/shared/animations";
 import type { Metadata } from "next";
 import { PRIMARY_SERVICES, TESTIMONIALS, GALLERY_ITEMS, SITE } from "@/lib/constants";
 
@@ -72,7 +73,7 @@ export default function HomePage() {
           <div className="grid lg:grid-cols-12 min-h-[90vh] lg:min-h-screen items-center gap-8 lg:gap-12">
             {/* Left: Content */}
             <div className="lg:col-span-6 pt-12 pb-8 lg:py-24 text-white">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand/15 border border-brand/30 text-brand text-xs font-semibold mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-brand/15 border border-brand/30 text-brand text-xs font-semibold mb-6">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Licensed {SITE.license} &middot; {SITE.address.region}, MD
               </div>
@@ -116,7 +117,7 @@ export default function HomePage() {
                   <Link
                     key={chip.label}
                     href={chip.href}
-                    className="px-3 py-1.5 text-xs font-medium bg-white/5 hover:bg-white/10 rounded-full transition-colors border border-white/10 hover:border-white/20 text-white/60 hover:text-white/80"
+                    className="px-4 py-2.5 text-xs font-medium bg-white/5 hover:bg-white/10 rounded-full transition-colors border border-white/10 hover:border-white/20 text-white/60 hover:text-white/80"
                   >
                     {chip.label}
                   </Link>
@@ -189,29 +190,38 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-primary/85" />
         </div>
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+          <StaggerChildren className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center text-white">
+            <StaggerItem>
             <div>
               <p className="text-4xl md:text-5xl font-display text-brand mb-1">Fast</p>
               <p className="text-sm text-white/60">Response Guarantee</p>
             </div>
+            </StaggerItem>
+            <StaggerItem>
             <div>
-              <p className="text-4xl md:text-5xl font-display text-brand mb-1">18</p>
+              <p className="text-4xl md:text-5xl font-display text-brand mb-1"><CountUp target={18} /></p>
               <p className="text-sm text-white/60">Communities Served</p>
             </div>
+            </StaggerItem>
+            <StaggerItem>
             <div>
               <p className="text-4xl md:text-5xl font-display text-brand mb-1">5.0</p>
               <p className="text-sm text-white/60">Average Star Rating</p>
             </div>
+            </StaggerItem>
+            <StaggerItem>
             <div>
               <p className="text-4xl md:text-5xl font-display text-brand mb-1">MHIC</p>
               <p className="text-sm text-white/60">Licensed & Insured</p>
             </div>
-          </div>
+            </StaggerItem>
+          </StaggerChildren>
         </div>
       </section>
 
       {/* ===== Services Grid ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl mb-4">What We Build</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
@@ -219,31 +229,37 @@ export default function HomePage() {
             project with care and precision.
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        </ScrollReveal>
+        <StaggerChildren className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PRIMARY_SERVICES.map((service) => (
-            <ServiceCard key={service.slug} {...service} />
+            <StaggerItem key={service.slug} className="h-full">
+              <ServiceCard {...service} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
+        <ScrollReveal delay={0.3}>
         <div className="text-center mt-10">
           <CTAButton href="/services" variant="outline">
             View All Services
             <ArrowRight className="h-4 w-4" />
           </CTAButton>
         </div>
+        </ScrollReveal>
       </Section>
 
       {/* ===== Full-Bleed Image Break ===== */}
+      <StickyStack>
       <section className="relative h-[300px] md:h-[400px] overflow-hidden">
-        <Image
+        <ParallaxImage
           src="/images/Stamped-Patio-with-planter-2-rotated.webp"
           alt="Completed paver patio with pergola by Backyard Bobby's"
-          fill
-          className="object-cover"
-          sizes="100vw"
+          className="absolute inset-0"
+          speed={0.12}
         />
         <div className="absolute inset-0 bg-gradient-to-r from-primary/80 via-primary/40 to-transparent" />
         <div className="absolute inset-0 flex items-center">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+            <ScrollReveal direction="left">
             <blockquote className="max-w-lg text-white">
               <p className="font-display text-2xl md:text-3xl leading-snug mb-3">
                 &ldquo;The craftsmanship is top notch and Bobby walked us through every decision.&rdquo;
@@ -252,11 +268,14 @@ export default function HomePage() {
                 — James & Linda P., Crofton MD
               </cite>
             </blockquote>
+            </ScrollReveal>
           </div>
         </div>
       </section>
+      </StickyStack>
 
       {/* ===== Why Choose Us (Asymmetric Layout) ===== */}
+      <StackOver>
       <Section>
         <div className="grid gap-12 lg:grid-cols-5 items-center">
           {/* Left: Large project image */}
@@ -280,15 +299,18 @@ export default function HomePage() {
 
           {/* Right: Benefits */}
           <div className="lg:col-span-3">
+            <ScrollReveal>
             <h2 className="text-3xl md:text-5xl mb-4">
               Why Homeowners Choose Backyard Bobby&apos;s
             </h2>
             <p className="text-muted-foreground text-lg mb-8">
               We earn every project through honest work, fair pricing, and results you can see.
             </p>
-            <div className="grid gap-6 sm:grid-cols-2">
+            </ScrollReveal>
+            <StaggerChildren className="grid gap-6 sm:grid-cols-2">
               {WHY_US.map((item) => (
-                <div key={item.title} className="flex gap-4">
+                <StaggerItem key={item.title}>
+                <div className="flex gap-4">
                   <div className="flex-shrink-0 h-11 w-11 rounded-xl bg-brand/10 flex items-center justify-center">
                     <item.icon className="h-5 w-5 text-brand" />
                   </div>
@@ -297,104 +319,133 @@ export default function HomePage() {
                     <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
                   </div>
                 </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
           </div>
         </div>
       </Section>
 
       {/* ===== Featured Gallery Strip ===== */}
       <Section variant="warm">
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-5xl mb-4">Recent Projects</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             See what we&apos;ve built for homeowners across Anne Arundel County.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
         <GalleryGrid items={GALLERY_ITEMS.slice(0, 8)} />
+        </ScrollReveal>
+        <ScrollReveal delay={0.3}>
         <div className="text-center mt-8">
           <CTAButton href="/gallery" variant="outline">
             View Full Gallery
             <ArrowRight className="h-4 w-4" />
           </CTAButton>
         </div>
+        </ScrollReveal>
       </Section>
 
       {/* ===== Financing CTA ===== */}
       <Section>
+        <ScrollReveal>
         <FinancingCallout />
+        </ScrollReveal>
       </Section>
 
       {/* ===== Process ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl mb-4">How It Works</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             From first call to final walkthrough, here&apos;s what to expect.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
         <ProcessSteps steps={PROCESS} />
+        </ScrollReveal>
       </Section>
 
       {/* ===== Testimonials (Featured + Grid) ===== */}
       <Section variant="warm">
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-5xl mb-4">What Our Customers Say</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Real feedback from real homeowners in the Anne Arundel County area.
           </p>
         </div>
+        </ScrollReveal>
         {/* Featured large quote */}
+        <ScrollReveal delay={0.1}>
         <div className="mb-8">
           <TestimonialCard {...TESTIMONIALS[0]} featured />
         </div>
+        </ScrollReveal>
         {/* Supporting testimonials */}
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        <StaggerChildren className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {TESTIMONIALS.slice(1).map((t) => (
-            <TestimonialCard key={t.name} {...t} />
+            <StaggerItem key={t.name}>
+              <TestimonialCard {...t} />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </Section>
 
       {/* ===== Service Areas ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-5xl mb-4">Areas We Serve</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Proud to serve homeowners throughout {SITE.address.region} and surrounding communities.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
         <AreaGrid />
+        </ScrollReveal>
       </Section>
 
       {/* ===== FAQ ===== */}
       <Section variant="warm">
         <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-5xl mb-4">
               Frequently Asked Questions
             </h2>
           </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
           <FAQAccordion items={HOME_FAQS} />
+          </ScrollReveal>
         </div>
       </Section>
+      </StackOver>
 
       {/* ===== Final CTA with Visible Image ===== */}
+      <StickyStack>
       <section className="relative overflow-hidden py-20 md:py-28">
-        <div className="absolute inset-0">
-          <Image
-            src="/images/stamped-concrete-img.webp"
-            alt="Stamped concrete patio by Backyard Bobby's"
-            fill
-            className="object-cover"
-            sizes="100vw"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
-        </div>
+        <ParallaxImage
+          src="/images/stamped-concrete-img.webp"
+          alt="Stamped concrete patio by Backyard Bobby's"
+          className="absolute inset-0"
+          speed={0.1}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-white">
+          <ScrollReveal>
           <h2 className="text-3xl md:text-5xl mb-4">
             Ready to Transform Your Outdoor Space?
           </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-8">
             Get a free, no-pressure estimate from a licensed contractor who actually shows up on
             time and does what they say.
@@ -413,8 +464,10 @@ export default function HomePage() {
               Financing available — rates as low as 0% APR
             </a>
           </p>
+          </ScrollReveal>
         </div>
       </section>
+      </StickyStack>
     </>
   );
 }

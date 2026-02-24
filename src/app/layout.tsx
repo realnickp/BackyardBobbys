@@ -1,10 +1,7 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, DM_Serif_Display } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
-import { Chatbot } from "@/components/shared/Chatbot";
+import { PublicShell } from "@/components/layout/PublicShell";
 import { AnalyticsProvider } from "@/components/layout/AnalyticsProvider";
 import { LocalBusinessSchema } from "@/components/shared/SchemaOrg";
 import { SITE } from "@/lib/constants";
@@ -17,6 +14,13 @@ const dmSerif = DM_Serif_Display({
   subsets: ["latin"],
   display: "swap",
 });
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: "cover",
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
@@ -56,11 +60,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       >
         <AnalyticsProvider>
           <LocalBusinessSchema />
-          <Header />
-          <main className="min-h-screen pb-16 lg:pb-0">{children}</main>
-          <Footer />
-          <StickyMobileCTA />
-          <Chatbot />
+          <PublicShell>{children}</PublicShell>
         </AnalyticsProvider>
       </body>
     </html>

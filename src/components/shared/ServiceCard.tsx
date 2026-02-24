@@ -13,7 +13,7 @@ export function ServiceCard({ title, slug, shortDesc, image }: ServiceCardProps)
   return (
     <Link
       href={`/services/${slug}`}
-      className="group relative aspect-[3/4] overflow-hidden rounded-2xl"
+      className="group relative block aspect-[3/4] overflow-hidden rounded-2xl"
     >
       <Image
         src={image}

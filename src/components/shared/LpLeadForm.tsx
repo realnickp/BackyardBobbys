@@ -115,6 +115,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           required
+          className="h-11 min-h-[44px] sm:h-9"
         />
       </div>
 
@@ -127,6 +128,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
+          className="h-11 min-h-[44px] sm:h-9"
         />
       </div>
 
@@ -138,6 +140,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
           value={cityOrZip}
           onChange={(e) => setCityOrZip(e.target.value)}
           required
+          className="h-11 min-h-[44px] sm:h-9"
         />
       </div>
 
@@ -152,6 +155,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
           placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="h-11 min-h-[44px] sm:h-9"
         />
       </div>
 
@@ -162,7 +166,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
       <Button
         type="submit"
         disabled={loading}
-        className="w-full bg-gradient-to-br from-brand to-brand-dark hover:shadow-lg hover:shadow-brand/25 text-white font-bold py-4 text-base h-auto transition-all cursor-pointer"
+        className="w-full bg-gradient-to-br from-brand to-brand-dark hover:shadow-lg hover:shadow-brand/25 text-white font-bold py-4 min-h-[48px] text-base h-auto transition-all cursor-pointer"
       >
         {loading ? (
           <>

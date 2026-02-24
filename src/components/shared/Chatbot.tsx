@@ -66,7 +66,10 @@ export function Chatbot() {
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, chatLoading]);
+    if (phase === "chat" && !chatLoading) {
+      setTimeout(() => inputRef.current?.focus(), 50);
+    }
+  }, [messages, chatLoading, phase]);
 
   async function handleFormSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -173,8 +176,8 @@ export function Chatbot() {
       {/* Panel */}
       {panelOpen && (
         <div
-          className="fixed bottom-24 right-4 z-50 w-[calc(100vw-2rem)] max-w-sm flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden"
-          style={{ height: phase === "form" ? "auto" : "min(520px, calc(100dvh - 7rem))" }}
+          className="fixed z-50 flex flex-col bg-white shadow-2xl border border-gray-200 overflow-hidden bottom-16 left-2 right-2 rounded-2xl sm:bottom-24 sm:right-4 sm:left-auto sm:rounded-2xl sm:w-[calc(100vw-2rem)] sm:max-w-sm"
+          style={{ maxHeight: "min(520px, calc(100dvh - 6rem))" }}
         >
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-orange-500 text-white shrink-0">
@@ -201,13 +204,13 @@ export function Chatbot() {
 
           {/* PRE-CHAT FORM */}
           {phase === "form" && (
-            <form onSubmit={handleFormSubmit} className="p-4 space-y-3">
+            <form onSubmit={handleFormSubmit} className="p-4 sm:p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
               <p className="text-sm text-gray-600">
                 Quick intro before we chat — Bobby&apos;s team will reach out to confirm your estimate.
               </p>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">Your name *</label>
+                <label className="block text-sm font-semibold text-gray-600 mb-1.5">Your name *</label>
                 <input
                   ref={nameRef}
                   type="text"
@@ -215,12 +218,12 @@ export function Chatbot() {
                   onChange={(e) => setUserInfo((p) => ({ ...p, name: e.target.value }))}
                   placeholder="First and last name"
                   required
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full text-base sm:text-sm px-3 py-3 sm:py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 min-h-[44px]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">Phone number *</label>
+                <label className="block text-sm font-semibold text-gray-600 mb-1.5">Phone number *</label>
                 <input
                   ref={phoneRef}
                   type="tel"
@@ -228,12 +231,12 @@ export function Chatbot() {
                   onChange={(e) => setUserInfo((p) => ({ ...p, phone: e.target.value }))}
                   placeholder="(443) 000-0000"
                   required
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full text-base sm:text-sm px-3 py-3 sm:py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 min-h-[44px]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1">
+                <label className="block text-sm font-semibold text-gray-600 mb-1.5">
                   Email <span className="text-gray-400 font-normal">(optional)</span>
                 </label>
                 <input
@@ -241,21 +244,21 @@ export function Chatbot() {
                   value={userInfo.email}
                   onChange={(e) => setUserInfo((p) => ({ ...p, email: e.target.value }))}
                   placeholder="you@email.com"
-                  className="w-full text-sm px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  className="w-full text-base sm:text-sm px-3 py-3 sm:py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 min-h-[44px]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-gray-600 mb-1.5">
+                <label className="block text-sm font-semibold text-gray-600 mb-2">
                   What are you interested in? *
                 </label>
-                <div className="flex flex-wrap gap-1.5">
+                <div className="flex flex-wrap gap-2">
                   {SERVICES.map((s) => (
                     <button
                       key={s}
                       type="button"
                       onClick={() => setUserInfo((p) => ({ ...p, service: s }))}
-                      className={`text-xs px-2.5 py-1.5 rounded-lg border font-medium transition-colors ${
+                      className={`text-sm px-3.5 py-2.5 rounded-lg border font-medium transition-colors min-h-[44px] ${
                         userInfo.service === s
                           ? "bg-orange-500 text-white border-orange-500"
                           : "border-gray-200 text-gray-600 hover:border-orange-300 hover:text-orange-600"
@@ -271,31 +274,31 @@ export function Chatbot() {
                     value={customService}
                     onChange={(e) => setCustomService(e.target.value)}
                     placeholder="Tell us what you have in mind..."
-                    className="mt-2 w-full text-sm px-3 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                    className="mt-2 w-full text-base sm:text-sm px-3 py-3 sm:py-2.5 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 min-h-[44px]"
                     autoFocus
                   />
                 )}
               </div>
 
               {formError && (
-                <p className="text-xs text-red-600 bg-red-50 rounded-lg px-3 py-2">{formError}</p>
+                <p className="text-sm text-red-600 bg-red-50 rounded-lg px-3 py-2.5">{formError}</p>
               )}
 
               <button
                 type="submit"
                 disabled={formLoading}
-                className="w-full flex items-center justify-center gap-2 py-2.5 bg-orange-500 text-white text-sm font-semibold rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-60"
+                className="w-full flex items-center justify-center gap-2 py-3.5 bg-orange-500 text-white text-base font-semibold rounded-lg hover:bg-orange-600 transition-colors disabled:opacity-60 min-h-[48px]"
               >
                 {formLoading ? (
-                  <Loader2 className="h-4 w-4 animate-spin" />
+                  <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
                   <>
-                    Chat with Max <ChevronRight className="h-4 w-4" />
+                    Chat with Max <ChevronRight className="h-5 w-5" />
                   </>
                 )}
               </button>
 
-              <p className="text-center text-[10px] text-gray-400">
+              <p className="text-center text-xs text-gray-400 safe-bottom">
                 Free estimate · No obligation · Licensed MHIC #05-163777
               </p>
             </form>
@@ -346,23 +349,23 @@ export function Chatbot() {
                   onKeyDown={handleKeyDown}
                   placeholder="Type a message..."
                   disabled={chatLoading}
-                  className="flex-1 text-sm px-3 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent disabled:opacity-50 bg-gray-50"
+                  className="flex-1 text-base sm:text-sm px-3 py-3 sm:py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-orange-400 focus:border-transparent disabled:opacity-50 bg-gray-50 min-h-[44px]"
                 />
                 <button
                   type="submit"
                   disabled={!input.trim() || chatLoading}
-                  className="p-2.5 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0"
+                  className="p-3 sm:p-2.5 bg-orange-500 text-white rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-40 disabled:cursor-not-allowed shrink-0 min-h-[44px] min-w-[44px] flex items-center justify-center"
                   aria-label="Send"
                 >
                   {chatLoading ? (
-                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <Loader2 className="h-5 w-5 sm:h-4 sm:w-4 animate-spin" />
                   ) : (
-                    <Send className="h-4 w-4" />
+                    <Send className="h-5 w-5 sm:h-4 sm:w-4" />
                   )}
                 </button>
               </form>
 
-              <p className="text-center text-[10px] text-gray-400 pb-2 bg-white shrink-0">
+              <p className="text-center text-xs text-gray-400 pb-2 bg-white shrink-0 safe-bottom">
                 Free estimate · No obligation · Licensed MHIC #05-163777
               </p>
             </>
@@ -370,18 +373,19 @@ export function Chatbot() {
         </div>
       )}
 
-      {/* Floating button */}
+      {/* Floating button — compact label on mobile, full text on desktop */}
       <button
         onClick={() => setPhase((p) => (p === "idle" ? "form" : "idle"))}
-        className="fixed bottom-6 right-4 z-50 flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold text-sm px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95"
+        className="fixed bottom-20 sm:bottom-6 right-4 z-50 flex items-center justify-center gap-1.5 bg-orange-500 hover:bg-orange-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-all duration-200 active:scale-95 text-xs px-3 py-2.5 sm:text-sm sm:px-4 sm:py-3"
         aria-label={panelOpen ? "Close chat" : "Chat with us"}
       >
         {panelOpen ? (
-          <X className="h-5 w-5" />
+          <X className="h-4 w-4 sm:h-5 sm:w-5" />
         ) : (
-          <MessageCircle className="h-5 w-5" />
+          <MessageCircle className="h-4 w-4 sm:h-5 sm:w-5" />
         )}
-        {!panelOpen && <span>Have a Question? Ask Max</span>}
+        {!panelOpen && <span className="sm:hidden">Ask Max</span>}
+        {!panelOpen && <span className="hidden sm:inline">Have a Question? Ask Max</span>}
       </button>
     </>
   );

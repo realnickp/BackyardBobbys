@@ -53,15 +53,15 @@ export function StampedStylePicker({ onSelect, selectedSlug }: StampedStylePicke
                     e.stopPropagation();
                     setLightbox(style);
                   }}
-                  className="absolute top-2 left-2 h-7 w-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity hover:bg-black/60"
+                  className="absolute top-2 left-2 h-9 w-9 sm:h-7 sm:w-7 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center sm:opacity-0 sm:group-hover:opacity-100 transition-opacity hover:bg-black/60"
                   aria-label={`Enlarge ${style.name}`}
                 >
-                  <ZoomIn className="h-3.5 w-3.5 text-white" />
+                  <ZoomIn className="h-4 w-4 sm:h-3.5 sm:w-3.5 text-white" />
                 </button>
               </div>
 
               <div className="absolute bottom-0 left-0 right-0 p-2.5">
-                <p className="text-white font-bold text-xs leading-tight drop-shadow-md">
+                <p className="text-white font-bold text-sm sm:text-xs leading-tight drop-shadow-md">
                   {style.name}
                 </p>
               </div>
@@ -71,7 +71,7 @@ export function StampedStylePicker({ onSelect, selectedSlug }: StampedStylePicke
       </div>
 
       {lightbox && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
             onClick={() => setLightbox(null)}
@@ -79,10 +79,10 @@ export function StampedStylePicker({ onSelect, selectedSlug }: StampedStylePicke
           <div className="relative max-w-2xl w-full animate-in fade-in zoom-in-95 duration-200">
             <button
               onClick={() => setLightbox(null)}
-              className="absolute -top-12 right-0 text-white/70 hover:text-white p-2 transition-colors"
+              className="absolute -top-12 right-2 sm:right-0 text-white/70 hover:text-white p-2 transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Close"
             >
-              <X className="h-6 w-6" />
+              <X className="h-7 w-7 sm:h-6 sm:w-6" />
             </button>
             <div className="rounded-2xl overflow-hidden bg-white shadow-2xl">
               <div className="relative aspect-[4/3]">
@@ -105,7 +105,7 @@ export function StampedStylePicker({ onSelect, selectedSlug }: StampedStylePicke
                     onSelect?.(lightbox);
                     setLightbox(null);
                   }}
-                  className="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-br from-brand to-brand-dark text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-gradient-to-br from-brand to-brand-dark text-white text-sm font-semibold rounded-xl hover:shadow-lg transition-all w-full sm:w-auto min-h-[48px]"
                 >
                   Select This Style <ArrowRight className="h-4 w-4" />
                 </button>

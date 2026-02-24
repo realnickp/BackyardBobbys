@@ -75,17 +75,17 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
       <div className={compact ? "space-y-4" : "grid gap-4 sm:grid-cols-2"}>
         <div className="space-y-1.5">
           <Label htmlFor="name">Name *</Label>
-          <Input id="name" placeholder="Your full name" {...register("name")} />
+          <Input id="name" placeholder="Your full name" {...register("name")} className="h-11 md:h-10" />
           {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="email">Email *</Label>
-          <Input id="email" type="email" placeholder="you@email.com" {...register("email")} />
+          <Input id="email" type="email" placeholder="you@email.com" {...register("email")} className="h-11 md:h-10" />
           {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="phone">Phone *</Label>
-          <Input id="phone" type="tel" placeholder="(443) 555-0123" {...register("phone")} />
+          <Input id="phone" type="tel" placeholder="(443) 555-0123" {...register("phone")} className="h-11 md:h-10" />
           {errors.phone && <p className="text-xs text-destructive">{errors.phone.message}</p>}
         </div>
         <div className="space-y-1.5">
@@ -93,7 +93,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
           <select
             id="service"
             {...register("service")}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="flex h-11 md:h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <option value="">Select a service...</option>
             {ALL_SERVICES_FOR_FORM.map((s) => (
@@ -106,7 +106,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
         </div>
         <div className="space-y-1.5">
           <Label htmlFor="cityOrZip">City or Zip *</Label>
-          <Input id="cityOrZip" placeholder="e.g. Annapolis or 21401" {...register("cityOrZip")} />
+          <Input id="cityOrZip" placeholder="e.g. Annapolis or 21401" {...register("cityOrZip")} className="h-11 md:h-10" />
           {errors.cityOrZip && (
             <p className="text-xs text-destructive">{errors.cityOrZip.message}</p>
           )}
@@ -116,7 +116,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
           <select
             id="timeframe"
             {...register("timeframe")}
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+            className="flex h-11 md:h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
           >
             <option value="">When do you need this?</option>
             {TIMEFRAME_OPTIONS.map((t) => (
@@ -149,9 +149,9 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
         <select
           id="budget"
           {...register("budget")}
-          className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
-        >
-          <option value="">Select budget range...</option>
+            className="flex h-11 md:h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand"
+          >
+            <option value="">Select budget range...</option>
           {BUDGET_OPTIONS.map((b) => (
             <option key={b} value={b}>
               {b}
@@ -180,7 +180,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
       <Button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-gradient-to-br from-brand to-brand-dark hover:shadow-lg hover:shadow-brand/25 text-white font-semibold py-3 text-base h-auto transition-all cursor-pointer"
+        className="w-full bg-gradient-to-br from-brand to-brand-dark hover:shadow-lg hover:shadow-brand/25 text-white font-semibold py-3 text-base h-auto min-h-[48px] transition-all cursor-pointer"
       >
         {isSubmitting ? (
           <>

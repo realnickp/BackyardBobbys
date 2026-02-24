@@ -261,7 +261,8 @@ export default function ContactPage() {
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d198656.12345!2d-76.62!3d38.97!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b7f6c3e4d1c8f7%3A0x1234567890abcdef!2sAnne%20Arundel%20County%2C%20MD!5e0!3m2!1sen!2sus!4v1"
             width="100%"
-            height="400"
+            height="300"
+            className="md:!h-[400px]"
             style={{ border: 0 }}
             allowFullScreen
             loading="lazy"

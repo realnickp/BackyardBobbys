@@ -128,17 +128,17 @@ function ThanksContent() {
 
           {/* Call / text CTAs */}
           <p className="text-sm text-muted-foreground mb-3">Want to reach Bobby right now?</p>
-          <div className="flex gap-3 justify-center mb-10">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mb-10">
             <a
               href={SITE.phoneTel}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 min-h-[48px] rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:bg-primary/90 transition-colors"
             >
               <Phone className="h-4 w-4" />
               Call Bobby
             </a>
             <a
               href={SITE.phoneSms}
-              className="flex items-center gap-2 px-6 py-3 rounded-xl border-2 border-primary text-primary font-semibold text-sm hover:bg-primary/5 transition-colors"
+              className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-3 min-h-[48px] rounded-xl border-2 border-primary text-primary font-semibold text-sm hover:bg-primary/5 transition-colors"
             >
               <MessageSquare className="h-4 w-4" />
               Text Bobby

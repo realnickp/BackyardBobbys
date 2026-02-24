@@ -39,8 +39,8 @@ export function CTAButton({
   };
 
   const sizes = {
-    default: "px-6 py-3 text-sm",
-    lg: "px-8 py-4 text-base",
+    default: "px-6 py-3 text-sm min-h-[44px]",
+    lg: "px-8 py-4 text-base min-h-[48px]",
   };
 
   const classes = cn(baseStyles, variants[variant], sizes[size], className);

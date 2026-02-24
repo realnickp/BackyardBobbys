@@ -176,6 +176,9 @@ export default async function LpServicePage({
       {/* ── Top bar ──────────────────────────────────────────────────────── */}
       <div className="bg-primary text-primary-foreground py-2.5 px-4">
         <div className="mx-auto max-w-6xl flex items-center justify-between gap-4">
+          <p className="text-sm font-medium sm:hidden">
+            <span className="font-bold">Backyard Bobby&apos;s</span> · {SITE.license}
+          </p>
           <p className="text-sm font-medium hidden sm:block">
             <span className="font-bold">Backyard Bobby&apos;s</span> — Licensed Maryland Contractor · {SITE.license}
           </p>
@@ -297,7 +300,7 @@ export default async function LpServicePage({
               {/* CTA button */}
               <Link
                 href={`/lp/${service}/quiz`}
-                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-brand to-brand-dark py-4 text-base font-bold text-white shadow-md hover:shadow-lg hover:shadow-brand/25 transition-all"
+                className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-br from-brand to-brand-dark py-4 min-h-[48px] text-base font-bold text-white shadow-md hover:shadow-lg hover:shadow-brand/25 transition-all"
               >
                 Get Started — It&apos;s Free
                 <ArrowRight className="h-5 w-5" />
@@ -329,14 +332,14 @@ export default async function LpServicePage({
                 <div className="flex gap-2">
                   <a
                     href={SITE.phoneTel}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 py-3 min-h-[44px] rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:bg-primary/90 transition-colors"
                   >
                     <Phone className="h-4 w-4" />
                     Call
                   </a>
                   <a
                     href={SITE.phoneSms}
-                    className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border-2 border-primary text-primary text-sm font-semibold hover:bg-primary/5 transition-colors"
+                    className="flex-1 flex items-center justify-center gap-2 py-3 min-h-[44px] rounded-xl border-2 border-primary text-primary text-sm font-semibold hover:bg-primary/5 transition-colors"
                   >
                     <MessageSquare className="h-4 w-4" />
                     Text

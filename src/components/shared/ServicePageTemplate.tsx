@@ -12,6 +12,7 @@ import { LeadForm } from "./LeadForm";
 import { ServiceSchema, HowToSchema, FAQPageSchema } from "./SchemaOrg";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { FinancingCallout } from "./FinancingCallout";
+import { ScrollReveal, StaggerChildren, StaggerItem, StickyStack, StackOver, ParallaxImage } from "./animations";
 import { SITE, GALLERY_ITEMS, TESTIMONIALS } from "@/lib/constants";
 
 interface ServicePageProps {
@@ -88,6 +89,7 @@ export function ServicePageTemplate({
           <div className="grid lg:grid-cols-12 items-center gap-8 lg:gap-12 py-16 md:py-20 lg:py-24">
             {/* Text */}
             <div className="lg:col-span-6 text-white">
+              <ScrollReveal direction="up" delay={0.1}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand/15 border border-brand/30 text-brand text-xs font-semibold mb-5">
                 {SITE.name} &middot; {SITE.address.region}, MD
               </div>
@@ -97,6 +99,8 @@ export function ServicePageTemplate({
               <p className="text-lg text-white/70 mb-8 max-w-xl leading-relaxed">
                 {subheadline}
               </p>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-3">
                 <CTAButton href="/contact" size="lg">
                   Get a Free {title} Estimate
@@ -106,6 +110,7 @@ export function ServicePageTemplate({
                   Call {SITE.phone}
                 </CTAButton>
               </div>
+              </ScrollReveal>
             </div>
 
             {/* Image (desktop) */}
@@ -130,7 +135,7 @@ export function ServicePageTemplate({
       {/* ===== Intro + Form ===== */}
       <Section>
         <div className="grid gap-12 lg:grid-cols-5">
-          <div className="lg:col-span-3 space-y-4">
+          <ScrollReveal className="lg:col-span-3 space-y-4">
             {intro.map((paragraph, i) => (
               <p key={i} className="text-muted-foreground leading-relaxed">
                 {paragraph}
@@ -141,97 +146,124 @@ export function ServicePageTemplate({
                 {factNugget}
               </p>
             )}
-          </div>
-          <div className="lg:col-span-2">
+          </ScrollReveal>
+          <ScrollReveal direction="right" delay={0.2} className="lg:col-span-2">
             <div className="bg-warm-bg rounded-2xl p-6 border border-border/50 shadow-sm">
               <h3 className="font-bold text-lg mb-4">Get Your Free Estimate</h3>
               <LeadForm preselectedService={title} compact />
             </div>
-          </div>
+          </ScrollReveal>
         </div>
 
+        <ScrollReveal delay={0.1}>
         <div className="mt-8">
           <FinancingCallout />
         </div>
+        </ScrollReveal>
       </Section>
 
       {/* ===== Full-Bleed Image Break ===== */}
       {galleryItems.length > 0 && (
+        <StickyStack>
         <section className="relative h-[250px] md:h-[350px] overflow-hidden">
-          <Image
+          <ParallaxImage
             src={galleryItems[0].src}
             alt={galleryItems[0].alt}
-            fill
-            className="object-cover"
-            sizes="100vw"
+            className="absolute inset-0"
+            speed={0.12}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
         </section>
+        </StickyStack>
       )}
 
       {/* ===== Benefits (with image backing) ===== */}
+      <StackOver className={galleryItems.length > 0 ? "" : "shadow-none rounded-none"}>
       <Section variant="warm">
+        <ScrollReveal>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl mb-4">
             Why Choose Us for {title}
           </h2>
         </div>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        </ScrollReveal>
+        <StaggerChildren className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {benefits.map((benefit) => (
-            <div key={benefit.title} className="bg-white rounded-2xl p-6 shadow-sm border border-border/30 hover:shadow-md transition-shadow">
+            <StaggerItem key={benefit.title}>
+            <div className="bg-white rounded-2xl p-6 shadow-sm border border-border/30 hover:shadow-md transition-shadow h-full">
               <h3 className="font-bold mb-2">{benefit.title}</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">{benefit.description}</p>
             </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </Section>
 
       {children}
 
       {/* ===== Process ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-5xl mb-4">Our {title} Process</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Here&apos;s exactly how your {title.toLowerCase()} project works from start to finish.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
         <ProcessSteps steps={process} />
+        </ScrollReveal>
       </Section>
 
       {/* ===== Gallery ===== */}
       {galleryItems.length > 0 && (
         <Section variant="warm">
+          <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-5xl mb-4">{title} Projects</h2>
           </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
           <GalleryGrid items={galleryItems} />
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
           <div className="text-center mt-8">
             <CTAButton href="/gallery" variant="outline">
               View Full Gallery <ArrowRight className="h-4 w-4" />
             </CTAButton>
           </div>
+          </ScrollReveal>
         </Section>
       )}
 
       {/* ===== Testimonial (Featured) ===== */}
       {testimonial && (
         <Section>
+          <ScrollReveal>
           <TestimonialCard {...testimonial} featured />
+          </ScrollReveal>
         </Section>
       )}
 
       {/* ===== FAQ ===== */}
       <Section variant={testimonial ? "warm" : "default"}>
         <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
           <h2 className="text-3xl md:text-5xl text-center mb-10">{title} FAQs</h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
           <FAQAccordion items={faqs} />
+          </ScrollReveal>
         </div>
       </Section>
 
       {/* ===== Related Services ===== */}
       <Section>
+        <ScrollReveal>
         <h2 className="text-2xl font-display mb-6">Related Services</h2>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
         <div className="flex flex-wrap gap-3">
           {relatedServices.map((rs) => (
             <Link
@@ -243,18 +275,26 @@ export function ServicePageTemplate({
             </Link>
           ))}
         </div>
+        </ScrollReveal>
       </Section>
+      </StackOver>
 
       {/* ===== Final CTA ===== */}
       <section className="relative overflow-hidden py-16 md:py-20">
-        <div className="absolute inset-0">
-          <Image src={heroImage} alt={heroAlt} fill className="object-cover" sizes="100vw" />
-          <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
-        </div>
+        <ParallaxImage
+          src={heroImage}
+          alt={heroAlt}
+          className="absolute inset-0"
+          speed={0.1}
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary/95 via-primary/85 to-primary/70" />
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-white">
+          <ScrollReveal>
           <h2 className="text-3xl md:text-5xl mb-4">
             Ready to Get Started on Your {title} Project?
           </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-8">
             Get a free, no-obligation estimate from a licensed contractor. We respond within one business day.
           </p>
@@ -271,6 +311,7 @@ export function ServicePageTemplate({
               Financing available — rates as low as 0% APR
             </a>
           </p>
+          </ScrollReveal>
         </div>
       </section>
       </article>

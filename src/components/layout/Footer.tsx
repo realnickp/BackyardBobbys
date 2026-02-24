@@ -11,7 +11,7 @@ export function Footer() {
   return (
     <footer className="bg-primary text-primary-foreground dark-textured">
       <div className="h-1 bg-gradient-to-r from-brand via-brand-dark to-brand" />
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-16 pb-24 lg:pb-16">
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-5">
           {/* Brand */}
           <div className="lg:col-span-2">
@@ -30,24 +30,24 @@ export function Footer() {
               <Shield className="h-4 w-4 flex-shrink-0" />
               <span className="font-medium">{SITE.license}</span>
             </div>
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-1">
               <a
                 href={SITE.phoneTel}
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 min-h-[44px]"
               >
                 <Phone className="h-4 w-4 text-brand" />
                 {SITE.phone}
               </a>
               <a
                 href={SITE.phoneSms}
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 min-h-[44px]"
               >
                 <MessageSquare className="h-4 w-4 text-brand" />
                 Text us anytime
               </a>
               <a
                 href={`mailto:${SITE.email}`}
-                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors"
+                className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 min-h-[44px]"
               >
                 <Mail className="h-4 w-4 text-brand" />
                 {SITE.email}
@@ -58,12 +58,12 @@ export function Footer() {
           {/* Services */}
           <div>
             <h3 className="font-bold text-lg mb-4 text-brand">Services</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-0.5">
               {PRIMARY_SERVICES.map((service) => (
                 <li key={service.slug}>
                   <Link
                     href={`/services/${service.slug}`}
-                    className="text-sm text-primary-foreground/60 hover:text-brand transition-colors"
+                    className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block"
                   >
                     {service.title}
                   </Link>
@@ -75,12 +75,12 @@ export function Footer() {
           {/* Service Areas */}
           <div>
             <h3 className="font-bold text-lg mb-4 text-brand">Areas We Serve</h3>
-            <ul className="space-y-2">
+            <ul className="space-y-0.5">
               {FOOTER_CITIES.map((city) => (
                 <li key={city.slug}>
                   <Link
                     href={`/areas/${city.slug}`}
-                    className="text-sm text-primary-foreground/60 hover:text-brand transition-colors"
+                    className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block"
                   >
                     {city.name}, MD
                   </Link>
@@ -89,7 +89,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/areas"
-                  className="text-sm text-brand font-semibold hover:underline"
+                  className="text-sm text-brand font-semibold hover:underline py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block"
                 >
                   View all 30+ cities →
                 </Link>
@@ -100,18 +100,18 @@ export function Footer() {
           {/* Company */}
           <div>
             <h3 className="font-bold text-lg mb-4 text-brand">Company</h3>
-            <ul className="space-y-2">
-              <li><Link href="/" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Home</Link></li>
-              <li><Link href="/about" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">About Us</Link></li>
-              <li><Link href="/services" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">All Services</Link></li>
-              <li><Link href="/areas" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Service Areas</Link></li>
-              <li><Link href="/gallery" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Project Gallery</Link></li>
-              <li><Link href="/testimonials" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Reviews</Link></li>
-              <li><Link href="/financing" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Financing</Link></li>
-              <li><Link href="/blog" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Blog</Link></li>
-              <li><Link href="/quote" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Free Estimate</Link></li>
-              <li><Link href="/contact" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Contact</Link></li>
-              <li><Link href="/privacy-policy" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors">Privacy Policy</Link></li>
+            <ul className="space-y-0.5">
+              <li><Link href="/" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Home</Link></li>
+              <li><Link href="/about" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">About Us</Link></li>
+              <li><Link href="/services" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">All Services</Link></li>
+              <li><Link href="/areas" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Service Areas</Link></li>
+              <li><Link href="/gallery" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Project Gallery</Link></li>
+              <li><Link href="/testimonials" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Reviews</Link></li>
+              <li><Link href="/financing" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Financing</Link></li>
+              <li><Link href="/blog" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Blog</Link></li>
+              <li><Link href="/quote" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Free Estimate</Link></li>
+              <li><Link href="/contact" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Contact</Link></li>
+              <li><Link href="/privacy-policy" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Privacy Policy</Link></li>
             </ul>
           </div>
         </div>

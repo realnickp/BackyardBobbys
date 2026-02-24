@@ -23,17 +23,17 @@ export function StatsGrid({ stats }: Props) {
   ];
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 md:gap-4">
       {cards.map((card) => (
-        <div key={card.label} className="bg-white rounded-xl border border-gray-200 p-4 shadow-sm">
-          <div className={`inline-flex items-center justify-center h-9 w-9 rounded-lg ${card.bg} mb-3`}>
-            <card.icon className={`h-5 w-5 ${card.color}`} />
+        <div key={card.label} className="bg-white rounded-xl border border-gray-200 p-3 md:p-4 shadow-sm">
+          <div className={`inline-flex items-center justify-center h-8 w-8 md:h-9 md:w-9 rounded-lg ${card.bg} mb-2 md:mb-3`}>
+            <card.icon className={`h-4 w-4 md:h-5 md:w-5 ${card.color}`} />
           </div>
-          <p className="text-2xl font-bold text-gray-900">
+          <p className="text-xl md:text-2xl font-bold text-gray-900 truncate">
             {card.isString ? card.value : card.value}
-            {!card.isString && card.suffix && <span className="text-sm text-gray-400 font-normal">{card.suffix}</span>}
+            {!card.isString && card.suffix && <span className="text-xs md:text-sm text-gray-400 font-normal">{card.suffix}</span>}
           </p>
-          <p className="text-xs text-gray-500 mt-0.5">{card.label}</p>
+          <p className="text-[10px] md:text-xs text-gray-500 mt-0.5 leading-tight">{card.label}</p>
         </div>
       ))}
     </div>

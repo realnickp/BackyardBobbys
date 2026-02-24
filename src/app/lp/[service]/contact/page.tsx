@@ -227,7 +227,7 @@ export default function ContactPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
-                  className="w-full rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground"
+                  className="w-full h-11 min-h-[44px] rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground sm:h-auto"
                 />
               </div>
               <div className="space-y-1.5">
@@ -241,7 +241,7 @@ export default function ContactPage() {
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
                   required
-                  className="w-full rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground"
+                  className="w-full h-11 min-h-[44px] rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground sm:h-auto"
                 />
               </div>
             </div>
@@ -258,7 +258,7 @@ export default function ContactPage() {
                   value={cityOrZip}
                   onChange={(e) => setCityOrZip(e.target.value)}
                   required
-                  className="w-full rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground"
+                  className="w-full h-11 min-h-[44px] rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground sm:h-auto"
                 />
               </div>
               <div className="space-y-1.5">
@@ -272,7 +272,7 @@ export default function ContactPage() {
                   placeholder="you@email.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground"
+                  className="w-full h-11 min-h-[44px] rounded-lg border border-input bg-white px-3 py-2.5 text-sm shadow-xs outline-none focus:border-brand focus:ring-2 focus:ring-brand/20 placeholder:text-muted-foreground sm:h-auto"
                 />
               </div>
             </div>
@@ -286,7 +286,7 @@ export default function ContactPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full flex items-center justify-center gap-2 bg-gradient-to-br from-brand to-brand-dark text-white font-bold py-4 text-base rounded-xl hover:shadow-lg hover:shadow-brand/25 transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+              className="w-full flex items-center justify-center gap-2 bg-gradient-to-br from-brand to-brand-dark text-white font-bold py-4 min-h-[48px] text-base rounded-xl hover:shadow-lg hover:shadow-brand/25 transition-all disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
             >
               {loading ? (
                 <>
@@ -308,7 +308,7 @@ export default function ContactPage() {
           <div className="mt-6 text-center">
             <button
               onClick={() => router.push(`/lp/${service}/quiz`)}
-              className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+              className="inline-flex items-center justify-center gap-1.5 py-2 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <ArrowLeft className="h-4 w-4" />
               Go back to questions

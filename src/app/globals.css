@@ -97,6 +97,7 @@
   }
   body {
     @apply bg-background text-foreground antialiased;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   h1, h2 {
     font-family: var(--font-display), Georgia, serif;
@@ -106,6 +107,21 @@
   h3, h4, h5, h6 {
     @apply tracking-tight font-bold;
     color: inherit;
+  }
+}
+
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .mobile-cta-clearance {
+    padding-bottom: 4.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  main {
+    padding-bottom: 4.5rem;
   }
 }
 

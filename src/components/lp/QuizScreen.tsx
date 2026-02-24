@@ -98,7 +98,7 @@ export function QuizScreen({
                   key={option.label}
                   onClick={() => handleSelect(option.label)}
                   className={[
-                    "relative flex flex-col items-center justify-center rounded-2xl border-2 text-center overflow-hidden",
+                    "relative flex flex-col items-center justify-center rounded-2xl border-2 text-center overflow-hidden min-h-[44px]",
                     "transition-all duration-200 cursor-pointer select-none",
                     option.image ? "gap-0" : "gap-2.5 p-5",
                     isSelected
@@ -158,7 +158,7 @@ export function QuizScreen({
           {/* Back */}
           <button
             onClick={onBack}
-            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="flex items-center gap-1.5 py-2 px-3 min-h-[44px] text-sm text-muted-foreground hover:text-foreground transition-colors -ml-3"
           >
             <ArrowLeft className="h-4 w-4" />
             {stepIndex === 0 ? "Back to overview" : "Previous question"}

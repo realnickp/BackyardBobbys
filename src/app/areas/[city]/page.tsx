@@ -20,6 +20,7 @@ import { ProcessSteps } from "@/components/shared/ProcessSteps";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { TrustBar } from "@/components/shared/TrustBar";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { ScrollReveal, StaggerChildren, StaggerItem } from "@/components/shared/animations";
 
 export async function generateStaticParams() {
   return CITY_DATA.map((city) => ({ city: city.slug }));
@@ -160,6 +161,7 @@ export default async function CityPage({
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
+              <ScrollReveal direction="up" delay={0.1}>
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand/15 border border-brand/30 text-brand text-xs font-semibold mb-6">
                 <MapPin className="h-3.5 w-3.5" />
                 {city.name}, {city.county}
@@ -170,6 +172,8 @@ export default async function CityPage({
               <p className="text-white/70 text-lg md:text-xl mb-8 leading-relaxed">
                 {city.subheadline}
               </p>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.2}>
               <div className="flex flex-wrap gap-4 mb-8 pb-8 border-b border-white/10">
                 <div className="flex items-center gap-2">
                   <div className="flex gap-0.5">
@@ -195,6 +199,8 @@ export default async function CityPage({
                   </span>
                 </div>
               </div>
+              </ScrollReveal>
+              <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-3">
                 <CTAButton href="/contact" size="lg">
                   Get a Free Estimate
@@ -202,8 +208,10 @@ export default async function CityPage({
                 </CTAButton>
                 <CTAButton variant="phone" size="lg" />
               </div>
+              </ScrollReveal>
             </div>
 
+            <ScrollReveal direction="right" delay={0.2}>
             <div className="bg-white rounded-2xl p-6 md:p-8 shadow-2xl text-foreground">
               <div className="mb-6">
                 <h2 className="text-xl font-bold mb-1">
@@ -215,6 +223,7 @@ export default async function CityPage({
               </div>
               <LeadForm compact />
             </div>
+            </ScrollReveal>
           </div>
         </div>
       </section>
@@ -224,6 +233,7 @@ export default async function CityPage({
       {/* ===== LOCAL DESCRIPTION — unique per city ===== */}
       <Section>
         <div className="grid gap-12 lg:grid-cols-2 items-start">
+          <ScrollReveal>
           <div>
             <h2 className="text-3xl md:text-4xl mb-4">
               Why {city.name} Homeowners Choose Bobby
@@ -241,17 +251,19 @@ export default async function CityPage({
               </p>
             </div>
           </div>
+          </ScrollReveal>
 
+          <ScrollReveal direction="right" delay={0.15}>
           <div>
-            <div className="grid grid-cols-2 gap-4 mb-6">
+            <StaggerChildren className="grid grid-cols-2 gap-4 mb-6" stagger={0.08}>
               {[
                 { stat: "MHIC", label: "Licensed & Insured" },
                 { stat: "5.0", label: "Star Google Rating" },
                 { stat: "2–4 wks", label: "Average Start Time" },
                 { stat: "Fast", label: "Response Time" },
               ].map((item) => (
+                <StaggerItem key={item.label}>
                 <div
-                  key={item.label}
                   className="bg-warm-bg rounded-2xl p-6 text-center border border-border/30"
                 >
                   <p className="text-4xl font-display text-brand mb-1">
@@ -259,10 +271,10 @@ export default async function CityPage({
                   </p>
                   <p className="text-sm text-muted-foreground">{item.label}</p>
                 </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerChildren>
 
-            {/* Permit note — unique per city */}
             <div className="bg-primary/5 rounded-2xl p-6 border border-primary/10">
               <h3 className="font-bold text-sm uppercase tracking-wide text-primary mb-3 flex items-center gap-2">
                 <FileText className="h-4 w-4" />
@@ -273,11 +285,13 @@ export default async function CityPage({
               </p>
             </div>
           </div>
+          </ScrollReveal>
         </div>
       </Section>
 
       {/* ===== TOP SERVICES for this city ===== */}
       <Section variant="warm">
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl mb-4">
             Most Popular Services in {city.name}
@@ -287,12 +301,13 @@ export default async function CityPage({
             {city.county}.
           </p>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        </ScrollReveal>
+        <StaggerChildren className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {topServiceObjects.map((service) => (
+            <StaggerItem key={service.slug}>
             <Link
-              key={service.slug}
               href={`/services/${service.slug}`}
-              className="group relative overflow-hidden rounded-2xl bg-white border border-border/40 hover:border-brand/40 hover:shadow-lg transition-all"
+              className="group relative overflow-hidden rounded-2xl bg-white border border-border/40 hover:border-brand/40 hover:shadow-lg transition-all block h-full"
             >
               <div className="aspect-[4/3] relative">
                 <img
@@ -314,17 +329,21 @@ export default async function CityPage({
                 </span>
               </div>
             </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
+        <ScrollReveal delay={0.2}>
         <div className="text-center mt-8">
           <CTAButton href="/services" variant="outline">
             View All Services <ArrowRight className="h-4 w-4" />
           </CTAButton>
         </div>
+        </ScrollReveal>
       </Section>
 
       {/* ===== ALL SERVICES LIST ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl mb-4">
             Full Service List for {city.name}
@@ -334,10 +353,11 @@ export default async function CityPage({
             {city.name} and throughout {city.county}.
           </p>
         </div>
-        <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        </ScrollReveal>
+        <StaggerChildren className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3" stagger={0.04}>
           {PRIMARY_SERVICES.map((service) => (
+            <StaggerItem key={service.slug}>
             <Link
-              key={service.slug}
               href={`/services/${service.slug}`}
               className="flex items-center gap-3 p-4 rounded-xl bg-warm-bg border border-border/30 hover:border-brand/40 hover:shadow-sm transition-all group"
             >
@@ -346,23 +366,29 @@ export default async function CityPage({
                 {service.title}
               </span>
             </Link>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </Section>
 
       {/* ===== PROCESS ===== */}
       <Section variant="warm">
+        <ScrollReveal>
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl mb-4">How We Work</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Simple, transparent process from first call to final walkthrough.
           </p>
         </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.15}>
         <ProcessSteps steps={PROCESS} />
+        </ScrollReveal>
       </Section>
 
       {/* ===== TESTIMONIALS ===== */}
       <Section>
+        <ScrollReveal>
         <div className="text-center mb-10">
           <h2 className="text-3xl md:text-4xl mb-4">
             What {city.county} Homeowners Say
@@ -371,10 +397,11 @@ export default async function CityPage({
             Real feedback from real homeowners in the communities we serve.
           </p>
         </div>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        </ScrollReveal>
+        <StaggerChildren className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {displayTestimonials.map((t) => (
+            <StaggerItem key={t.name}>
             <div
-              key={t.name}
               className="bg-warm-bg rounded-2xl p-6 border border-border/30"
             >
               <div className="flex gap-0.5 mb-3">
@@ -393,13 +420,15 @@ export default async function CityPage({
                 <p className="text-xs text-muted-foreground">{t.location}</p>
               </div>
             </div>
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerChildren>
       </Section>
 
       {/* ===== FAQS — unique per city ===== */}
       <Section variant="warm">
         <div className="max-w-3xl mx-auto">
+          <ScrollReveal>
           <div className="text-center mb-10">
             <h2 className="text-3xl md:text-4xl mb-4">
               {city.name} FAQs
@@ -408,13 +437,17 @@ export default async function CityPage({
               Real questions from homeowners in and around {city.name}.
             </p>
           </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
           <FAQAccordion items={city.faqs} />
+          </ScrollReveal>
         </div>
       </Section>
 
       {/* ===== NEARBY CITIES ===== */}
       {nearbyEntries.length > 0 && (
         <Section>
+          <ScrollReveal>
           <div className="text-center mb-8">
             <h2 className="text-2xl md:text-3xl mb-3">
               We Also Serve Areas Near {city.name}
@@ -424,6 +457,8 @@ export default async function CityPage({
               surrounding communities.
             </p>
           </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.1}>
           <div className="flex flex-wrap justify-center gap-3">
             {nearbyEntries.map((nearby) => (
               <Link
@@ -436,6 +471,8 @@ export default async function CityPage({
               </Link>
             ))}
           </div>
+          </ScrollReveal>
+          <ScrollReveal delay={0.2}>
           <div className="text-center mt-6">
             <Link
               href="/areas"
@@ -445,15 +482,19 @@ export default async function CityPage({
               <ArrowRight className="h-3.5 w-3.5" />
             </Link>
           </div>
+          </ScrollReveal>
         </Section>
       )}
 
       {/* ===== FINAL CTA ===== */}
       <section className="bg-primary text-white py-16 md:py-20">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
+          <ScrollReveal>
           <h2 className="text-3xl md:text-4xl mb-4">
             Ready to Start Your {city.name} Project?
           </h2>
+          </ScrollReveal>
+          <ScrollReveal delay={0.15}>
           <p className="text-white/70 text-lg max-w-2xl mx-auto mb-8">
             Get a free, no-pressure estimate from a licensed contractor who
             shows up on time and does what he says.
@@ -484,6 +525,7 @@ export default async function CityPage({
               Financing available
             </a>
           </p>
+          </ScrollReveal>
         </div>
       </section>
       </article>

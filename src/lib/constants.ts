@@ -409,18 +409,18 @@ export const NAV_LINKS = [
 
 export const PRIMARY_SERVICES = [
   {
-    title: "Accessory Dwelling Units",
-    slug: "accessory-dwelling-units",
-    shortDesc: "Custom ADUs that add living space and property value.",
-    icon: "Home",
-    image: "/images/service-accessory-dwelling-unit.png",
+    title: "Stamped Concrete",
+    slug: "stamped-concrete",
+    shortDesc: "High-end concrete finishes at a fraction of stone costs.",
+    icon: "Stamp",
+    image: "/images/stamped-concrete-driveway-decorative-01.webp",
   },
   {
-    title: "Driveway Installation",
-    slug: "driveway-installation",
-    shortDesc: "Durable driveways built to last through Maryland weather.",
-    icon: "CarFront",
-    image: "/images/service-driveway-installation.png",
+    title: "Hardscaping",
+    slug: "hardscaping",
+    shortDesc: "Patios, walkways, and retaining walls that transform your yard.",
+    icon: "Landmark",
+    image: "/images/paver-walkway-interlocking-bricks-01.jpeg",
   },
   {
     title: "Decks",
@@ -430,11 +430,11 @@ export const PRIMARY_SERVICES = [
     image: "/images/wood-deck-construction-01.webp",
   },
   {
-    title: "Excavation & Demolition",
-    slug: "excavation-and-demolition",
-    shortDesc: "Professional site work to prepare your property right.",
-    icon: "Construction",
-    image: "/images/excavation-site-grading-backhoe-01.webp",
+    title: "Driveway Installation",
+    slug: "driveway-installation",
+    shortDesc: "Durable driveways built to last through Maryland weather.",
+    icon: "CarFront",
+    image: "/images/service-driveway-installation.png",
   },
   {
     title: "Fencing",
@@ -451,13 +451,6 @@ export const PRIMARY_SERVICES = [
     image: "/images/gravel-pad-shed-foundation-01.jpeg",
   },
   {
-    title: "Hardscaping",
-    slug: "hardscaping",
-    shortDesc: "Patios, walkways, and retaining walls that transform your yard.",
-    icon: "Landmark",
-    image: "/images/paver-walkway-interlocking-bricks-01.jpeg",
-  },
-  {
     title: "Roofing",
     slug: "roofing",
     shortDesc: "Reliable roofing repairs and installations you can trust.",
@@ -465,11 +458,18 @@ export const PRIMARY_SERVICES = [
     image: "/images/roof-architectural-shingles-colonial.jpg",
   },
   {
-    title: "Stamped Concrete",
-    slug: "stamped-concrete",
-    shortDesc: "High-end concrete finishes at a fraction of stone costs.",
-    icon: "Stamp",
-    image: "/images/stamped-concrete-driveway-decorative-01.webp",
+    title: "Excavation & Demolition",
+    slug: "excavation-and-demolition",
+    shortDesc: "Professional site work to prepare your property right.",
+    icon: "Construction",
+    image: "/images/excavation-site-grading-backhoe-01.webp",
+  },
+  {
+    title: "Accessory Dwelling Units",
+    slug: "accessory-dwelling-units",
+    shortDesc: "Custom ADUs that add living space and property value.",
+    icon: "Home",
+    image: "/images/service-accessory-dwelling-unit.png",
   },
 ] as const;
 

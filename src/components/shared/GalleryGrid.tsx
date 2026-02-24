@@ -79,14 +79,15 @@ export function GalleryGrid({ items, showFilters = false, limit }: GalleryGridPr
 
       {lightboxIndex !== null && displayed[lightboxIndex] && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4"
+          style={{ height: "100dvh" }}
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"
         >
           <button
             onClick={closeLightbox}
-            className="absolute top-4 right-4 text-white/80 hover:text-white z-10"
+            className="absolute top-3 right-3 sm:top-4 sm:right-4 text-white/80 hover:text-white z-10 p-2 min-h-[44px] min-w-[44px] flex items-center justify-center"
             aria-label="Close lightbox"
           >
             <X className="h-8 w-8" />
@@ -97,14 +98,14 @@ export function GalleryGrid({ items, showFilters = false, limit }: GalleryGridPr
               e.stopPropagation();
               goPrev();
             }}
-            className="absolute left-4 text-white/80 hover:text-white z-10"
+            className="absolute left-2 sm:left-4 text-white/80 hover:text-white z-10 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center"
             aria-label="Previous image"
           >
-            <ChevronLeft className="h-10 w-10" />
+            <ChevronLeft className="h-10 w-10 sm:h-10 sm:w-10" />
           </button>
 
           <div
-            className="relative max-w-4xl max-h-[80vh] w-full h-full"
+            className="relative max-w-4xl max-h-[70vh] sm:max-h-[80vh] w-full h-full"
             onClick={(e) => e.stopPropagation()}
           >
             <Image
@@ -122,14 +123,14 @@ export function GalleryGrid({ items, showFilters = false, limit }: GalleryGridPr
               e.stopPropagation();
               goNext();
             }}
-            className="absolute right-4 text-white/80 hover:text-white z-10"
+            className="absolute right-2 sm:right-4 text-white/80 hover:text-white z-10 p-2 min-h-[48px] min-w-[48px] flex items-center justify-center"
             aria-label="Next image"
           >
-            <ChevronRight className="h-10 w-10" />
+            <ChevronRight className="h-10 w-10 sm:h-10 sm:w-10" />
           </button>
 
           <div
-            className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+            className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 w-full px-4 sm:w-auto sm:px-0"
             onClick={(e) => e.stopPropagation()}
           >
             <p className="text-white/80 text-sm">
@@ -137,7 +138,7 @@ export function GalleryGrid({ items, showFilters = false, limit }: GalleryGridPr
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 bg-brand text-white px-5 py-2.5 rounded-lg font-semibold text-sm hover:bg-brand-dark transition-colors"
+              className="inline-flex items-center justify-center gap-2 bg-brand text-white px-5 py-3 rounded-lg font-semibold text-sm hover:bg-brand-dark transition-colors w-full sm:w-auto min-h-[48px]"
             >
               Want this for your home? Get a Quote
               <ArrowRight className="h-4 w-4" />

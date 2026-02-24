@@ -27,7 +27,7 @@ export default function GalleryPage() {
       {/* ── Hero: image mosaic collage ── */}
       <section className="relative overflow-hidden bg-primary min-h-[480px] md:min-h-[560px] flex items-center">
         {/* Mosaic grid of real project photos */}
-        <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-4 grid-rows-2 gap-1">
+        <div className="absolute inset-0 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 grid-rows-2 gap-1">
           {HERO_MOSAIC.map((img) => (
             <div key={img.src} className={`relative overflow-hidden ${img.span}`}>
               <Image

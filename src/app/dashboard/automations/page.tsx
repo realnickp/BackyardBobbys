@@ -60,16 +60,16 @@ export default function AutomationsPage() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto space-y-6">
-      <div className="flex items-start justify-between">
+    <div className="p-4 md:p-6 max-w-4xl mx-auto space-y-4 md:space-y-6">
+      <div className="space-y-3 sm:space-y-0 sm:flex sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-gray-900">Automations</h1>
-          <p className="text-sm text-gray-500 mt-0.5">6 workflows running automatically. Requires Twilio + Resend keys in .env.</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-gray-900">Automations</h1>
+          <p className="text-sm text-gray-500 mt-0.5">6 workflows running automatically.</p>
         </div>
         <button
           onClick={runAutomations}
           disabled={running}
-          className="flex items-center gap-2 px-4 py-2.5 bg-orange-500 text-white text-sm font-semibold rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-60"
+          className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-3 bg-orange-500 text-white text-sm font-semibold rounded-xl hover:bg-orange-600 transition-colors disabled:opacity-60 min-h-[48px]"
         >
           {running ? <Loader2 className="h-4 w-4 animate-spin" /> : <Play className="h-4 w-4" />}
           {running ? "Running..." : "Run Now"}
@@ -79,12 +79,12 @@ export default function AutomationsPage() {
       {/* Run result */}
       {runResult && (
         <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-          <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2"><CheckCircle className="h-4 w-4" /> Automation Run Complete</h3>
-          <div className="grid grid-cols-3 gap-3">
+          <h3 className="font-semibold text-green-800 mb-2 flex items-center gap-2"><CheckCircle className="h-4 w-4" /> Run Complete</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {Object.entries(runResult).map(([key, val]) => (
               <div key={key} className="text-center">
                 <p className="text-xl font-bold text-green-700">{val as number}</p>
-                <p className="text-xs text-green-600">{key.replace(/_/g, " ")}</p>
+                <p className="text-xs text-green-600 leading-tight">{key.replace(/_/g, " ")}</p>
               </div>
             ))}
           </div>
@@ -93,87 +93,92 @@ export default function AutomationsPage() {
 
       {/* Setup requirements */}
       <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
-        <h3 className="font-semibold text-amber-800 mb-2">⚡ Setup Required for Live SMS/Email</h3>
-        <div className="grid sm:grid-cols-3 gap-3 text-sm text-amber-700">
+        <h3 className="font-semibold text-amber-800 mb-2 text-sm sm:text-base">⚡ Setup Required</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm text-amber-700">
           <div>
-            <p className="font-semibold">Twilio (SMS)</p>
-            <code className="text-xs bg-amber-100 px-1 rounded">TWILIO_ACCOUNT_SID</code><br/>
-            <code className="text-xs bg-amber-100 px-1 rounded">TWILIO_AUTH_TOKEN</code><br/>
-            <code className="text-xs bg-amber-100 px-1 rounded">TWILIO_PHONE_NUMBER</code>
+            <p className="font-semibold mb-1">Twilio (SMS)</p>
+            <div className="space-y-1">
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">TWILIO_ACCOUNT_SID</code>
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">TWILIO_AUTH_TOKEN</code>
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">TWILIO_PHONE_NUMBER</code>
+            </div>
           </div>
           <div>
-            <p className="font-semibold">Resend (Email)</p>
-            <code className="text-xs bg-amber-100 px-1 rounded">RESEND_API_KEY</code><br/>
-            <code className="text-xs bg-amber-100 px-1 rounded">EMAIL_FROM</code>
+            <p className="font-semibold mb-1">Resend (Email)</p>
+            <div className="space-y-1">
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">RESEND_API_KEY</code>
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">EMAIL_FROM</code>
+            </div>
           </div>
           <div>
-            <p className="font-semibold">Notifications</p>
-            <code className="text-xs bg-amber-100 px-1 rounded">ADMIN_PHONE</code><br/>
-            <p className="text-xs mt-1">Bobby&apos;s number for instant lead alerts</p>
+            <p className="font-semibold mb-1">Notifications</p>
+            <div className="space-y-1">
+              <code className="text-xs bg-amber-100 px-1.5 py-0.5 rounded block break-all">ADMIN_PHONE</code>
+              <p className="text-xs mt-1">Bobby&apos;s number for alerts</p>
+            </div>
           </div>
         </div>
       </div>
 
       {/* Automation cards */}
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {automations.map(automation => (
-          <div key={automation.id} className={`bg-white rounded-xl border shadow-sm p-5 ${automation.active ? "border-gray-200" : "border-gray-100 opacity-60"}`}>
-            <div className="flex items-start justify-between">
-              <div className="flex items-start gap-3 flex-1">
-                <div className={`flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center ${automation.active ? "bg-orange-100" : "bg-gray-100"}`}>
-                  <Zap className={`h-5 w-5 ${automation.active ? "text-orange-600" : "text-gray-400"}`} />
+          <div key={automation.id} className={`bg-white rounded-xl border shadow-sm p-4 md:p-5 ${automation.active ? "border-gray-200" : "border-gray-100 opacity-60"}`}>
+            <div className="flex items-start gap-3">
+              <div className={`flex-shrink-0 h-10 w-10 rounded-xl flex items-center justify-center ${automation.active ? "bg-orange-100" : "bg-gray-100"}`}>
+                <Zap className={`h-5 w-5 ${automation.active ? "text-orange-600" : "text-gray-400"}`} />
+              </div>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-start justify-between gap-2">
+                  <h3 className="font-semibold text-gray-900 text-sm sm:text-base">{automation.name}</h3>
+                  <button
+                    onClick={() => toggleAutomation(automation.id)}
+                    className={`flex-shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold transition-colors min-h-[36px] sm:min-h-0 ${
+                      automation.active
+                        ? "bg-green-100 text-green-700 hover:bg-green-200 active:bg-green-300"
+                        : "bg-gray-100 text-gray-500 hover:bg-gray-200 active:bg-gray-300"
+                    }`}
+                  >
+                    {automation.active ? (
+                      <><CheckCircle className="h-3.5 w-3.5" /> Active</>
+                    ) : (
+                      <><XCircle className="h-3.5 w-3.5" /> Off</>
+                    )}
+                  </button>
                 </div>
-                <div className="flex-1">
-                  <h3 className="font-semibold text-gray-900">{automation.name}</h3>
-                  <p className="text-sm text-gray-500 mt-0.5">{automation.description}</p>
+                <p className="text-sm text-gray-500 mt-0.5">{automation.description}</p>
 
-                  <div className="flex flex-wrap gap-2 mt-3">
-                    <span className="inline-flex items-center gap-1 px-2 py-1 bg-blue-50 text-blue-700 text-xs rounded-lg font-medium">
-                      <Clock className="h-3 w-3" />
-                      {TRIGGER_LABELS[automation.trigger_type] || automation.trigger_type}
+                <div className="flex flex-wrap gap-1.5 mt-3">
+                  <span className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-blue-50 text-blue-700 text-xs rounded-lg font-medium leading-tight">
+                    <Clock className="h-3 w-3 flex-shrink-0" />
+                    <span className="break-words">{TRIGGER_LABELS[automation.trigger_type] || automation.trigger_type}</span>
+                  </span>
+                  {automation.actions.map((action, i) => (
+                    <span key={i} className="inline-flex items-center gap-1 px-2.5 py-1.5 bg-gray-100 text-gray-600 text-xs rounded-lg capitalize">
+                      {action.type === "sms" ? "📱" : action.type === "email" ? "✉️" : action.type === "score_adjust" ? "📊" : "⚙️"}
+                      {action.type.replace(/_/g, " ")}
                     </span>
-                    {automation.actions.map((action, i) => (
-                      <span key={i} className="inline-flex items-center gap-1 px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-lg capitalize">
-                        {action.type === "sms" ? "📱" : action.type === "email" ? "✉️" : action.type === "score_adjust" ? "📊" : "⚙️"}
-                        {action.type.replace(/_/g, " ")}
-                      </span>
-                    ))}
-                  </div>
+                  ))}
                 </div>
               </div>
-
-              <button
-                onClick={() => toggleAutomation(automation.id)}
-                className={`flex-shrink-0 ml-4 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors ${
-                  automation.active
-                    ? "bg-green-100 text-green-700 hover:bg-green-200"
-                    : "bg-gray-100 text-gray-500 hover:bg-gray-200"
-                }`}
-              >
-                {automation.active ? (
-                  <><CheckCircle className="h-3.5 w-3.5" /> Active</>
-                ) : (
-                  <><XCircle className="h-3.5 w-3.5" /> Inactive</>
-                )}
-              </button>
             </div>
           </div>
         ))}
       </div>
 
       {/* Cron job info */}
-      <div className="bg-gray-50 border border-gray-200 rounded-xl p-5">
-        <h3 className="font-semibold text-gray-900 mb-2">🕐 Automatic Scheduling</h3>
+      <div className="bg-gray-50 border border-gray-200 rounded-xl p-4 md:p-5">
+        <h3 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">🕐 Automatic Scheduling</h3>
         <p className="text-sm text-gray-600 mb-3">
-          Automations run automatically via Vercel Cron. Add this to your <code className="bg-gray-100 px-1 rounded text-xs">vercel.json</code>:
+          Runs via Vercel Cron. Add to <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs">vercel.json</code>:
         </p>
-        <pre className="bg-gray-900 text-green-400 text-xs p-4 rounded-lg overflow-x-auto">{`{
+        <pre className="bg-gray-900 text-green-400 text-xs p-3 md:p-4 rounded-lg overflow-x-auto -mx-1 sm:mx-0">{`{
   "crons": [{
     "path": "/api/automations/run",
     "schedule": "0 8 * * *"
   }]
 }`}</pre>
-        <p className="text-xs text-gray-500 mt-2">This runs every day at 8am. Set <code className="bg-gray-100 px-1 rounded">CRON_SECRET</code> in Vercel env for security.</p>
+        <p className="text-xs text-gray-500 mt-2">Runs daily at 8am. Set <code className="bg-gray-100 px-1.5 py-0.5 rounded text-xs">CRON_SECRET</code> in Vercel for security.</p>
       </div>
     </div>
   );
