@@ -1,9 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
+import { requireAuth } from "@/lib/auth";
 
 type Params = { params: Promise<{ id: string }> };
 
 export async function POST(request: NextRequest, { params }: Params) {
+  const authError = requireAuth(request);
+  if (authError) return authError;
+
   try {
     const { id } = await params;
     const body = await request.json();
@@ -20,10 +24,10 @@ export async function POST(request: NextRequest, { params }: Params) {
         lead_id: id,
         type,
         direction: direction || "outbound",
-        subject: subject || null,
-        content: content || null,
-        duration_seconds: duration_seconds || null,
-        outcome: outcome || null,
+        subject: typeof subject === "string" ? subject.slice(0, 500) : null,
+        content: typeof content === "string" ? content.slice(0, 10000) : null,
+        duration_seconds: typeof duration_seconds === "number" ? duration_seconds : null,
+        outcome: typeof outcome === "string" ? outcome.slice(0, 500) : null,
         automated: false,
       })
       .select()
@@ -39,7 +43,7 @@ export async function POST(request: NextRequest, { params }: Params) {
 
     return NextResponse.json({ communication: data });
   } catch (err) {
-    const error = err instanceof Error ? err.message : "Internal server error";
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("POST /api/leads/:id/communications error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

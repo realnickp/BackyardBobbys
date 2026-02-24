@@ -4,6 +4,17 @@ import { getSupabaseAdmin } from "@/lib/supabase-admin";
 
 const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+// Limits to prevent API abuse
+const MAX_MESSAGES = 20;
+const MAX_MESSAGE_LENGTH = 2000;
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+function sanitizeString(value: unknown, maxLen: number): string {
+  if (typeof value !== "string") return "";
+  // Strip null bytes and limit length
+  return value.replace(/\0/g, "").slice(0, maxLen);
+}
+
 function buildSystemPrompt(userInfo?: {
   name: string;
   phone: string;
@@ -46,14 +57,20 @@ After 6–7 exchanges without booking, gently wrap up: "I don't want to keep you
 
 
   if (userInfo) {
+    // Sanitize user-supplied fields before interpolating into the system prompt
+    const safeName = sanitizeString(userInfo.name, 200);
+    const safePhone = sanitizeString(userInfo.phone, 30);
+    const safeEmail = userInfo.email ? sanitizeString(userInfo.email, 254) : "";
+    const safeService = sanitizeString(userInfo.service, 100);
+
     return (
       base +
       `\n\nIMPORTANT — You already have this visitor's contact info. DO NOT ask for their name, phone, or email again:
-- Name: ${userInfo.name}
-- Phone: ${userInfo.phone}${userInfo.email ? `\n- Email: ${userInfo.email}` : ""}
-- Interested in: ${userInfo.service}
+- Name: ${safeName}
+- Phone: ${safePhone}${safeEmail ? `\n- Email: ${safeEmail}` : ""}
+- Interested in: ${safeService}
 
-Greet ${userInfo.name} by name in your first message and jump straight into asking about their ${userInfo.service} project. Make them feel like you're already invested in their specific project.`
+Greet ${safeName} by name in your first message and jump straight into asking about their ${safeService} project. Make them feel like you're already invested in their specific project.`
     );
   }
 
@@ -129,27 +146,73 @@ Rules:
 
 export async function POST(request: NextRequest) {
   if (!process.env.OPENAI_API_KEY) {
-    return NextResponse.json({ error: "OpenAI not configured" }, { status: 503 });
+    return NextResponse.json({ error: "Chat not available" }, { status: 503 });
   }
 
-  const { messages, leadId, userInfo } = await request.json();
+  try {
+    const body = await request.json();
 
-  const systemPrompt = buildSystemPrompt(userInfo);
+    // Validate messages array
+    if (!Array.isArray(body.messages)) {
+      return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+    }
 
-  const response = await openai.chat.completions.create({
-    model: "gpt-4o-mini",
-    messages: [{ role: "system", content: systemPrompt }, ...messages],
-    max_tokens: 300,
-    temperature: 0.7,
-  });
+    // Enforce message count limit
+    if (body.messages.length > MAX_MESSAGES) {
+      return NextResponse.json({ error: "Conversation too long" }, { status: 400 });
+    }
 
-  const reply = response.choices[0].message.content || "";
+    // Sanitize each message
+    const messages: { role: string; content: string }[] = body.messages
+      .filter(
+        (m: unknown) =>
+          m !== null &&
+          typeof m === "object" &&
+          typeof (m as Record<string, unknown>).role === "string" &&
+          typeof (m as Record<string, unknown>).content === "string"
+      )
+      .map((m: { role: string; content: string }) => ({
+        role: m.role === "user" ? "user" : "assistant",
+        content: sanitizeString(m.content, MAX_MESSAGE_LENGTH),
+      }));
 
-  // Save transcript + extract structured fields in background after every exchange
-  const allMessages = [...messages, { role: "assistant", content: reply }];
-  if (leadId) {
-    extractAndSaveLead(leadId, allMessages).catch(() => {});
+    // Validate leadId if provided (must be a UUID)
+    const leadId: string | null =
+      typeof body.leadId === "string" && UUID_RE.test(body.leadId)
+        ? body.leadId
+        : null;
+
+    // Sanitize userInfo fields before passing to system prompt
+    const userInfo =
+      body.userInfo && typeof body.userInfo === "object"
+        ? {
+            name: sanitizeString(body.userInfo.name, 200),
+            phone: sanitizeString(body.userInfo.phone, 30),
+            email: sanitizeString(body.userInfo.email, 254),
+            service: sanitizeString(body.userInfo.service, 100),
+          }
+        : undefined;
+
+    const systemPrompt = buildSystemPrompt(userInfo);
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [{ role: "system", content: systemPrompt }, ...messages],
+      max_tokens: 300,
+      temperature: 0.7,
+    });
+
+    const reply = response.choices[0].message.content || "";
+
+    // Save transcript + extract structured fields in background after every exchange
+    const allMessages = [...messages, { role: "assistant", content: reply }];
+    if (leadId) {
+      extractAndSaveLead(leadId, allMessages).catch(() => {});
+    }
+
+    return NextResponse.json({ reply });
+  } catch (err) {
+    console.error("POST /api/chat error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
-
-  return NextResponse.json({ reply });
 }

@@ -1,8 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { PIPELINE_STAGES, STATUS_LABELS } from "@/lib/dashboard-types";
+import { requireAuth } from "@/lib/auth";
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const authError = requireAuth(request);
+  if (authError) return authError;
+
   try {
     const supabase = getSupabaseAdmin();
 
@@ -38,7 +42,7 @@ export async function GET() {
 
     return NextResponse.json({ pipeline });
   } catch (err) {
-    const error = err instanceof Error ? err.message : "Internal server error";
-    return NextResponse.json({ error }, { status: 500 });
+    console.error("GET /api/dashboard/pipeline error:", err);
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
