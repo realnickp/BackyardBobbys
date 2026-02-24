@@ -1,0 +1,32 @@
+import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+
+let _supabase: SupabaseClient | null = null;
+
+export function getSupabase(): SupabaseClient | null {
+  if (_supabase) return _supabase;
+
+  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+  if (!supabaseUrl || !supabaseAnonKey) {
+    return null;
+  }
+
+  _supabase = createClient(supabaseUrl, supabaseAnonKey);
+  return _supabase;
+}
+
+export interface LeadRow {
+  id?: string;
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  city_or_zip: string;
+  description: string;
+  timeframe: string;
+  budget?: string;
+  photo_url?: string;
+  created_at?: string;
+  status?: string;
+}
