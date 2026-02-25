@@ -173,19 +173,30 @@ export default function LeadDetailPage({ params }: { params: Promise<{ id: strin
       {/* Project description */}
       {lead.description && (
         <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-4 sm:p-5">
-          <h2 className="font-semibold text-gray-900 mb-2">Project Description</h2>
-          <ul className="space-y-2">
+          <h2 className="font-semibold text-gray-900 mb-3">Project Description</h2>
+          <div className="space-y-2.5">
             {lead.description
-              .split(/(?<=[.!?])\s+|[\n\r]+|(?:;\s*)|(?:,\s*(?=[A-Z]))|(?:\s*[-–—•]\s*)/)
+              .split(/\s*\|\s*/)
               .map(s => s.trim())
               .filter(s => s.length > 0)
-              .map((point, i) => (
-                <li key={i} className="flex gap-2 text-sm text-gray-700 leading-relaxed">
-                  <span className="text-orange-400 mt-0.5 flex-shrink-0">•</span>
-                  <span>{point}</span>
-                </li>
-              ))}
-          </ul>
+              .map((item, i) => {
+                const colonIdx = item.indexOf(":");
+                const hasQA = colonIdx > 0 && colonIdx < item.length - 1;
+                return (
+                  <div key={i} className="flex gap-2.5 text-sm leading-relaxed">
+                    <span className="text-orange-400 mt-0.5 flex-shrink-0">•</span>
+                    {hasQA ? (
+                      <p>
+                        <span className="text-gray-400">{item.slice(0, colonIdx + 1)}</span>{" "}
+                        <span className="font-medium text-gray-800">{item.slice(colonIdx + 1).trim()}</span>
+                      </p>
+                    ) : (
+                      <span className="font-medium text-gray-800">{item}</span>
+                    )}
+                  </div>
+                );
+              })}
+          </div>
         </div>
       )}
 
