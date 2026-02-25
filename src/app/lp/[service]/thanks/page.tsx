@@ -1,7 +1,8 @@
 "use client";
 
-import { useParams, useSearchParams, useRouter } from "next/navigation";
-import { useEffect, useState, Suspense } from "react";
+import { useParams, useSearchParams } from "next/navigation";
+import { Suspense } from "react";
+import Link from "next/link";
 import { Phone, MessageSquare, CheckCircle, Clock, Star } from "lucide-react";
 import { PRIMARY_SERVICES, SITE } from "@/lib/constants";
 
@@ -26,26 +27,10 @@ const NEXT_STEPS = [
 function ThanksContent() {
   const params = useParams();
   const searchParams = useSearchParams();
-  const router = useRouter();
   const service = params.service as string;
   const firstName = searchParams.get("name") || "there";
 
   const svc = PRIMARY_SERVICES.find((s) => s.slug === service);
-  const [countdown, setCountdown] = useState(8);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCountdown((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          router.push("/");
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [router]);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -145,18 +130,13 @@ function ThanksContent() {
             </a>
           </div>
 
-          {/* Redirect countdown */}
-          <p className="text-sm text-muted-foreground">
-            Returning to our website in{" "}
-            <span className="font-bold text-foreground tabular-nums">{countdown}</span>
-            {countdown !== 1 ? " seconds" : " second"} ·{" "}
-            <button
-              onClick={() => router.push("/")}
-              className="text-brand hover:underline font-medium"
-            >
-              Go now →
-            </button>
-          </p>
+          {/* Back to site link */}
+          <Link
+            href="/"
+            className="text-sm text-brand hover:underline font-medium"
+          >
+            ← Back to our website
+          </Link>
         </div>
       </div>
 
