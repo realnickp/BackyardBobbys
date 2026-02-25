@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { calculateLeadScore } from "@/lib/lead-scoring";
-import { sendSMS, sendEmail, SMS_TEMPLATES, EMAIL_TEMPLATES } from "@/lib/automations";
+import { sendSMS, sendEmail, SMS_TEMPLATES, EMAIL_TEMPLATES, notifyAdminsNewLead } from "@/lib/automations";
 import { requireAuth } from "@/lib/auth";
 
 // ── GET /api/leads — list with filters (dashboard only) ───
@@ -226,17 +226,37 @@ export async function POST(request: NextRequest) {
       leadId = data.id;
     }
 
-    // Fire welcome automation (async — don't block the response)
-    if (leadId && phone) {
+    // Fire notifications (async — don't block the response)
+    if (leadId) {
       const ctx = { leadId, leadName: name, leadPhone: phone, leadEmail: email, leadService: service };
-      sendSMS(phone, SMS_TEMPLATES.welcome_sms(ctx)).catch(console.error);
+
+      // 1. Send welcome email to the lead (if they provided email)
       if (email) {
         const tmpl = EMAIL_TEMPLATES.welcome_email(ctx);
         sendEmail(email, tmpl.subject, tmpl.html).catch(console.error);
       }
-      // Notify Bobby immediately via SMS
+
+      // 2. Send welcome SMS to the lead (if they provided phone)
+      if (phone) {
+        sendSMS(phone, SMS_TEMPLATES.welcome_sms(ctx)).catch(console.error);
+      }
+
+      // 3. Notify admins via email — ALWAYS fires for every lead
+      notifyAdminsNewLead({
+        ...ctx,
+        cityOrZip,
+        description,
+        source,
+        score,
+        priority,
+        budget: budget || undefined,
+        timeframe,
+        preferredStyle: preferredStyle ?? undefined,
+      }).catch(console.error);
+
+      // 4. Notify Bobby via SMS
       const adminPhone = process.env.ADMIN_PHONE;
-      if (adminPhone) {
+      if (adminPhone && phone) {
         const scoreLabel = priority === "hot" ? "🔥 HOT" : priority === "warm" ? "⚡ WARM" : "📋";
         sendSMS(
           adminPhone,

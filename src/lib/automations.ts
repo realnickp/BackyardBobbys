@@ -169,7 +169,7 @@ export async function sendSMS(to: string, body: string): Promise<{ success: bool
 // ── Email Sender (Resend) ─────────────────────────────────
 
 export async function sendEmail(
-  to: string,
+  to: string | string[],
   subject: string,
   html: string
 ): Promise<{ success: boolean; id?: string; error?: string }> {
@@ -192,11 +192,78 @@ export async function sendEmail(
     });
 
     const data = await response.json();
-    if (!response.ok) throw new Error(data.message || "Resend error");
+    if (!response.ok) throw new Error(data.message || JSON.stringify(data));
     return { success: true, id: data.id };
   } catch (err) {
     const error = err instanceof Error ? err.message : "Unknown error";
     console.error("[EMAIL] Failed:", error);
     return { success: false, error };
   }
+}
+
+// ── Admin Notification Recipients ────────────────────────
+const ADMIN_EMAILS = [
+  "realnickpatrick@gmail.com",
+  "Robert@backyardbobbys.com",
+];
+
+// ── Admin Lead Notification ──────────────────────────────
+export async function notifyAdminsNewLead(ctx: AutomationContext & {
+  cityOrZip?: string;
+  description?: string;
+  source?: string;
+  score?: number;
+  priority?: string;
+  budget?: string;
+  timeframe?: string;
+  preferredStyle?: string;
+}): Promise<void> {
+  const scoreLabel = ctx.priority === "hot" ? "🔥 HOT LEAD" : ctx.priority === "warm" ? "⚡ WARM LEAD" : "📋 New Lead";
+  const subject = `${scoreLabel}: ${ctx.leadName} — ${ctx.leadService || "General Inquiry"}`;
+
+  const rows = [
+    ["Name", ctx.leadName],
+    ["Phone", ctx.leadPhone ? `<a href="tel:${ctx.leadPhone}">${ctx.leadPhone}</a>` : "Not provided"],
+    ["Email", ctx.leadEmail || "Not provided"],
+    ["Service", ctx.leadService || "Not specified"],
+    ["Location", ctx.cityOrZip || "Not specified"],
+    ["Timeframe", ctx.timeframe || "Not specified"],
+    ["Budget", ctx.budget || "Not specified"],
+    ["Source", ctx.source || "Website"],
+    ["Score", ctx.score !== undefined ? `${ctx.score} pts (${ctx.priority})` : "N/A"],
+    ctx.preferredStyle ? ["Preferred Style", ctx.preferredStyle] : null,
+  ].filter(Boolean) as [string, string][];
+
+  const html = `
+    <div style="font-family: sans-serif; max-width: 640px; margin: 0 auto;">
+      <div style="background: #1a1a2e; color: white; padding: 20px 24px; border-radius: 12px 12px 0 0;">
+        <h1 style="margin: 0; font-size: 22px;">${scoreLabel}</h1>
+        <p style="margin: 4px 0 0; opacity: 0.8; font-size: 14px;">${ctx.leadService || "General"} · ${new Date().toLocaleString("en-US", { timeZone: "America/New_York", dateStyle: "medium", timeStyle: "short" })}</p>
+      </div>
+      <div style="background: #f9f9f9; padding: 24px; border: 1px solid #e5e5e5; border-top: none;">
+        <table style="width: 100%; border-collapse: collapse;">
+          ${rows.map(([label, value]) => `
+            <tr>
+              <td style="padding: 8px 12px 8px 0; font-size: 13px; color: #666; white-space: nowrap; vertical-align: top;">${label}</td>
+              <td style="padding: 8px 0; font-size: 14px; font-weight: 600; color: #222;">${value}</td>
+            </tr>
+          `).join("")}
+        </table>
+        ${ctx.description ? `
+          <div style="margin-top: 16px; padding: 16px; background: white; border-radius: 8px; border: 1px solid #e5e5e5;">
+            <p style="margin: 0 0 6px; font-size: 12px; color: #666; text-transform: uppercase; letter-spacing: 0.5px;">Project Details</p>
+            <p style="margin: 0; font-size: 14px; color: #333; line-height: 1.6;">${ctx.description.replace(/\|/g, "<br>")}</p>
+          </div>
+        ` : ""}
+        <div style="margin-top: 20px; text-align: center;">
+          <a href="${SITE.url}/dashboard/leads/${ctx.leadId}" style="background: #E8742A; color: white; padding: 14px 28px; text-decoration: none; border-radius: 8px; display: inline-block; font-weight: 600; font-size: 14px;">View Lead in Dashboard →</a>
+        </div>
+      </div>
+      <div style="padding: 12px 24px; text-align: center; border: 1px solid #e5e5e5; border-top: none; border-radius: 0 0 12px 12px;">
+        <p style="margin: 0; font-size: 11px; color: #999;">Backyard Bobby's Lead Command Center · ${SITE.url}/dashboard</p>
+      </div>
+    </div>
+  `;
+
+  await sendEmail(ADMIN_EMAILS, subject, html);
 }
