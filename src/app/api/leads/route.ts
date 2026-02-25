@@ -184,7 +184,8 @@ export async function POST(request: NextRequest) {
       chatbot_qualified: isChatbot,
     });
 
-    const leadData = {
+    // Build lead data — omit preferred_style if column doesn't exist yet
+    const leadData: Record<string, unknown> = {
       name,
       email: email || "",
       phone,
@@ -203,50 +204,26 @@ export async function POST(request: NextRequest) {
       score_factors: factors,
       chat_transcript: chatTranscript,
       chatbot_qualified: isChatbot || false,
-      preferred_style: preferredStyle,
       status_history: [{ status: "new", timestamp: new Date().toISOString() }],
     };
+    if (preferredStyle) leadData.preferred_style = preferredStyle;
 
-    // Insert lead — try full schema first, fall back to base columns
     let leadId: string | null = null;
-    const baseLead = {
-      name,
-      email: email || "",
-      phone,
-      service,
-      city_or_zip: cityOrZip || "Not specified",
-      description: description || `Interested in: ${service}`,
-      timeframe: timeframe || "To be discussed",
-      budget: budget || null,
-      status: "new",
-    };
+    const adminSupabase = getSupabaseAdmin();
 
-    try {
-      const adminSupabase = getSupabaseAdmin();
-      const { data, error } = await adminSupabase.from("leads").insert(leadData).select("id").single();
-      if (error) throw error;
+    // Try full insert, then retry without preferred_style if that column is missing
+    let { data, error } = await adminSupabase.from("leads").insert(leadData).select("id").single();
+    if (error && error.message?.includes("preferred_style")) {
+      delete leadData.preferred_style;
+      const retry = await adminSupabase.from("leads").insert(leadData).select("id").single();
+      data = retry.data;
+      error = retry.error;
+    }
+
+    if (error) {
+      console.error("Lead insert failed:", error.message, error.details);
+    } else if (data) {
       leadId = data.id;
-    } catch (adminErr) {
-      console.warn("Full-schema insert failed, trying base columns with service role:", (adminErr as Error).message || adminErr);
-      try {
-        const adminSupabase = getSupabaseAdmin();
-        const { data, error } = await adminSupabase.from("leads").insert(baseLead).select("id").single();
-        if (error) throw error;
-        leadId = data.id;
-      } catch (baseErr) {
-        console.warn("Service role base insert failed, trying anon key:", (baseErr as Error).message || baseErr);
-        const supabase = getSupabase();
-        if (supabase) {
-          const { data, error } = await supabase.from("leads").insert(baseLead).select("id").single();
-          if (error) {
-            console.error("All insert attempts failed:", error);
-          } else if (data) {
-            leadId = data.id;
-          }
-        } else {
-          console.error("No Supabase client available (missing env vars)");
-        }
-      }
     }
 
     // Fire welcome automation (async — don't block the response)

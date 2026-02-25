@@ -1,38 +1,58 @@
-import type { Metadata } from "next";
+"use client";
+
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { ArrowRight, RefreshCw, ChevronRight } from "lucide-react";
+import { ArrowRight, RefreshCw, ChevronRight, Loader2 } from "lucide-react";
 import { StatsGrid } from "@/components/dashboard/StatsGrid";
 import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { LeadScoreBadge } from "@/components/dashboard/LeadScoreBadge";
 import { SourceChart } from "@/components/dashboard/SourceChart";
 import type { DashboardStats, Lead } from "@/lib/dashboard-types";
 
-export const metadata: Metadata = { title: "Overview" };
-export const dynamic = "force-dynamic";
+const fallbackStats: DashboardStats = {
+  leads_today: 0, leads_this_week: 0, leads_this_month: 0,
+  hot_leads: 0, warm_leads: 0, avg_score: 0, conversion_rate: 0,
+  appointments_this_week: 0, revenue_pipeline: 0, total_leads: 0,
+};
 
-async function getDashboardData() {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
-  try {
-    const [statsRes, leadsRes] = await Promise.all([
-      fetch(`${baseUrl}/api/dashboard/stats`, { cache: "no-store" }),
-      fetch(`${baseUrl}/api/leads?sortBy=created_at&sortDir=desc&limit=8`, { cache: "no-store" }),
-    ]);
-    const statsData = statsRes.ok ? await statsRes.json() : { stats: null, source_breakdown: [] };
-    const leadsData = leadsRes.ok ? await leadsRes.json() : { leads: [] };
-    return { stats: statsData.stats, sourceBreakdown: statsData.source_breakdown, recentLeads: leadsData.leads || [] };
-  } catch {
-    return { stats: null, sourceBreakdown: [], recentLeads: [] };
+export default function DashboardPage() {
+  const [stats, setStats] = useState<DashboardStats | null>(null);
+  const [sourceBreakdown, setSourceBreakdown] = useState<{ source: string; count: number; percentage: number }[]>([]);
+  const [recentLeads, setRecentLeads] = useState<Lead[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const [statsRes, leadsRes] = await Promise.all([
+          fetch("/api/dashboard/stats"),
+          fetch("/api/leads?sortBy=created_at&sortDir=desc&limit=8"),
+        ]);
+        if (statsRes.ok) {
+          const data = await statsRes.json();
+          setStats(data.stats);
+          setSourceBreakdown(data.source_breakdown || []);
+        }
+        if (leadsRes.ok) {
+          const data = await leadsRes.json();
+          setRecentLeads(data.leads || []);
+        }
+      } catch {
+        // Keep fallback state
+      } finally {
+        setLoading(false);
+      }
+    }
+    load();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex items-center justify-center min-h-[60vh]">
+        <Loader2 className="h-8 w-8 animate-spin text-orange-500" />
+      </div>
+    );
   }
-}
-
-export default async function DashboardPage() {
-  const { stats, sourceBreakdown, recentLeads } = await getDashboardData();
-
-  const fallbackStats: DashboardStats = {
-    leads_today: 0, leads_this_week: 0, leads_this_month: 0,
-    hot_leads: 0, warm_leads: 0, avg_score: 0, conversion_rate: 0,
-    appointments_this_week: 0, revenue_pipeline: 0, total_leads: 0,
-  };
 
   return (
     <div className="p-4 md:p-6 max-w-7xl mx-auto space-y-4 md:space-y-5">
@@ -73,7 +93,7 @@ export default async function DashboardPage() {
           <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
             <h2 className="font-semibold text-gray-900 text-sm sm:text-base">Recent Leads</h2>
             <Link href="/dashboard/leads" className="text-xs text-orange-600 hover:underline font-medium">
-              View all →
+              View all &rarr;
             </Link>
           </div>
           {recentLeads.length === 0 ? (
