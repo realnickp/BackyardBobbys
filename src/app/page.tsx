@@ -12,6 +12,7 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { GalleryGrid } from "@/components/shared/GalleryGrid";
 import { FinancingCallout } from "@/components/shared/FinancingCallout";
 import { ScrollReveal, StaggerChildren, StaggerItem, StickyStack, StackOver, ParallaxImage, CountUp } from "@/components/shared/animations";
+import { HeroFadeIn } from "@/components/shared/HeroFadeIn";
 import type { Metadata } from "next";
 import { PRIMARY_SERVICES, TESTIMONIALS, GALLERY_ITEMS, SITE } from "@/lib/constants";
 
@@ -72,7 +73,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 min-h-[90vh] lg:min-h-screen items-center gap-8 lg:gap-12">
             {/* Left: Content */}
-            <div className="lg:col-span-6 pt-12 pb-8 lg:py-24 text-white">
+            <HeroFadeIn className="lg:col-span-6 pt-12 pb-8 lg:py-24 text-white" delay={50}>
               <div className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full bg-brand/15 border border-brand/30 text-brand text-xs font-semibold mb-6">
                 <ShieldCheck className="h-3.5 w-3.5" />
                 Licensed {SITE.license} &middot; {SITE.address.region}, MD
@@ -123,18 +124,18 @@ export default function HomePage() {
                   </Link>
                 ))}
               </div>
-            </div>
+            </HeroFadeIn>
 
             {/* Right: Image Collage (desktop only) */}
-            <div className="hidden lg:block lg:col-span-6 relative py-16">
+            <HeroFadeIn className="hidden lg:block lg:col-span-6 relative py-16" delay={200}>
               <div className="grid grid-cols-12 grid-rows-6 gap-3 h-[600px]">
                 {/* Main large image */}
                 <div className="col-span-8 row-span-4 relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/stamped-ashlar-slate.jpg"
-                    alt="Stamped concrete walkway with ashlar slate pattern by Backyard Bobby's in Anne Arundel County"
+                    src="/images/patio-under-deck-stamped-concrete.jpg"
+                    alt="Stamped concrete patio under a custom deck by Backyard Bobby's in Anne Arundel County"
                     fill
-                    className="object-cover"
+                    className="object-cover object-bottom"
                     priority
                     sizes="40vw"
                   />
@@ -170,7 +171,7 @@ export default function HomePage() {
                   />
                 </div>
               </div>
-            </div>
+            </HeroFadeIn>
           </div>
         </div>
       </section>
