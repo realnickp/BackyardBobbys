@@ -207,33 +207,44 @@ export async function POST(request: NextRequest) {
       status_history: [{ status: "new", timestamp: new Date().toISOString() }],
     };
 
-    // Try service role first (requires migration_002 to have been run)
+    // Insert lead — try full schema first, fall back to base columns
     let leadId: string | null = null;
+    const baseLead = {
+      name,
+      email: email || "",
+      phone,
+      service,
+      city_or_zip: cityOrZip || "Not specified",
+      description: description || `Interested in: ${service}`,
+      timeframe: timeframe || "To be discussed",
+      budget: budget || null,
+      status: "new",
+    };
+
     try {
       const adminSupabase = getSupabaseAdmin();
       const { data, error } = await adminSupabase.from("leads").insert(leadData).select("id").single();
       if (error) throw error;
       leadId = data.id;
     } catch (adminErr) {
-      console.warn("Admin insert failed (migration may not have run), falling back to base schema:", adminErr);
-      // Fall back to original schema columns only (works before migration_002 runs)
-      const supabase = getSupabase();
-      if (supabase) {
-        const { data, error } = await supabase.from("leads").insert({
-          name,
-          email: email || "(chatbot lead — no email provided)",
-          phone,
-          service,
-          city_or_zip: cityOrZip || "Not specified",
-          description: description || `Chatbot lead — interested in: ${service}`,
-          timeframe: timeframe || "To be discussed",
-          budget: budget || null,
-          status: "new",
-        }).select("id").single();
-        if (error) {
-          console.error("Fallback insert also failed:", error);
-        } else if (data) {
-          leadId = data.id;
+      console.warn("Full-schema insert failed, trying base columns with service role:", (adminErr as Error).message || adminErr);
+      try {
+        const adminSupabase = getSupabaseAdmin();
+        const { data, error } = await adminSupabase.from("leads").insert(baseLead).select("id").single();
+        if (error) throw error;
+        leadId = data.id;
+      } catch (baseErr) {
+        console.warn("Service role base insert failed, trying anon key:", (baseErr as Error).message || baseErr);
+        const supabase = getSupabase();
+        if (supabase) {
+          const { data, error } = await supabase.from("leads").insert(baseLead).select("id").single();
+          if (error) {
+            console.error("All insert attempts failed:", error);
+          } else if (data) {
+            leadId = data.id;
+          }
+        } else {
+          console.error("No Supabase client available (missing env vars)");
         }
       }
     }

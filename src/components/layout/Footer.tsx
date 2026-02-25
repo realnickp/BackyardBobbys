@@ -112,6 +112,7 @@ export function Footer() {
               <li><Link href="/quote" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Free Estimate</Link></li>
               <li><Link href="/contact" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Contact</Link></li>
               <li><Link href="/privacy-policy" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Privacy Policy</Link></li>
+              <li><Link href="/terms" className="text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 block min-h-[44px] flex items-center lg:min-h-0 lg:py-0 lg:block">Terms &amp; Conditions</Link></li>
             </ul>
           </div>
         </div>
