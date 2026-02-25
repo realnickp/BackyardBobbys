@@ -568,7 +568,7 @@ export const GALLERY_ITEMS = [
   { src: "/images/retaining-wall-curved-garden-02.jpg", alt: "Curved block retaining wall with landscape lighting in Anne Arundel County", category: "Hardscaping", width: 1000, height: 1200 },
   { src: "/images/retaining-wall-stone-block-01.jpg", alt: "Stone block retaining wall with steps at residential home", category: "Hardscaping", width: 1000, height: 1200 },
   { src: "/images/paver-installation-concrete-stones-02.webp", alt: "Contractor laying interlocking paver stones for backyard patio", category: "Hardscaping", width: 1200, height: 800 },
-  { src: "/images/Stamped-Patio-with-planter-2-rotated.webp", alt: "Paver patio with pergola and outdoor seating area", category: "Hardscaping", width: 1200, height: 900 },
+  { src: "/images/stamped-ashlar-slate.jpg", alt: "Stamped concrete walkway with ashlar slate pattern and landscaping", category: "Stamped Concrete", width: 1200, height: 900 },
   { src: "/images/Back-patio-Back-Wall-Close-Up-rotated.webp", alt: "Stone patio retaining wall close-up detail in Maryland", category: "Hardscaping", width: 900, height: 600 },
   { src: "/images/Steps-7-Grey-Border-rotated.webp", alt: "Large concrete steps with grey border accent in Anne Arundel County", category: "Hardscaping", width: 800, height: 1200 },
   { src: "/images/hardscape-retaining-wall-concrete-pad.jpg", alt: "Stone block retaining wall with broom-finish concrete pad and steps", category: "Hardscaping", width: 1024, height: 768 },

@@ -131,8 +131,8 @@ export default function HomePage() {
                 {/* Main large image */}
                 <div className="col-span-8 row-span-4 relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/Stamped-Patio-with-planter-2-rotated.webp"
-                    alt="Stamped concrete patio built by Backyard Bobby's in Anne Arundel County"
+                    src="/images/stamped-ashlar-slate.jpg"
+                    alt="Stamped concrete walkway with ashlar slate pattern by Backyard Bobby's in Anne Arundel County"
                     fill
                     className="object-cover"
                     priority
@@ -251,8 +251,8 @@ export default function HomePage() {
       <StickyStack>
       <section className="relative h-[300px] md:h-[400px] overflow-hidden">
         <ParallaxImage
-          src="/images/Stamped-Patio-with-planter-2-rotated.webp"
-          alt="Completed paver patio with pergola by Backyard Bobby's"
+          src="/images/stamped-ashlar-slate.jpg"
+          alt="Stamped concrete walkway by Backyard Bobby's"
           className="absolute inset-0"
           speed={0.12}
         />
