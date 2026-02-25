@@ -54,8 +54,8 @@ export default function HomePage() {
         {/* Mobile: image background visible */}
         <div className="absolute inset-0 lg:hidden">
           <Image
-            src="/images/wood-deck-construction-01.webp"
-            alt="Custom deck built by Backyard Bobby's in Anne Arundel County"
+            src="/images/stamped-concrete-driveway-decorative-01.webp"
+            alt="Stamped concrete patio by Backyard Bobby's in Anne Arundel County"
             fill
             className="object-cover"
             priority
@@ -84,7 +84,7 @@ export default function HomePage() {
               </h1>
 
               <p className="text-lg md:text-xl text-white/70 mb-8 max-w-xl leading-relaxed">
-                Gravel pads, decks, driveways, fencing, and full backyard transformations — built by
+                Stamped concrete, gravel pads, decks, driveways, fencing, and full backyard transformations — built by
                 a licensed local crew that treats your property like our own.
               </p>
 
@@ -131,8 +131,8 @@ export default function HomePage() {
                 {/* Main large image */}
                 <div className="col-span-8 row-span-4 relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/wood-deck-construction-01.webp"
-                    alt="Custom deck built in Anne Arundel County"
+                    src="/images/Stamped-Patio-with-planter-2-rotated.webp"
+                    alt="Stamped concrete patio built by Backyard Bobby's in Anne Arundel County"
                     fill
                     className="object-cover"
                     priority
@@ -142,8 +142,8 @@ export default function HomePage() {
                 {/* Top right small image */}
                 <div className="col-span-4 row-span-3 relative rounded-2xl overflow-hidden shadow-xl">
                   <Image
-                    src="/images/stamped-concrete-img.webp"
-                    alt="Stamped concrete patio"
+                    src="/images/wood-deck-construction-01.webp"
+                    alt="Custom deck construction"
                     fill
                     className="object-cover"
                     sizes="20vw"
