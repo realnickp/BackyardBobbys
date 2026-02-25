@@ -10,6 +10,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Get a Free Estimate | ${SITE.name}`,
     description: `Free, no-pressure estimates for outdoor construction in Maryland. Licensed ${SITE.license}.`,
+    images: ["/og-image.png"],
   },
 };
 

@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: `Our Services | Outdoor Construction & Renovation`,
   description: `${SITE.name} offers premium outdoor construction services in ${SITE.address.region}, MD: decks, hardscaping, stamped concrete, fencing, driveways, roofing, ADUs, excavation, and gravel pads. Get a free estimate.`,
   alternates: { canonical: `${SITE.url}/services` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 export default function ServicesPage() {

@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: `Excavation & Demolition Services | ${SITE.name}`,
   description: `Professional excavation, site grading, demolition, and land clearing in ${SITE.address.region}, MD. Licensed & insured. Free estimates from ${SITE.name}.`,
   alternates: { canonical: `${SITE.url}/services/excavation-and-demolition` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function ExcavationAndDemolitionPage() {

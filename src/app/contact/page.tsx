@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: "Contact Us | Get a Free Estimate",
   description: `Contact ${SITE.name} for a free estimate on decks, hardscaping, fencing, driveways, and more in ${SITE.address.region}, MD. Call ${SITE.phone} or fill out our quick form.`,
   alternates: { canonical: `${SITE.url}/contact` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 const PROOF_IMAGES = GALLERY_ITEMS.slice(0, 5);

@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: "Project Gallery | See Our Work",
   description: `Browse completed projects by ${SITE.name}: decks, patios, fencing, driveways, stamped concrete, and more across ${SITE.address.region}, MD. See the quality before you hire.`,
   alternates: { canonical: `${SITE.url}/gallery` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 const HERO_MOSAIC = [

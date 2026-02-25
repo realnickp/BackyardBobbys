@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Professional driveway installation in Anne Arundel County, MD. Asphalt, concrete, and paver driveways built with proper base prep to handle Maryland freeze-thaw cycles. Free estimates.",
   alternates: { canonical: `${SITE.url}/services/driveway-installation` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function DrivewayInstallationPage() {

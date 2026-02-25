@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: "Blog | Tips, Guides & Outdoor Living Ideas",
   description: `Expert advice on decks, patios, fencing, driveways, and more from ${SITE.name}. Practical guides for homeowners in ${SITE.address.region}, Maryland.`,
   alternates: { canonical: `${SITE.url}/blog` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 export default function BlogPage() {

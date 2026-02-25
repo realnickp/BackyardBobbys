@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   title: "Terms and Conditions | Backyard Bobby's",
   description: `Terms and Conditions for all services provided by Backyard Bobby's LLC, a Maryland-licensed Home Improvement Contractor (MHIC # 05-163777).`,
   alternates: { canonical: `${SITE.url}/terms` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 export default function TermsPage() {

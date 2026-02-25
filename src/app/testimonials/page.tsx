@@ -12,6 +12,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Customer Reviews | ${SITE.name}`,
     description: "Real reviews from homeowners across Anne Arundel County, Maryland.",
+    images: ["/og-image.png"],
   },
 };
 

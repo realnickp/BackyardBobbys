@@ -11,6 +11,12 @@ export const metadata: Metadata = {
   title: "About Us | Family-Owned Outdoor Construction",
   description: `${SITE.name} is a family-owned, licensed outdoor construction company serving ${SITE.address.region}, Maryland. Learn about our story, values, and commitment to quality craftsmanship.`,
   alternates: { canonical: `${SITE.url}/about` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 const VALUES = [

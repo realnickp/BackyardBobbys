@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Service Areas | ${SITE.name}`,
     description: `Professional outdoor construction in 19 Anne Arundel County communities. Free estimates. Call ${SITE.phone}.`,
+    images: ["/og-image.png"],
   },
 };
 

@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Expert roof repairs, replacements, and storm damage restoration for Anne Arundel County homeowners. Licensed Maryland roofing contractor with warranty-backed installations.",
   alternates: { canonical: `${SITE.url}/services/roofing` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function RoofingPage() {

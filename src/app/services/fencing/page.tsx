@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: `Fencing Installation & Repair | ${SITE.name}`,
   description: `Professional fence installation in ${SITE.address.region}, MD. Wood, vinyl, aluminum, and chain link fencing. HOA compliant. Free estimates from ${SITE.name}.`,
   alternates: { canonical: `${SITE.url}/services/fencing` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function FencingPage() {

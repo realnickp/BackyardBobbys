@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Custom deck building in Anne Arundel County, MD. Composite and wood decks designed for Maryland weather. Licensed contractor with free estimates—expand your outdoor living space today.",
   alternates: { canonical: `${SITE.url}/services/decks` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function DecksPage() {

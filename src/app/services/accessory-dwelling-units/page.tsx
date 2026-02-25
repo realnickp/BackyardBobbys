@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   description:
     "Custom accessory dwelling units in Anne Arundel County, MD. Add living space, rental income, or an aging-in-place suite. Licensed Maryland ADU contractor—free estimates.",
   alternates: { canonical: `${SITE.url}/services/accessory-dwelling-units` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function AccessoryDwellingUnitsPage() {

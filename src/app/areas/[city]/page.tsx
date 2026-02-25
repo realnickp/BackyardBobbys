@@ -41,7 +41,7 @@ export async function generateMetadata({
   return {
     title,
     description,
-    openGraph: { title, description },
+    openGraph: { title, description, images: ["/og-image.png"] },
     alternates: { canonical: `${SITE.url}/areas/${city.slug}` },
   };
 }

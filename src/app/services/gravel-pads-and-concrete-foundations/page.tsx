@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: `Gravel Pads & Concrete Foundations | ${SITE.name}`,
   description: `Professional gravel pads and concrete foundations for sheds, garages, hot tubs, and outdoor structures in ${SITE.address.region}, MD. Free estimates from ${SITE.name}.`,
   alternates: { canonical: `${SITE.url}/services/gravel-pads-and-concrete-foundations` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function GravelPadsAndConcreteFoundationsPage() {

@@ -6,6 +6,12 @@ export const metadata: Metadata = {
   title: "Privacy Policy | Backyard Bobby's",
   description: `Privacy Policy for Backyard Bobby's LLC. Learn how we collect, use, store, and protect your personal information.`,
   alternates: { canonical: `${SITE.url}/privacy-policy` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 export default function PrivacyPolicyPage() {

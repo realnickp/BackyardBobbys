@@ -23,6 +23,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `Financing for Outdoor Construction Projects | ${SITE.name}`,
     description: `Flexible financing for Maryland outdoor construction. Prequalify in minutes through Wisetack — no hard credit pull. Licensed ${SITE.license}.`,
+    images: ["/og-image.png"],
   },
   alternates: { canonical: `${SITE.url}/financing` },
 };

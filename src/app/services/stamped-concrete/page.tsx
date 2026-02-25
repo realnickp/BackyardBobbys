@@ -8,6 +8,7 @@ export const metadata: Metadata = {
   description:
     "Beautiful stamped concrete patios, walkways, and pool decks that mimic natural stone at a fraction of the cost. Licensed contractor serving Anne Arundel County, MD.",
   alternates: { canonical: `${SITE.url}/services/stamped-concrete` },
+  openGraph: { images: ["/og-image.png"] },
 };
 
 export default function StampedConcretePage() {

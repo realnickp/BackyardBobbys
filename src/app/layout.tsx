@@ -33,6 +33,23 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     siteName: SITE.name,
+    url: SITE.url,
+    title: `${SITE.name} | Outdoor Construction in ${SITE.address.region}, MD`,
+    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping, driveways, fencing & more. Free estimates. Call ${SITE.phone}.`,
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: `${SITE.name} — Licensed Outdoor Construction in Anne Arundel County, MD`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE.name} | Outdoor Construction in ${SITE.address.region}, MD`,
+    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping, driveways, fencing & more. Free estimates.`,
+    images: ["/og-image.png"],
   },
   robots: {
     index: true,

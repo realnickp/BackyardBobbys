@@ -18,6 +18,12 @@ import { PRIMARY_SERVICES, TESTIMONIALS, GALLERY_ITEMS, SITE } from "@/lib/const
 
 export const metadata: Metadata = {
   alternates: { canonical: `${SITE.url}` },
+  openGraph: {
+    images: ["/og-image.png"],
+  },
+  twitter: {
+    images: ["/og-image.png"],
+  },
 };
 
 const SERVICE_CHIPS = PRIMARY_SERVICES.map((s) => ({ label: s.title, href: `/services/${s.slug}` }));
@@ -132,7 +138,7 @@ export default function HomePage() {
                 {/* Main large image */}
                 <div className="col-span-8 row-span-4 relative rounded-2xl overflow-hidden shadow-2xl">
                   <Image
-                    src="/images/patio-under-deck-stamped-concrete.jpg"
+                    src="/images/patio-under-deck-stamped-concrete.png"
                     alt="Stamped concrete patio under a custom deck by Backyard Bobby's in Anne Arundel County"
                     fill
                     className="object-cover object-bottom"
