@@ -52,7 +52,10 @@ export const metadata: Metadata = {
     images: ["/og-image.png"],
   },
   verification: {
-    google: "aAZH_ObTUNtjBsHGb4Dpe9iQm8qBYNBR1XtI5CsbhbU",
+    google: [
+      "aAZH_ObTUNtjBsHGb4Dpe9iQm8qBYNBR1XtI5CsbhbU",
+      "ImWSnYzIajVcSShTuT4_k-eO3hRP0fNwWAxHpyWYkHw",
+    ],
   },
   robots: {
     index: true,
