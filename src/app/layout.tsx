@@ -51,6 +51,9 @@ export const metadata: Metadata = {
     description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping, driveways, fencing & more. Free estimates.`,
     images: ["/og-image.png"],
   },
+  verification: {
+    google: "aAZH_ObTUNtjBsHGb4Dpe9iQm8qBYNBR1XtI5CsbhbU",
+  },
   robots: {
     index: true,
     follow: true,
