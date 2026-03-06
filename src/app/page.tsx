@@ -13,6 +13,7 @@ import { GalleryGrid } from "@/components/shared/GalleryGrid";
 import { FinancingCallout } from "@/components/shared/FinancingCallout";
 import { ScrollReveal, StaggerChildren, StaggerItem, StickyStack, StackOver, ParallaxImage, CountUp } from "@/components/shared/animations";
 import { HeroFadeIn } from "@/components/shared/HeroFadeIn";
+import { HomeProjectBuilder } from "@/components/shared/ProjectBuilder";
 import type { Metadata } from "next";
 import { PRIMARY_SERVICES, TESTIMONIALS, GALLERY_ITEMS, SITE } from "@/lib/constants";
 
@@ -110,8 +111,8 @@ export default function HomePage() {
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 mb-8">
-                <CTAButton href="/quote" size="lg">
-                  Get a Free Estimate
+                <CTAButton href="#project-builder" size="lg">
+                  Start Your Project
                   <ArrowRight className="h-5 w-5" />
                 </CTAButton>
                 <CTAButton variant="phone" size="lg">
@@ -252,6 +253,15 @@ export default function HomePage() {
           </CTAButton>
         </div>
         </ScrollReveal>
+      </Section>
+
+      {/* ===== Project Builder ===== */}
+      <Section variant="warm" id="project-builder">
+        <div className="max-w-lg mx-auto">
+          <ScrollReveal>
+            <HomeProjectBuilder />
+          </ScrollReveal>
+        </div>
       </Section>
 
       {/* ===== Full-Bleed Image Break ===== */}
@@ -458,8 +468,8 @@ export default function HomePage() {
             time and does what they say.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <CTAButton href="/quote" size="lg">
-              Get Your Free Estimate
+            <CTAButton href="#project-builder" size="lg">
+              Start Your Project
               <ArrowRight className="h-5 w-5" />
             </CTAButton>
             <CTAButton variant="phone" size="lg">

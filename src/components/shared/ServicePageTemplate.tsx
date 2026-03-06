@@ -8,7 +8,7 @@ import { ProcessSteps, type ProcessStep } from "./ProcessSteps";
 import { FAQAccordion, type FAQItem } from "./FAQAccordion";
 import { TestimonialCard } from "./TestimonialCard";
 import { GalleryGrid } from "./GalleryGrid";
-import { LeadForm } from "./LeadForm";
+import { ProjectBuilder } from "./ProjectBuilder";
 import { ServiceSchema, HowToSchema, FAQPageSchema } from "./SchemaOrg";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { FinancingCallout } from "./FinancingCallout";
@@ -102,8 +102,8 @@ export function ServicePageTemplate({
               </ScrollReveal>
               <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-3">
-                <CTAButton href="/contact" size="lg">
-                  Get a Free {title} Estimate
+                <CTAButton href={`/lp/${slug}`} size="lg">
+                  Start Your {title} Project
                   <ArrowRight className="h-5 w-5" />
                 </CTAButton>
                 <CTAButton variant="phone" size="lg">
@@ -148,9 +148,8 @@ export function ServicePageTemplate({
             )}
           </ScrollReveal>
           <ScrollReveal direction="right" delay={0.2} className="lg:col-span-2">
-            <div className="bg-warm-bg rounded-2xl p-6 border border-border/50 shadow-sm">
-              <h3 className="font-bold text-lg mb-4">Get Your Free Estimate</h3>
-              <LeadForm preselectedService={title} compact />
+            <div className="lg:sticky lg:top-24">
+              <ProjectBuilder serviceTitle={title} serviceSlug={slug} />
             </div>
           </ScrollReveal>
         </div>
@@ -299,8 +298,8 @@ export function ServicePageTemplate({
             Get a free, no-obligation estimate from a licensed contractor. We respond within one business day.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <CTAButton href="/contact" size="lg">
-              Get Your Free Estimate <ArrowRight className="h-5 w-5" />
+            <CTAButton href={`/lp/${slug}`} size="lg">
+              Start Your Project <ArrowRight className="h-5 w-5" />
             </CTAButton>
             <CTAButton variant="phone" size="lg">
               Call {SITE.phone}
