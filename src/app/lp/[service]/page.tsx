@@ -293,7 +293,7 @@ export default async function LpServicePage({
                   Your Free Estimate is Just 2 Minutes Away
                 </h2>
                 <p className="text-sm text-muted-foreground leading-relaxed">
-                  Answer 4 quick questions so Bobby knows exactly what to prepare — then he&apos;ll reach out within one business day.
+                  Answer just a few quick questions so Bobby knows exactly what to prepare — then he&apos;ll reach out within one business day.
                 </p>
               </div>
 
