@@ -57,6 +57,19 @@ const nextConfig: NextConfig = {
       { source: "/estimate", destination: "/quote", permanent: true },
       { source: "/get-a-quote", destination: "/quote", permanent: true },
       { source: "/request-a-quote", destination: "/quote", permanent: true },
+
+      // Old WordPress service slugs
+      { source: "/services/demolition-excavation", destination: "/services/excavation-and-demolition", permanent: true },
+      { source: "/services/demolition-excavation/", destination: "/services/excavation-and-demolition", permanent: true },
+
+      // Old WordPress blog posts
+      { source: "/how-proper-excavation-sets-the-stage-for-a-lasting-outdoor-project", destination: "/blog/excavation-grading-drainage-basics", permanent: true },
+      { source: "/how-proper-excavation-sets-the-stage-for-a-lasting-outdoor-project/", destination: "/blog/excavation-grading-drainage-basics", permanent: true },
+      { source: "/wood-vs-vinyl-fencing-which-is-best-for-your-home", destination: "/blog/best-fence-materials-maryland", permanent: true },
+      { source: "/wood-vs-vinyl-fencing-which-is-best-for-your-home/", destination: "/blog/best-fence-materials-maryland", permanent: true },
+
+      // Trailing slash variants for service pages
+      { source: "/services/roofing/", destination: "/services/roofing", permanent: true },
     ];
   },
   images: {
