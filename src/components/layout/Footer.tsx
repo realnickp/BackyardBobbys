@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Phone, Mail, MapPin, Shield, MessageSquare } from "lucide-react";
 import { SITE, PRIMARY_SERVICES, CITY_DATA } from "@/lib/constants";
+import { ObfuscatedEmail } from "@/components/shared/ObfuscatedEmail";
 
 const FOOTER_CITIES = CITY_DATA.filter((c) =>
   ["annapolis", "severna-park", "pasadena", "arnold", "crofton", "glen-burnie", "odenton", "edgewater", "columbia", "ellicott-city", "catonsville", "towson", "baltimore", "bowie", "laurel"].includes(c.slug)
@@ -50,8 +51,12 @@ export function Footer() {
                 className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-brand transition-colors py-2 min-h-[44px]"
               >
                 <Mail className="h-4 w-4 text-brand" />
-                {SITE.email}
+                <ObfuscatedEmail email={SITE.email} />
               </a>
+              <div className="inline-flex items-center gap-2 text-sm text-primary-foreground/60 py-2 min-h-[44px]">
+                <MapPin className="h-4 w-4 text-brand" />
+                <span>Serving Anne Arundel County, MD</span>
+              </div>
             </div>
           </div>
 

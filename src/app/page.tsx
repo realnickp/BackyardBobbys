@@ -87,7 +87,7 @@ export default function HomePage() {
               </div>
 
               <h1 className="text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-[1.05] mb-6 text-balance">
-                Outdoor Construction in
+                Stamped Concrete, Decks &amp; Outdoor Construction in
                 <span className="text-brand block mt-1">Anne Arundel County, MD</span>
               </h1>
 
@@ -231,7 +231,7 @@ export default function HomePage() {
       <Section>
         <ScrollReveal>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl mb-4">What We Build</h2>
+          <h2 className="text-3xl md:text-5xl mb-4">Outdoor Construction Services We Offer</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             From ground-up construction to finishing touches, we handle every phase of your outdoor
             project with care and precision.
@@ -347,7 +347,7 @@ export default function HomePage() {
       <Section variant="warm">
         <ScrollReveal>
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-5xl mb-4">Recent Projects</h2>
+          <h2 className="text-3xl md:text-5xl mb-4">Recent Home Improvement Projects</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             See what we&apos;ve built for homeowners across Anne Arundel County.
           </p>
@@ -377,7 +377,7 @@ export default function HomePage() {
       <Section>
         <ScrollReveal>
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-5xl mb-4">How It Works</h2>
+          <h2 className="text-3xl md:text-5xl mb-4">How to Get a Free Estimate</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             From first call to final walkthrough, here&apos;s what to expect.
           </p>
@@ -418,7 +418,7 @@ export default function HomePage() {
       <Section>
         <ScrollReveal>
         <div className="text-center mb-10">
-          <h2 className="text-3xl md:text-5xl mb-4">Areas We Serve</h2>
+          <h2 className="text-3xl md:text-5xl mb-4">Anne Arundel County Areas We Serve</h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Proud to serve homeowners throughout {SITE.address.region} and surrounding communities.
           </p>
@@ -459,7 +459,7 @@ export default function HomePage() {
         <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center text-white">
           <ScrollReveal>
           <h2 className="text-3xl md:text-5xl mb-4">
-            Ready to Transform Your Outdoor Space?
+            Ready for a Free Outdoor Construction Estimate?
           </h2>
           </ScrollReveal>
           <ScrollReveal delay={0.15}>

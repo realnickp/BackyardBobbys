@@ -1,10 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import dynamic from "next/dynamic";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { StickyMobileCTA } from "@/components/layout/StickyMobileCTA";
-import { Chatbot } from "@/components/shared/Chatbot";
+
+const Chatbot = dynamic(
+  () => import("@/components/shared/Chatbot").then((m) => ({ default: m.Chatbot })),
+  { ssr: false }
+);
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();

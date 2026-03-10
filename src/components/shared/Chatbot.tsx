@@ -176,8 +176,7 @@ export function Chatbot() {
       {/* Panel */}
       {panelOpen && (
         <div
-          className="fixed z-50 flex flex-col bg-white shadow-2xl border border-gray-200 overflow-hidden bottom-16 left-2 right-2 rounded-2xl sm:bottom-24 sm:right-4 sm:left-auto sm:rounded-2xl sm:w-[calc(100vw-2rem)] sm:max-w-sm"
-          style={{ maxHeight: "min(520px, calc(100dvh - 6rem))" }}
+          className="fixed z-50 flex flex-col bg-white shadow-2xl border border-gray-200 overflow-hidden bottom-16 left-2 right-2 rounded-2xl sm:bottom-24 sm:right-4 sm:left-auto sm:rounded-2xl sm:w-[calc(100vw-2rem)] sm:max-w-sm max-h-[min(520px,calc(100dvh-6rem))]"
         >
           {/* Header */}
           <div className="flex items-center gap-3 px-4 py-3 bg-orange-500 text-white shrink-0">

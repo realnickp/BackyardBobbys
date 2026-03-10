@@ -79,8 +79,7 @@ export function GalleryGrid({ items, showFilters = false, limit }: GalleryGridPr
 
       {lightboxIndex !== null && displayed[lightboxIndex] && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4"
-          style={{ height: "100dvh" }}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4 h-dvh"
           onClick={closeLightbox}
           role="dialog"
           aria-modal="true"

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, DM_Serif_Display } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import { PublicShell } from "@/components/layout/PublicShell";
 import { AnalyticsProvider } from "@/components/layout/AnalyticsProvider";
@@ -28,14 +29,14 @@ export const metadata: Metadata = {
     default: `${SITE.name} | Outdoor Construction in ${SITE.address.region}, MD`,
     template: `%s | ${SITE.name}`,
   },
-  description: `${SITE.name} provides gravel pads, decks, driveways, fencing, hardscaping, and excavation in ${SITE.address.region}, Maryland. Licensed contractor ${SITE.license}. Free estimates — call ${SITE.phone}.`,
+  description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping & more. Free estimates. Call ${SITE.phone}.`,
   openGraph: {
     type: "website",
     locale: "en_US",
     siteName: SITE.name,
     url: SITE.url,
     title: `${SITE.name} | Outdoor Construction in ${SITE.address.region}, MD`,
-    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping, driveways, fencing & more. Free estimates. Call ${SITE.phone}.`,
+    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping & more. Free estimates. Call ${SITE.phone}.`,
     images: [
       {
         url: "/og-image.png",
@@ -48,7 +49,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} | Outdoor Construction in ${SITE.address.region}, MD`,
-    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping, driveways, fencing & more. Free estimates.`,
+    description: `Licensed outdoor construction in ${SITE.address.region}, MD — stamped concrete, decks, hardscaping & more. Free estimates. Call ${SITE.phone}.`,
     images: ["/og-image.png"],
   },
   verification: {
@@ -81,6 +82,22 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} ${dmSerif.variable} font-sans antialiased`}
       >
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4-init" strategy="afterInteractive">
+              {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID}');
+              `}
+            </Script>
+          </>
+        )}
         <AnalyticsProvider>
           <LocalBusinessSchema />
           <PublicShell>{children}</PublicShell>

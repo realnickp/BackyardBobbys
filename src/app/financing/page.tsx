@@ -207,8 +207,7 @@ export default function FinancingPage() {
               <iframe
                 src="https://wisetack.us/#/m39n9j4/prequalify"
                 title="Wisetack Financing Prequalification — Backyard Bobby's"
-                className="w-full border-0"
-                style={{ height: "700px", minHeight: "600px" }}
+                className="w-full border-0 h-[700px] min-h-[600px]"
                 loading="lazy"
                 allow="payment"
               />
