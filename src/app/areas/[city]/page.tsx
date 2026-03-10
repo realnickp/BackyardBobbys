@@ -317,7 +317,7 @@ export default async function CityPage({
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <h3 className="absolute bottom-4 left-4 right-4 font-bold text-white text-lg">
-                  {service.title}
+                  {service.title} in {city.name}
                 </h3>
               </div>
               <div className="p-4">
@@ -363,7 +363,7 @@ export default async function CityPage({
             >
               <CheckCircle className="h-5 w-5 text-brand flex-shrink-0" />
               <span className="font-medium group-hover:text-brand transition-colors">
-                {service.title}
+                {service.title} in {city.name}
               </span>
             </Link>
             </StaggerItem>

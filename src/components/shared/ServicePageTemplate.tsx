@@ -13,7 +13,7 @@ import { ServiceSchema, HowToSchema, FAQPageSchema } from "./SchemaOrg";
 import { Breadcrumbs } from "./Breadcrumbs";
 import { FinancingCallout } from "./FinancingCallout";
 import { ScrollReveal, StaggerChildren, StaggerItem, StickyStack, StackOver, ParallaxImage } from "./animations";
-import { SITE, GALLERY_ITEMS, TESTIMONIALS } from "@/lib/constants";
+import { SITE, GALLERY_ITEMS, TESTIMONIALS, CITY_DATA } from "@/lib/constants";
 
 interface ServicePageProps {
   title: string;
@@ -271,6 +271,32 @@ export function ServicePageTemplate({
               className="px-5 py-3 rounded-xl bg-warm-bg border border-border/30 text-sm font-medium hover:border-brand hover:text-brand transition-all hover:shadow-sm"
             >
               {rs.title}
+            </Link>
+          ))}
+        </div>
+        </ScrollReveal>
+      </Section>
+      {/* ===== Service Areas ===== */}
+      <Section variant="warm">
+        <ScrollReveal>
+        <div className="text-center mb-8">
+          <h2 className="text-2xl md:text-3xl mb-3">
+            {title} Services Across Anne Arundel County
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            We bring the same licensed craftsmanship to every community we serve.
+          </p>
+        </div>
+        </ScrollReveal>
+        <ScrollReveal delay={0.1}>
+        <div className="flex flex-wrap justify-center gap-2">
+          {CITY_DATA.map((city) => (
+            <Link
+              key={city.slug}
+              href={`/areas/${city.slug}`}
+              className="px-4 py-2 rounded-full bg-white border border-border/40 text-sm font-medium hover:border-brand/50 hover:text-brand hover:shadow-sm transition-all"
+            >
+              {city.name}
             </Link>
           ))}
         </div>
