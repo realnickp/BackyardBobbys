@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Excavation & Demolition Services | ${SITE.name}`,
+  title: "Excavation & Demolition Services",
   description: `Professional excavation, site grading, demolition, and land clearing in ${SITE.address.region}, MD. Licensed & insured. Free estimates from ${SITE.name}.`,
   alternates: { canonical: `${SITE.url}/services/excavation-and-demolition` },
   openGraph: { images: ["/og-image.png"] },

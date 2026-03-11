@@ -145,7 +145,7 @@ export async function generateMetadata({
   const svc = PRIMARY_SERVICES.find((s) => s.slug === service);
   if (!svc) return {};
   return {
-    title: `Free ${svc.title} Estimate | ${SITE.name}`,
+    title: `Free ${svc.title} Estimate`,
     description: `Get a free ${svc.title.toLowerCase()} estimate from Backyard Bobby's — licensed Maryland contractor. No obligation. We respond within one business day.`,
     robots: { index: false, follow: false },
   };

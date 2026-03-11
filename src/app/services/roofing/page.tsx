@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Roofing Services in ${SITE.address.region} | ${SITE.name}`,
+  title: `Roofing Services in ${SITE.address.region}`,
   description:
     "Expert roof repairs, replacements, and storm damage restoration for Anne Arundel County homeowners. Licensed Maryland roofing contractor with warranty-backed installations.",
   alternates: { canonical: `${SITE.url}/services/roofing` },

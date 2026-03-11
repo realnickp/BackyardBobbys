@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Driveway Installation | ${SITE.name}`,
+  title: "Driveway Installation",
   description:
     "Professional driveway installation in Anne Arundel County, MD. Asphalt, concrete, and paver driveways built with proper base prep to handle Maryland freeze-thaw cycles. Free estimates.",
   alternates: { canonical: `${SITE.url}/services/driveway-installation` },

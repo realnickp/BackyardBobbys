@@ -152,6 +152,15 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound();
 
+  const relatedPosts = BLOG_POSTS
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => {
+      const aMatch = a.relatedServiceSlug === post.relatedServiceSlug || a.category === post.category ? 1 : 0;
+      const bMatch = b.relatedServiceSlug === post.relatedServiceSlug || b.category === post.category ? 1 : 0;
+      return bMatch - aMatch;
+    })
+    .slice(0, 3);
+
   return (
     <>
       <BlogPostSchema
@@ -246,6 +255,38 @@ export default async function BlogPostPage({ params }: Props) {
               </CTAButton>
             </div>
           </div>
+
+          {/* Related Articles */}
+          {relatedPosts.length > 0 && (
+            <div className="mt-12">
+              <h3 className="text-2xl font-bold mb-6">Related Articles</h3>
+              <div className="grid gap-6 sm:grid-cols-3">
+                {relatedPosts.map((related) => (
+                  <Link
+                    key={related.slug}
+                    href={`/blog/${related.slug}`}
+                    className="group rounded-xl border border-border/40 overflow-hidden hover:shadow-md transition-shadow"
+                  >
+                    <div className="relative aspect-[16/10]">
+                      <Image
+                        src={related.image}
+                        alt={related.imageAlt}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
+                        sizes="(max-width: 640px) 100vw, 33vw"
+                      />
+                    </div>
+                    <div className="p-4">
+                      <p className="text-xs text-muted-foreground mb-1">{related.category}</p>
+                      <p className="font-semibold text-sm leading-snug group-hover:text-brand transition-colors">
+                        {related.title}
+                      </p>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </Section>
       </article>

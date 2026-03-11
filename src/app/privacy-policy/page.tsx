@@ -3,7 +3,7 @@ import { Section } from "@/components/shared/Section";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Backyard Bobby's",
+  title: "Privacy Policy",
   description: `Privacy Policy for Backyard Bobby's LLC. Learn how we collect, use, store, and protect your personal information.`,
   alternates: { canonical: `${SITE.url}/privacy-policy` },
   openGraph: {

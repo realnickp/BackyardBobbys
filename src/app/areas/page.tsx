@@ -7,11 +7,11 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { TrustBar } from "@/components/shared/TrustBar";
 
 export const metadata: Metadata = {
-  title: `Service Areas in Anne Arundel County, MD | ${SITE.name}`,
+  title: "Service Areas in Anne Arundel County, MD",
   description: `Backyard Bobby's serves 19 communities across Anne Arundel County, Maryland — from Annapolis to Glen Burnie, Millersville to Shady Side. Licensed outdoor contractor ${SITE.license}. Free estimates. Call ${SITE.phone}.`,
   alternates: { canonical: `${SITE.url}/areas` },
   openGraph: {
-    title: `Service Areas | ${SITE.name}`,
+    title: "Service Areas",
     description: `Professional outdoor construction in 19 Anne Arundel County communities. Free estimates. Call ${SITE.phone}.`,
     images: ["/og-image.png"],
   },

@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Decks | ${SITE.name}`,
+  title: "Decks",
   description:
     "Custom deck building in Anne Arundel County, MD. Composite and wood decks designed for Maryland weather. Licensed contractor with free estimates—expand your outdoor living space today.",
   alternates: { canonical: `${SITE.url}/services/decks` },

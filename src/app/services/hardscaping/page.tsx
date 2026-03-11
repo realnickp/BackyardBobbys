@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Hardscaping Services in ${SITE.address.region} | ${SITE.name}`,
+  title: `Hardscaping Services in ${SITE.address.region}`,
   description:
     "Custom patios, walkways, retaining walls, fire pits, and outdoor kitchens built to last in Maryland's climate. Licensed hardscaping contractor serving Anne Arundel County.",
   alternates: { canonical: `${SITE.url}/services/hardscaping` },

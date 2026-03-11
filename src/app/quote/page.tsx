@@ -4,11 +4,11 @@ import { SITE, TESTIMONIALS } from "@/lib/constants";
 import { LeadForm } from "@/components/shared/LeadForm";
 
 export const metadata: Metadata = {
-  title: `Get a Free Estimate | ${SITE.name}`,
+  title: "Get a Free Estimate",
   description: `Request a free outdoor construction estimate in Anne Arundel County, MD. No commitment. Backyard Bobby's responds within one business day. Call ${SITE.phone}.`,
   alternates: { canonical: `${SITE.url}/quote` },
   openGraph: {
-    title: `Get a Free Estimate | ${SITE.name}`,
+    title: "Get a Free Estimate",
     description: `Free, no-pressure estimates for outdoor construction in Maryland. Licensed ${SITE.license}.`,
     images: ["/og-image.png"],
   },

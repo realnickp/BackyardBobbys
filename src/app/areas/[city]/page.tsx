@@ -35,7 +35,7 @@ export async function generateMetadata({
   const city = CITY_DATA.find((c) => c.slug === citySlug);
   if (!city) return {};
 
-  const title = `${city.headline} | ${SITE.name}`;
+  const title = city.headline;
   const description = `${city.subheadline} Licensed ${SITE.license}. Free estimates — call ${SITE.phone}.`;
 
   return {

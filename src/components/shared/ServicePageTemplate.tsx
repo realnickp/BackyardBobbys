@@ -102,7 +102,7 @@ export function ServicePageTemplate({
               </ScrollReveal>
               <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-3">
-                <CTAButton href={`/lp/${slug}`} size="lg">
+                <CTAButton href={`/lp/${slug}/quiz`} size="lg">
                   Start Your {title} Project
                   <ArrowRight className="h-5 w-5" />
                 </CTAButton>
@@ -324,7 +324,7 @@ export function ServicePageTemplate({
             Get a free, no-obligation estimate from a licensed contractor. We respond within one business day.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <CTAButton href={`/lp/${slug}`} size="lg">
+            <CTAButton href={`/lp/${slug}/quiz`} size="lg">
               Start Your Project <ArrowRight className="h-5 w-5" />
             </CTAButton>
             <CTAButton variant="phone" size="lg">

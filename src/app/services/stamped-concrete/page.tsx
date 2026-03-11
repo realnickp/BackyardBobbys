@@ -4,7 +4,7 @@ import { StampedConcreteStyles } from "@/components/shared/StampedConcreteStyles
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Stamped Concrete Services in ${SITE.address.region} | ${SITE.name}`,
+  title: `Stamped Concrete Services in ${SITE.address.region}`,
   description:
     "Beautiful stamped concrete patios, walkways, and pool decks that mimic natural stone at a fraction of the cost. Licensed contractor serving Anne Arundel County, MD.",
   alternates: { canonical: `${SITE.url}/services/stamped-concrete` },

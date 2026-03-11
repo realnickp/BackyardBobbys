@@ -3,7 +3,7 @@ import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
 import { SITE } from "@/lib/constants";
 
 export const metadata: Metadata = {
-  title: `Accessory Dwelling Units (ADUs) | ${SITE.name}`,
+  title: "Accessory Dwelling Units (ADUs)",
   description:
     "Custom accessory dwelling units in Anne Arundel County, MD. Add living space, rental income, or an aging-in-place suite. Licensed Maryland ADU contractor—free estimates.",
   alternates: { canonical: `${SITE.url}/services/accessory-dwelling-units` },

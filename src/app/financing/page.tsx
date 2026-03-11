@@ -18,10 +18,10 @@ import { FAQAccordion } from "@/components/shared/FAQAccordion";
 import { FAQPageSchema } from "@/components/shared/SchemaOrg";
 
 export const metadata: Metadata = {
-  title: `Financing for Outdoor Construction Projects | ${SITE.name}`,
+  title: "Financing for Outdoor Construction Projects",
   description: `Finance your deck, patio, driveway, or outdoor project in Anne Arundel County with flexible payment plans through Wisetack. Prequalify in minutes with no impact to your credit score. Licensed contractor ${SITE.license}.`,
   openGraph: {
-    title: `Financing for Outdoor Construction Projects | ${SITE.name}`,
+    title: "Financing for Outdoor Construction Projects",
     description: `Flexible financing for Maryland outdoor construction. Prequalify in minutes through Wisetack — no hard credit pull. Licensed ${SITE.license}.`,
     images: ["/og-image.png"],
   },

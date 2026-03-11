@@ -30,7 +30,7 @@ export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProp
             Tell us about your {serviceTitle.toLowerCase()} project in a few guided steps. We&apos;ll prepare a personalized estimate tailored to your needs.
           </p>
           <Link
-            href={`/lp/${serviceSlug}`}
+            href={`/lp/${serviceSlug}/quiz`}
             className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors"
           >
             Start Project Builder
@@ -94,7 +94,7 @@ export function HomeProjectBuilder() {
             {PRIMARY_SERVICES.map((service) => (
               <Link
                 key={service.slug}
-                href={`/lp/${service.slug}`}
+                href={`/lp/${service.slug}/quiz`}
                 className="group relative rounded-xl overflow-hidden aspect-square border-2 border-transparent hover:border-brand transition-all"
               >
                 <Image

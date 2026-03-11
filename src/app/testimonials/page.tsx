@@ -6,11 +6,11 @@ import { CTAButton } from "@/components/shared/CTAButton";
 import { TrustBar } from "@/components/shared/TrustBar";
 
 export const metadata: Metadata = {
-  title: `Customer Reviews & Testimonials | ${SITE.name}`,
+  title: "Customer Reviews & Testimonials",
   description: `Read real customer reviews for Backyard Bobby's outdoor construction in Anne Arundel County, MD. 5-star rated. Licensed ${SITE.license}. Free estimates — call ${SITE.phone}.`,
   alternates: { canonical: `${SITE.url}/testimonials` },
   openGraph: {
-    title: `Customer Reviews | ${SITE.name}`,
+    title: "Customer Reviews",
     description: "Real reviews from homeowners across Anne Arundel County, Maryland.",
     images: ["/og-image.png"],
   },

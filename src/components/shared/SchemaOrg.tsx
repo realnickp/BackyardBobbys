@@ -1,4 +1,4 @@
-import { SITE, SERVICE_AREAS, PRIMARY_SERVICES } from "@/lib/constants";
+import { SITE, PRIMARY_SERVICES } from "@/lib/constants";
 
 const BOBBY_PERSON = {
   "@type": "Person" as const,
@@ -28,7 +28,7 @@ const BOBBY_PERSON = {
 export function LocalBusinessSchema() {
   const schema = {
     "@context": "https://schema.org",
-    "@type": "HomeAndConstructionBusiness",
+    "@type": ["HomeAndConstructionBusiness", "LocalBusiness"],
     "@id": `${SITE.url}/#business`,
     name: SITE.name,
     description: `${SITE.name} is a licensed outdoor construction contractor based in Millersville, Maryland, serving 19 communities across Anne Arundel County. Services include gravel pads, decks, driveways, fencing, hardscaping, stamped concrete, excavation, roofing, and accessory dwelling units. Licensed ${SITE.license}.`,
@@ -41,24 +41,20 @@ export function LocalBusinessSchema() {
       "https://www.yelp.com/biz/backyard-bobbys-millersville",
     ],
     founder: BOBBY_PERSON,
-    foundingLocation: {
-      "@type": "Place",
-      name: "Millersville, Maryland",
-    },
     geo: {
       "@type": "GeoCoordinates",
       latitude: 39.0368,
       longitude: -76.6347,
     },
-    areaServed: SERVICE_AREAS.map((area) => ({
-      "@type": "City",
-      name: area,
-      containedInPlace: {
-        "@type": "AdministrativeArea",
-        name: "Anne Arundel County",
-        containedInPlace: { "@type": "State", name: "Maryland" },
+    areaServed: {
+      "@type": "GeoCircle",
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: 39.0368,
+        longitude: -76.6347,
       },
-    })),
+      geoRadius: "30000",
+    },
     address: {
       "@type": "PostalAddress",
       addressLocality: "Millersville",
@@ -97,21 +93,6 @@ export function LocalBusinessSchema() {
           url: `${SITE.url}/services/${service.slug}`,
         },
       })),
-    },
-    hasCredential: {
-      "@type": "EducationalOccupationalCredential",
-      credentialCategory: "license",
-      name: SITE.license,
-      recognizedBy: {
-        "@type": "Organization",
-        name: "Maryland Home Improvement Commission",
-      },
-    },
-    aggregateRating: {
-      "@type": "AggregateRating",
-      ratingValue: "5",
-      reviewCount: "47",
-      bestRating: "5",
     },
     priceRange: "$$",
     openingHoursSpecification: [
@@ -165,18 +146,14 @@ export function ServiceSchema({
       telephone: SITE.phone,
       url: SITE.url,
     },
-    areaServed: SERVICE_AREAS.map((area) => ({
-      "@type": "City",
-      name: area,
-      containedInPlace: {
-        "@type": "AdministrativeArea",
-        name: "Anne Arundel County",
-        containedInPlace: { "@type": "State", name: "Maryland" },
+    areaServed: {
+      "@type": "GeoCircle",
+      geoMidpoint: {
+        "@type": "GeoCoordinates",
+        latitude: 39.0368,
+        longitude: -76.6347,
       },
-    })),
-    serviceArea: {
-      "@type": "AdministrativeArea",
-      name: "Anne Arundel County, Maryland",
+      geoRadius: "30000",
     },
     url: `${SITE.url}/services/${slug}`,
     ...(image && { image: `${SITE.url}${image}` }),
