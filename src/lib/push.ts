@@ -5,7 +5,9 @@ let vapidConfigured = false;
 
 function configureVapid(): boolean {
   if (vapidConfigured) return true;
-  const publicKey = process.env.VAPID_PUBLIC_KEY;
+  // VAPID_PUBLIC_KEY and NEXT_PUBLIC_VAPID_PUBLIC_KEY hold the same value;
+  // fall back to the NEXT_PUBLIC_ one so only one needs to be set.
+  const publicKey = process.env.VAPID_PUBLIC_KEY || process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
   const privateKey = process.env.VAPID_PRIVATE_KEY;
   const subject = process.env.VAPID_SUBJECT || "mailto:robert@backyardbobbys.com";
   if (!publicKey || !privateKey) return false;
