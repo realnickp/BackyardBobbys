@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import OpenAI from "openai";
 import type { ChatCompletionMessageParam } from "openai/resources/chat/completions";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
@@ -205,10 +205,13 @@ export async function POST(request: NextRequest) {
 
     const reply = response.choices[0].message.content || "";
 
-    // Save transcript + extract structured fields in background after every exchange
+    // Save transcript + extract structured fields after every exchange.
+    // `after()` keeps the serverless instance alive until this finishes — a
+    // bare fire-and-forget promise gets dropped when the function freezes the
+    // moment the response returns, silently losing the transcript/extraction.
     const allMessages = [...messages, { role: "assistant", content: reply }];
     if (leadId) {
-      extractAndSaveLead(leadId, allMessages).catch(() => {});
+      after(() => extractAndSaveLead(leadId, allMessages));
     }
 
     return NextResponse.json({ reply });

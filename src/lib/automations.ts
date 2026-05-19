@@ -202,10 +202,23 @@ export async function sendEmail(
 }
 
 // ── Admin Notification Recipients ────────────────────────
-const ADMIN_EMAILS = [
+// Who gets the "new lead" email alert. Override in any environment by setting
+// the LEAD_NOTIFICATION_EMAILS env var (comma-separated), e.g.
+//   LEAD_NOTIFICATION_EMAILS=bobby@backyardbobbys.com, office@backyardbobbys.com
+// Falls back to these defaults when the env var is unset.
+const DEFAULT_ADMIN_EMAILS = [
   "realnickpatrick@gmail.com",
   "Robert@backyardbobbys.com",
 ];
+
+export function getAdminEmails(): string[] {
+  const raw = process.env.LEAD_NOTIFICATION_EMAILS;
+  if (raw) {
+    const list = raw.split(",").map((e) => e.trim()).filter(Boolean);
+    if (list.length > 0) return list;
+  }
+  return DEFAULT_ADMIN_EMAILS;
+}
 
 // ── Admin Lead Notification ──────────────────────────────
 export async function notifyAdminsNewLead(ctx: AutomationContext & {
@@ -217,7 +230,7 @@ export async function notifyAdminsNewLead(ctx: AutomationContext & {
   budget?: string;
   timeframe?: string;
   preferredStyle?: string;
-}): Promise<void> {
+}): Promise<{ success: boolean; error?: string }> {
   const scoreLabel = ctx.priority === "hot" ? "🔥 HOT LEAD" : ctx.priority === "warm" ? "⚡ WARM LEAD" : "📋 New Lead";
   const subject = `${scoreLabel}: ${ctx.leadName} — ${ctx.leadService || "General Inquiry"}`;
 
@@ -265,5 +278,12 @@ export async function notifyAdminsNewLead(ctx: AutomationContext & {
     </div>
   `;
 
-  await sendEmail(ADMIN_EMAILS, subject, html);
+  const recipients = getAdminEmails();
+  const result = await sendEmail(recipients, subject, html);
+  if (result.success) {
+    console.log(`[EMAIL] Admin lead notification sent to ${recipients.join(", ")} (id ${result.id ?? "?"})`);
+  } else {
+    console.error(`[EMAIL] Admin lead notification FAILED to ${recipients.join(", ")}: ${result.error}`);
+  }
+  return { success: result.success, error: result.error };
 }

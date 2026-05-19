@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { getSupabase } from "@/lib/supabase";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { calculateLeadScore } from "@/lib/lead-scoring";
@@ -226,43 +226,72 @@ export async function POST(request: NextRequest) {
       leadId = data.id;
     }
 
-    // Fire notifications (async — don't block the response)
+    // Send notifications AFTER the response is sent — but guaranteed to run.
+    //
+    // These were previously bare fire-and-forget promises. On Vercel's
+    // serverless runtime the function instance is frozen the instant the
+    // response returns, so the in-flight fetch() to Resend/Twilio was killed
+    // before it completed — no email or SMS ever went out, and nothing showed
+    // up in Resend. `after()` keeps the instance alive until this work
+    // finishes, then logs the outcome of every send so failures are visible.
     if (leadId) {
       const ctx = { leadId, leadName: name, leadPhone: phone, leadEmail: email, leadService: service };
-
-      // 1. Send welcome email to the lead (if they provided email)
-      if (email) {
-        const tmpl = EMAIL_TEMPLATES.welcome_email(ctx);
-        sendEmail(email, tmpl.subject, tmpl.html).catch(console.error);
-      }
-
-      // 2. Send welcome SMS to the lead (if they provided phone)
-      if (phone) {
-        sendSMS(phone, SMS_TEMPLATES.welcome_sms(ctx)).catch(console.error);
-      }
-
-      // 3. Notify admins via email — ALWAYS fires for every lead
-      notifyAdminsNewLead({
-        ...ctx,
-        cityOrZip,
-        description,
-        source,
-        score,
-        priority,
-        budget: budget || undefined,
-        timeframe,
-        preferredStyle: preferredStyle ?? undefined,
-      }).catch(console.error);
-
-      // 4. Notify Bobby via SMS
       const adminPhone = process.env.ADMIN_PHONE;
-      if (adminPhone && phone) {
-        const scoreLabel = priority === "hot" ? "🔥 HOT" : priority === "warm" ? "⚡ WARM" : "📋";
-        sendSMS(
-          adminPhone,
-          `${scoreLabel} NEW LEAD (${score}pts): ${name} · ${service} · ${phone} · ${cityOrZip}`
-        ).catch(console.error);
-      }
+      const scoreLabel = priority === "hot" ? "🔥 HOT" : priority === "warm" ? "⚡ WARM" : "📋";
+
+      after(async () => {
+        const jobs: { label: string; run: Promise<{ success: boolean; error?: string }> }[] = [];
+
+        // 1. Welcome email to the lead (only if they provided an email)
+        if (email) {
+          const tmpl = EMAIL_TEMPLATES.welcome_email(ctx);
+          jobs.push({ label: "welcome email", run: sendEmail(email, tmpl.subject, tmpl.html) });
+        }
+
+        // 2. Welcome SMS to the lead
+        if (phone) {
+          jobs.push({ label: "welcome SMS", run: sendSMS(phone, SMS_TEMPLATES.welcome_sms(ctx)) });
+        }
+
+        // 3. Admin email notification — ALWAYS fires for every lead
+        jobs.push({
+          label: "admin email",
+          run: notifyAdminsNewLead({
+            ...ctx,
+            cityOrZip,
+            description,
+            source,
+            score,
+            priority,
+            budget: budget || undefined,
+            timeframe,
+            preferredStyle: preferredStyle ?? undefined,
+          }),
+        });
+
+        // 4. Admin SMS alert to Bobby
+        if (adminPhone && phone) {
+          jobs.push({
+            label: "admin SMS",
+            run: sendSMS(
+              adminPhone,
+              `${scoreLabel} NEW LEAD (${score}pts): ${name} · ${service} · ${phone} · ${cityOrZip}`
+            ),
+          });
+        }
+
+        const results = await Promise.allSettled(jobs.map((j) => j.run));
+        results.forEach((r, i) => {
+          const label = jobs[i].label;
+          if (r.status === "rejected") {
+            console.error(`[lead ${leadId}] ${label} threw:`, r.reason);
+          } else if (!r.value.success) {
+            console.error(`[lead ${leadId}] ${label} failed: ${r.value.error}`);
+          } else {
+            console.log(`[lead ${leadId}] ${label} sent OK`);
+          }
+        });
+      });
     }
 
     return NextResponse.json({
