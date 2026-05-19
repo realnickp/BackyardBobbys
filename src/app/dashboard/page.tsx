@@ -8,6 +8,7 @@ import { StatusBadge } from "@/components/dashboard/StatusBadge";
 import { LeadScoreBadge } from "@/components/dashboard/LeadScoreBadge";
 import { SourceChart } from "@/components/dashboard/SourceChart";
 import type { DashboardStats, Lead } from "@/lib/dashboard-types";
+import { NotificationSetup } from "@/components/dashboard/NotificationSetup";
 
 const fallbackStats: DashboardStats = {
   leads_today: 0, leads_this_week: 0, leads_this_month: 0,
@@ -82,6 +83,9 @@ export default function DashboardPage() {
           </form>
         </div>
       </div>
+
+      {/* Notifications setup */}
+      <NotificationSetup />
 
       {/* Stats */}
       <StatsGrid stats={stats || fallbackStats} />
