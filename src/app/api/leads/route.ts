@@ -3,6 +3,7 @@ import { getSupabase } from "@/lib/supabase";
 import { getSupabaseAdmin } from "@/lib/supabase-admin";
 import { calculateLeadScore } from "@/lib/lead-scoring";
 import { sendSMS, sendEmail, SMS_TEMPLATES, EMAIL_TEMPLATES, notifyAdminsNewLead } from "@/lib/automations";
+import { sendLeadPush } from "@/lib/push";
 import { requireAuth } from "@/lib/auth";
 
 // ── GET /api/leads — list with filters (dashboard only) ───
@@ -291,6 +292,20 @@ export async function POST(request: NextRequest) {
             console.log(`[lead ${leadId}] ${label} sent OK`);
           }
         });
+
+        // 5. Push notification to every registered dashboard device
+        try {
+          await sendLeadPush({
+            id: ctx.leadId,
+            name,
+            service,
+            cityOrZip,
+            score,
+            priority,
+          });
+        } catch (err) {
+          console.error(`[lead ${leadId}] push notification threw:`, err);
+        }
       });
     }
 
