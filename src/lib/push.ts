@@ -65,7 +65,11 @@ export async function sendPushToAll(
       try {
         await webpush.sendNotification(
           { endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } },
-          json
+          json,
+          // High urgency — tells Apple/Google to wake the device and deliver
+          // now, instead of batching delivery to save battery (which made
+          // notifications appear only when the app was next opened).
+          { urgency: "high", TTL: 86400 }
         );
         sent++;
         await supabase
