@@ -5,6 +5,7 @@ import { calculateLeadScore } from "@/lib/lead-scoring";
 import { sendSMS, sendEmail, SMS_TEMPLATES, EMAIL_TEMPLATES, notifyAdminsNewLead } from "@/lib/automations";
 import { sendLeadPush } from "@/lib/push";
 import { requireAuth } from "@/lib/auth";
+import { isSpamSubmission } from "@/lib/anti-spam";
 
 // ── GET /api/leads — list with filters (dashboard only) ───
 
@@ -131,6 +132,20 @@ function truncate(value: unknown, max: number): string {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Silently drop bot submissions. Returns a normal-looking success so the
+    // bot stops retrying, but never inserts a lead and never fires any
+    // notification. Fail-open: only triggers on an unambiguous bot signal, so
+    // a real customer's submission always flows through untouched.
+    if (isSpamSubmission(body)) {
+      return NextResponse.json({
+        success: true,
+        leadId: null,
+        score: 0,
+        priority: "low",
+        estimatedResponse: "Within one business day",
+      });
+    }
 
     // Sanitize and limit all string inputs
     const name = truncate(body.name, MAX_NAME).trim();

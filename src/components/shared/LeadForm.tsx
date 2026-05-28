@@ -11,6 +11,7 @@ import { CheckCircle, Phone, Loader2 } from "lucide-react";
 import { leadSchema, type LeadFormData, TIMEFRAME_OPTIONS, BUDGET_OPTIONS } from "@/lib/lead-schema";
 import { ALL_SERVICES_FOR_FORM, SITE } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
+import { useAntiSpam, HoneypotField } from "@/components/shared/anti-spam";
 
 interface LeadFormProps {
   preselectedService?: string;
@@ -21,6 +22,7 @@ interface LeadFormProps {
 export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const { honeypotValue, setHoneypotValue, antiSpamFields } = useAntiSpam();
 
   const {
     register,
@@ -40,7 +42,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify({ ...data, ...antiSpamFields() }),
       });
       if (!res.ok) throw new Error("Submission failed");
       trackEvent("lead_submitted", { service: data.service, timeframe: data.timeframe });
@@ -72,6 +74,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+      <HoneypotField value={honeypotValue} onChange={setHoneypotValue} />
       <div className={compact ? "space-y-4" : "grid gap-4 sm:grid-cols-2"}>
         <div className="space-y-1.5">
           <Label htmlFor="name">Name *</Label>

@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { MessageCircle, X, Send, Loader2, ChevronRight } from "lucide-react";
+import { useAntiSpam, HoneypotField } from "@/components/shared/anti-spam";
 
 type Phase = "idle" | "form" | "chat";
 
@@ -50,6 +51,7 @@ export function Chatbot() {
   const [customService, setCustomService] = useState("");
   const [formLoading, setFormLoading] = useState(false);
   const [formError, setFormError] = useState("");
+  const { honeypotValue, setHoneypotValue, antiSpamFields } = useAntiSpam();
   const [leadId, setLeadId] = useState<string | null>(null);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -93,6 +95,7 @@ export function Chatbot() {
           service,
           source: "chatbot",
           message: `Chatbot lead — interested in: ${service}`,
+          ...antiSpamFields(),
         }),
       });
 
@@ -204,6 +207,7 @@ export function Chatbot() {
           {/* PRE-CHAT FORM */}
           {phase === "form" && (
             <form onSubmit={handleFormSubmit} className="p-4 sm:p-4 space-y-4 overflow-y-auto flex-1 min-h-0">
+              <HoneypotField value={honeypotValue} onChange={setHoneypotValue} />
               <p className="text-sm text-gray-600">
                 Quick intro before we chat — Bobby&apos;s team will reach out to confirm your estimate.
               </p>
