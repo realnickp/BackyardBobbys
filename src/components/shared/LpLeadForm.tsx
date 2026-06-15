@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Phone, Loader2, Shield } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
+import { trackConversion } from "@/lib/google-ads";
 import { useAntiSpam, HoneypotField } from "@/components/shared/anti-spam";
 
 interface LpLeadFormProps {
@@ -81,6 +82,7 @@ export function LpLeadForm({ service }: LpLeadFormProps) {
       }
 
       trackEvent("lead_submitted", { service, source });
+      trackConversion("form_submit");
       setSubmitted(true);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please call us directly.");

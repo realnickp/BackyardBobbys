@@ -11,6 +11,7 @@ import { CheckCircle, Phone, Loader2 } from "lucide-react";
 import { leadSchema, type LeadFormData, TIMEFRAME_OPTIONS, BUDGET_OPTIONS } from "@/lib/lead-schema";
 import { ALL_SERVICES_FOR_FORM, SITE } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
+import { trackConversion } from "@/lib/google-ads";
 import { useAntiSpam, HoneypotField } from "@/components/shared/anti-spam";
 
 interface LeadFormProps {
@@ -46,6 +47,7 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
       });
       if (!res.ok) throw new Error("Submission failed");
       trackEvent("lead_submitted", { service: data.service, timeframe: data.timeframe });
+      trackConversion("form_submit");
       setSubmitted(true);
     } catch {
       setSubmitError("Something went wrong. Please call us or try again.");

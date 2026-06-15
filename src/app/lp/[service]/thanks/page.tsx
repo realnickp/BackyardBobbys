@@ -1,10 +1,11 @@
 "use client";
 
 import { useParams, useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { Suspense, useEffect, useRef } from "react";
 import Link from "next/link";
 import { Phone, MessageSquare, CheckCircle, Clock, Star } from "lucide-react";
 import { PRIMARY_SERVICES, SITE } from "@/lib/constants";
+import { trackConversion } from "@/lib/google-ads";
 
 const NEXT_STEPS = [
   {
@@ -31,6 +32,15 @@ function ThanksContent() {
   const firstName = searchParams.get("name") || "there";
 
   const svc = PRIMARY_SERVICES.find((s) => s.slug === service);
+
+  // Project Builder completion: this page is only reached after a successful
+  // contact submit, so firing here counts exactly one conversion per funnel.
+  const conversionFired = useRef(false);
+  useEffect(() => {
+    if (conversionFired.current) return;
+    conversionFired.current = true;
+    trackConversion("project_builder");
+  }, []);
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
