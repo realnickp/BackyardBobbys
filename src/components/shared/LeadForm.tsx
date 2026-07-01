@@ -18,9 +18,16 @@ interface LeadFormProps {
   preselectedService?: string;
   compact?: boolean;
   preferredStyle?: string;
+  /**
+   * When set (e.g. "google_ads" on the ad landing pages), this exact value is
+   * sent as the lead's `source` so it is tagged correctly in the dashboard.
+   * Omitted on the normal service pages, where the backend defaults to
+   * "website".
+   */
+  leadSource?: string;
 }
 
-export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFormProps) {
+export function LeadForm({ preselectedService, compact, preferredStyle, leadSource }: LeadFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState("");
   const { honeypotValue, setHoneypotValue, antiSpamFields } = useAntiSpam();
@@ -43,10 +50,15 @@ export function LeadForm({ preselectedService, compact, preferredStyle }: LeadFo
       const res = await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, ...antiSpamFields() }),
+        body: JSON.stringify({
+          ...data,
+          ...(leadSource ? { source: leadSource } : {}),
+          landingPage: typeof window !== "undefined" ? window.location.href : "",
+          ...antiSpamFields(),
+        }),
       });
       if (!res.ok) throw new Error("Submission failed");
-      trackEvent("lead_submitted", { service: data.service, timeframe: data.timeframe });
+      trackEvent("lead_submitted", { service: data.service, timeframe: data.timeframe, source: leadSource });
       trackConversion("form_submit");
       setSubmitted(true);
     } catch {

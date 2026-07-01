@@ -13,9 +13,12 @@ const Chatbot = dynamic(
 
 export function PublicShell({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const isDashboard = pathname.startsWith("/dashboard");
+  // Chrome-less routes: the dashboard app, and the Google-Ads landing pages
+  // (`/lp/*`), which are distraction-free — no site nav or footer. The `/lp`
+  // layout supplies its own minimal header + single Chatbot.
+  const isBare = pathname.startsWith("/dashboard") || pathname.startsWith("/lp");
 
-  if (isDashboard) {
+  if (isBare) {
     return <>{children}</>;
   }
 

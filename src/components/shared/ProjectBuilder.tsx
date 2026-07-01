@@ -3,17 +3,25 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Sparkles, ClipboardList, ChevronDown, Clock, Shield } from "lucide-react";
+import { ArrowRight, Sparkles, ClipboardList, ChevronDown, Clock, Shield, Phone, MessageSquare } from "lucide-react";
 import { LeadForm } from "./LeadForm";
-import { PRIMARY_SERVICES } from "@/lib/constants";
+import { PRIMARY_SERVICES, SITE } from "@/lib/constants";
 
 interface ProjectBuilderProps {
   serviceTitle: string;
   serviceSlug: string;
+  /** Passed through to the estimate form so ad-landing leads are tagged correctly. */
+  leadSource?: string;
+  /** When true, renders the conversion-focused layout (visible Call/Text + open form). */
+  adLanding?: boolean;
 }
 
-export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProps) {
-  const [formOpen, setFormOpen] = useState(false);
+export function ProjectBuilder({ serviceTitle, serviceSlug, leadSource, adLanding }: ProjectBuilderProps) {
+  // On the ad landing pages the estimate form is shown by default so it's one
+  // of the obvious next steps; on service pages it stays collapsed.
+  const [formOpen, setFormOpen] = useState(Boolean(adLanding));
+
+  const quizHref = `/lp/${serviceSlug}/quiz${leadSource ? `?src=${leadSource}` : ""}`;
 
   return (
     <div className="space-y-3">
@@ -30,7 +38,7 @@ export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProp
             Tell us about your {serviceTitle.toLowerCase()} project in a few guided steps. We&apos;ll prepare a personalized estimate tailored to your needs.
           </p>
           <Link
-            href={`/lp/${serviceSlug}/quiz`}
+            href={quizHref}
             className="flex items-center justify-center gap-2 w-full px-6 py-3.5 bg-primary text-white rounded-xl font-semibold text-sm hover:bg-primary/90 transition-colors"
           >
             Start Project Builder
@@ -44,6 +52,26 @@ export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProp
               <Shield className="h-3 w-3" /> No obligation
             </span>
           </div>
+
+          {adLanding && (
+            <div className="mt-5 pt-5 border-t border-border/40">
+              <p className="text-xs text-center text-muted-foreground mb-3">Prefer to reach us right now?</p>
+              <div className="flex gap-2">
+                <a
+                  href={SITE.phoneTel}
+                  className="flex-1 flex items-center justify-center gap-2 py-3 min-h-[44px] rounded-xl bg-primary text-white text-sm font-semibold hover:bg-primary/90 transition-colors"
+                >
+                  <Phone className="h-4 w-4" /> Call
+                </a>
+                <a
+                  href={SITE.phoneSms}
+                  className="flex-1 flex items-center justify-center gap-2 py-3 min-h-[44px] rounded-xl border-2 border-primary text-primary text-sm font-semibold hover:bg-primary/5 transition-colors"
+                >
+                  <MessageSquare className="h-4 w-4" /> Text
+                </a>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
@@ -56,7 +84,7 @@ export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProp
           <ClipboardList className="h-4 w-4 text-muted-foreground" />
         </div>
         <div className="flex-1 min-w-0">
-          <p className="text-sm font-medium">Prefer a form?</p>
+          <p className="text-sm font-medium">{adLanding ? "Fill out the estimate form" : "Prefer a form?"}</p>
           <p className="text-xs text-muted-foreground">Fill out the estimate request directly</p>
         </div>
         <ChevronDown className={`h-4 w-4 text-muted-foreground transition-transform ${formOpen ? "rotate-180" : ""}`} />
@@ -64,7 +92,7 @@ export function ProjectBuilder({ serviceTitle, serviceSlug }: ProjectBuilderProp
 
       {formOpen && (
         <div className="bg-white rounded-2xl border border-border/50 shadow-sm p-5 animate-in slide-in-from-top-2 duration-200">
-          <LeadForm preselectedService={serviceTitle} compact />
+          <LeadForm preselectedService={serviceTitle} compact leadSource={leadSource} />
         </div>
       )}
     </div>

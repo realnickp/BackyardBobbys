@@ -17,13 +17,25 @@ export default function QuizPage() {
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState<string[]>(() => Array(questions.length).fill(""));
   const [hydrated, setHydrated] = useState(false);
+  // Ad-origin signal (e.g. "google_ads") carried from the landing page so the
+  // contact step tags the lead correctly. Read from the URL, persisted through
+  // the quiz so it survives the full flow.
+  const [adSrc, setAdSrc] = useState("");
 
   // Restore from sessionStorage after mount
   useEffect(() => {
+    let resolvedSrc = "";
+    try {
+      const urlSrc = new URLSearchParams(window.location.search).get("src");
+      if (urlSrc) resolvedSrc = urlSrc;
+    } catch {
+      // ignore
+    }
     try {
       const saved = sessionStorage.getItem(`bb_quiz_${service}`);
       if (saved) {
-        const parsed = JSON.parse(saved) as { answers: string[]; currentStep: number };
+        const parsed = JSON.parse(saved) as { answers: string[]; currentStep: number; src?: string };
+        if (!resolvedSrc && parsed.src) resolvedSrc = parsed.src;
         if (Array.isArray(parsed.answers) && parsed.answers.length === questions.length) {
           setAnswers(parsed.answers);
           setCurrentStep(Math.min(parsed.currentStep ?? 0, questions.length - 1));
@@ -32,6 +44,7 @@ export default function QuizPage() {
     } catch {
       // ignore
     }
+    setAdSrc(resolvedSrc);
     setHydrated(true);
   }, [service, questions.length]);
 
@@ -41,13 +54,13 @@ export default function QuizPage() {
       try {
         sessionStorage.setItem(
           `bb_quiz_${service}`,
-          JSON.stringify({ answers: newAnswers, currentStep: step })
+          JSON.stringify({ answers: newAnswers, currentStep: step, src: adSrc })
         );
       } catch {
         // ignore
       }
     },
-    [service]
+    [service, adSrc]
   );
 
   function handleAnswer(answer: string) {
@@ -64,7 +77,10 @@ export default function QuizPage() {
       }, 320);
     } else {
       persist(newAnswers, currentStep);
-      setTimeout(() => router.push(`/lp/${service}/contact`), 320);
+      setTimeout(
+        () => router.push(`/lp/${service}/contact${adSrc ? `?src=${adSrc}` : ""}`),
+        320
+      );
     }
   }
 

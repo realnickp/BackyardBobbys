@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Section } from "./Section";
 import { CTAButton } from "./CTAButton";
 import { TrustBar } from "./TrustBar";
@@ -31,6 +31,13 @@ interface ServicePageProps {
   galleryCategory: string;
   serviceOffers?: { name: string; description?: string }[];
   children?: React.ReactNode;
+  /**
+   * Ad landing mode. When true, this renders as a distraction-free Google-Ads
+   * landing page: no breadcrumbs, a Call/Text CTA cluster, and every lead entry
+   * point (quiz + estimate form) is tagged `google_ads`. Defaults to false, so
+   * the public service pages are completely unaffected.
+   */
+  adLanding?: boolean;
 }
 
 export function ServicePageTemplate({
@@ -49,7 +56,12 @@ export function ServicePageTemplate({
   galleryCategory,
   serviceOffers,
   children,
+  adLanding,
 }: ServicePageProps) {
+  // In ad-landing mode, force the lead source and carry a `src` signal through
+  // the quiz funnel so only these pages' leads become "google_ads".
+  const leadSource = adLanding ? "google_ads" : undefined;
+  const quizHref = `/lp/${slug}/quiz${leadSource ? `?src=${leadSource}` : ""}`;
   const galleryItems = GALLERY_ITEMS.filter((item) => item.category === galleryCategory);
   const testimonial = TESTIMONIALS.find(
     (t) => t.service.toLowerCase().includes(title.toLowerCase().split(" ")[0]) || t.service === title
@@ -65,10 +77,12 @@ export function ServicePageTemplate({
       />
       <FAQPageSchema faqs={faqs.map((f) => ({ question: f.question, answer: f.answer }))} />
 
-      <Breadcrumbs items={[
-        { label: "Services", href: "/services" },
-        { label: title },
-      ]} />
+      {!adLanding && (
+        <Breadcrumbs items={[
+          { label: "Services", href: "/services" },
+          { label: title },
+        ]} />
+      )}
 
       <article>
 
@@ -102,13 +116,18 @@ export function ServicePageTemplate({
               </ScrollReveal>
               <ScrollReveal direction="up" delay={0.3}>
               <div className="flex flex-col sm:flex-row gap-3">
-                <CTAButton href={`/lp/${slug}/quiz`} size="lg">
-                  Start Your {title} Project
+                <CTAButton href={quizHref} size="lg">
+                  {adLanding ? "Start My Free Estimate" : `Start Your ${title} Project`}
                   <ArrowRight className="h-5 w-5" />
                 </CTAButton>
                 <CTAButton variant="phone" size="lg">
                   Call {SITE.phone}
                 </CTAButton>
+                {adLanding && (
+                  <CTAButton variant="text" size="lg">
+                    Text {SITE.phone}
+                  </CTAButton>
+                )}
               </div>
               </ScrollReveal>
             </div>
@@ -149,7 +168,7 @@ export function ServicePageTemplate({
           </ScrollReveal>
           <ScrollReveal direction="right" delay={0.2} className="lg:col-span-2">
             <div className="lg:sticky lg:top-24">
-              <ProjectBuilder serviceTitle={title} serviceSlug={slug} />
+              <ProjectBuilder serviceTitle={title} serviceSlug={slug} leadSource={leadSource} adLanding={adLanding} />
             </div>
           </ScrollReveal>
         </div>
@@ -324,12 +343,17 @@ export function ServicePageTemplate({
             Get a free, no-obligation estimate from a licensed contractor. We respond within one business day.
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-3">
-            <CTAButton href={`/lp/${slug}/quiz`} size="lg">
+            <CTAButton href={quizHref} size="lg">
               Start Your Project <ArrowRight className="h-5 w-5" />
             </CTAButton>
             <CTAButton variant="phone" size="lg">
               Call {SITE.phone}
             </CTAButton>
+            {adLanding && (
+              <CTAButton variant="text" size="lg">
+                Text {SITE.phone}
+              </CTAButton>
+            )}
           </div>
           <p className="mt-5">
             <a href="/financing" className="text-sm text-white/50 hover:text-brand transition-colors underline underline-offset-2">

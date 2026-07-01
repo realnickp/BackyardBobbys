@@ -2,12 +2,12 @@
 
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { Phone } from "lucide-react";
+import { Phone, MessageSquare } from "lucide-react";
 import { SITE } from "@/lib/constants";
 import { trackEvent } from "@/lib/analytics";
 
 interface CTAButtonProps {
-  variant?: "primary" | "secondary" | "phone" | "outline" | "outline-light";
+  variant?: "primary" | "secondary" | "phone" | "text" | "outline" | "outline-light";
   size?: "default" | "lg";
   href?: string;
   onClick?: () => void;
@@ -32,6 +32,8 @@ export function CTAButton({
     secondary: "bg-primary text-primary-foreground hover:bg-primary/90",
     phone:
       "bg-white/10 text-white border border-white/25 backdrop-blur-sm hover:bg-white/20 hover:border-white/40",
+    text:
+      "bg-white/10 text-white border border-white/25 backdrop-blur-sm hover:bg-white/20 hover:border-white/40",
     outline:
       "border-2 border-brand text-brand hover:bg-brand hover:text-white hover:scale-[1.02]",
     "outline-light":
@@ -48,6 +50,8 @@ export function CTAButton({
   const handleClick = () => {
     if (variant === "phone") {
       trackEvent("cta_phone_click");
+    } else if (variant === "text") {
+      trackEvent("cta_text_click");
     } else {
       trackEvent("cta_click", { variant });
     }
@@ -59,6 +63,15 @@ export function CTAButton({
       <a href={SITE.phoneTel} className={classes} onClick={handleClick}>
         <Phone className="h-4 w-4" />
         {children ?? `Call ${SITE.phone}`}
+      </a>
+    );
+  }
+
+  if (variant === "text") {
+    return (
+      <a href={SITE.phoneSms} className={classes} onClick={handleClick}>
+        <MessageSquare className="h-4 w-4" />
+        {children ?? `Text ${SITE.phone}`}
       </a>
     );
   }

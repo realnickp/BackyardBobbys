@@ -15,8 +15,14 @@ import {
 } from "lucide-react";
 import { PRIMARY_SERVICES, SITE, TESTIMONIALS } from "@/lib/constants";
 import { UtmSaver } from "@/components/lp/UtmSaver";
+import { LpTopBar } from "@/components/lp/LpTopBar";
+import { LpStickyCTA } from "@/components/lp/LpStickyCTA";
+import { LpSiteLinks } from "@/components/lp/LpSiteLinks";
+import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
+import { StampedConcreteStyles } from "@/components/shared/StampedConcreteStyles";
+import { SERVICE_CONTENT } from "@/lib/service-content";
 
-// ── Service-specific LP content ─────────────────────────────────────────────
+// ── Service-specific LP content (thin fallback pages only) ───────────────────
 
 const LP_CONTENT: Record<
   string,
@@ -160,9 +166,34 @@ export default async function LpServicePage({
 }) {
   const { service } = await params;
   const svc = PRIMARY_SERVICES.find((s) => s.slug === service);
-  const content = LP_CONTENT[service];
+  if (!svc) notFound();
 
-  if (!svc || !content) notFound();
+  // ── Fully built-out ad landing page (matches the service page) ───────────
+  const richContent = SERVICE_CONTENT[service];
+  if (richContent) {
+    return (
+      <>
+        {/* UTM saver — captures utm_campaign etc. for the quiz → contact flow */}
+        <Suspense fallback={null}>
+          <UtmSaver />
+        </Suspense>
+        <LpTopBar />
+        <div className="pb-16 lg:pb-0">
+          <ServicePageTemplate {...richContent} adLanding>
+            {service === "stamped-concrete" ? (
+              <StampedConcreteStyles leadSource="google_ads" />
+            ) : null}
+          </ServicePageTemplate>
+          <LpSiteLinks serviceTitle={richContent.title} />
+        </div>
+        <LpStickyCTA serviceSlug={service} />
+      </>
+    );
+  }
+
+  // ── Thin fallback page (services without a built-out landing page) ────────
+  const content = LP_CONTENT[service];
+  if (!content) notFound();
 
   const testimonial = TESTIMONIALS[content.testimonialIndex];
 

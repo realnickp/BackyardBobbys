@@ -6,7 +6,7 @@ import { LeadForm } from "./LeadForm";
 import { Section } from "./Section";
 import type { StampedConcreteStyle } from "@/lib/constants";
 
-export function StampedConcreteStyles() {
+export function StampedConcreteStyles({ leadSource }: { leadSource?: string }) {
   const [selected, setSelected] = useState<StampedConcreteStyle | null>(null);
 
   return (
@@ -38,6 +38,7 @@ export function StampedConcreteStyles() {
               preselectedService="Stamped Concrete"
               preferredStyle={selected.name}
               compact
+              leadSource={leadSource}
             />
           </div>
         </div>

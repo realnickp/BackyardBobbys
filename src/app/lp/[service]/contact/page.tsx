@@ -11,6 +11,7 @@ import { useAntiSpam, HoneypotField } from "@/components/shared/anti-spam";
 interface StoredQuiz {
   answers: string[];
   currentStep: number;
+  src?: string;
 }
 
 interface StoredUtm {
@@ -39,6 +40,10 @@ export default function ContactPage() {
   const [answers, setAnswers] = useState<string[]>([]);
   const [utm, setUtm] = useState<StoredUtm>({ utm_source: "", utm_medium: "", utm_campaign: "", fbclid: "" });
   const [hydrated, setHydrated] = useState(false);
+  // Ad-origin signal carried from the landing page → quiz. When set (e.g.
+  // "google_ads"), it overrides UTM detection so ad-landing leads are always
+  // tagged correctly, even if the ad's UTM was missing or malformed.
+  const [adSrc, setAdSrc] = useState("");
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -49,11 +54,19 @@ export default function ContactPage() {
   const { honeypotValue, setHoneypotValue, antiSpamFields } = useAntiSpam();
 
   useEffect(() => {
+    let resolvedSrc = "";
+    try {
+      const urlSrc = new URLSearchParams(window.location.search).get("src");
+      if (urlSrc) resolvedSrc = urlSrc;
+    } catch {
+      // ignore
+    }
     try {
       const savedQuiz = sessionStorage.getItem(`bb_quiz_${service}`);
       if (savedQuiz) {
         const parsed = JSON.parse(savedQuiz) as StoredQuiz;
         setAnswers(parsed.answers ?? []);
+        if (!resolvedSrc && parsed.src) resolvedSrc = parsed.src;
       }
       const savedUtm = sessionStorage.getItem("bb_utm");
       if (savedUtm) {
@@ -62,6 +75,7 @@ export default function ContactPage() {
     } catch {
       // ignore
     }
+    setAdSrc(resolvedSrc);
     setHydrated(true);
   }, [service]);
 
@@ -87,7 +101,9 @@ export default function ContactPage() {
 
     setLoading(true);
     try {
-      const source = detectSource(utm);
+      // Ad-landing leads are always tagged with their carried source
+      // (google_ads); organic quiz leads fall back to UTM detection.
+      const source = adSrc || detectSource(utm);
       const lastAnswer = answers[answers.length - 1] ?? "";
       const timeframe = extractTimeframe(lastAnswer);
       const budget = extractBudget(answers);
@@ -124,6 +140,9 @@ export default function ContactPage() {
       }
 
       trackEvent("funnel_lead_submitted", { service, source, timeframe, budget });
+      // NOTE: the Google Ads "project_builder" conversion fires on the /thanks
+      // page (reached right after this submit), so we intentionally do NOT fire
+      // a conversion here — that would double-count the funnel.
 
       // Clear quiz state
       try {
