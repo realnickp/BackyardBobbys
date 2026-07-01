@@ -144,7 +144,7 @@ export function LpServiceLanding({
         </div>
 
         {/* ── Filmstrip: the work, moved to the top of the page ───────────── */}
-        <div className="pb-10 lg:pb-14 lg:pt-16">
+        <div id="work" className="pb-10 lg:pb-14 lg:pt-16 scroll-mt-28">
           <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex items-baseline justify-between mb-4">
             <span className="font-mono text-xs font-semibold uppercase tracking-[0.25em]">
               Recent work
@@ -193,8 +193,8 @@ export function LpServiceLanding({
           </div>
 
           {/* Estimate ticket — the one conversion object on the page */}
-          <aside id="estimate" className="lg:col-span-5 lg:row-span-2">
-            <div className="lg:sticky lg:top-20 border border-primary/20 bg-warm-bg shadow-[8px_8px_0_0_var(--brand)]">
+          <aside id="estimate" className="lg:col-span-5 lg:row-span-2 scroll-mt-28">
+            <div className="lg:sticky lg:top-32 border border-primary/20 bg-warm-bg shadow-[8px_8px_0_0_var(--brand)]">
               <div className="flex items-center justify-between bg-primary px-5 py-3">
                 <span className="font-mono text-[11px] uppercase tracking-[0.2em] text-primary-foreground">
                   Estimate request
@@ -222,8 +222,8 @@ export function LpServiceLanding({
             </div>
           </aside>
 
-          <div className="lg:col-span-7">
-            <SectionLabel no="01" title="What you're getting" />
+          <div id="benefits" className="lg:col-span-7 scroll-mt-28">
+            <SectionLabel no="01" title="Why Bobby's" />
             <ul className="divide-y divide-border border-y border-border">
               {benefits.map((benefit, i) => (
                 <li key={benefit.title} className="grid grid-cols-[2.5rem_1fr] gap-x-4 py-5">
@@ -260,9 +260,9 @@ export function LpServiceLanding({
       )}
 
       {/* ── Process — dark zone ──────────────────────────────────────────── */}
-      <section className="dark-textured bg-primary text-primary-foreground">
+      <section id="process" className="dark-textured bg-primary text-primary-foreground scroll-mt-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-14 lg:py-24">
-          <SectionLabel no="02" title="How it goes" light />
+          <SectionLabel no="02" title="The process" light />
           <div className="grid gap-12 lg:grid-cols-12 lg:gap-16">
             <ol className="lg:col-span-7 space-y-10">
               {process.map((step) => (
@@ -318,7 +318,7 @@ export function LpServiceLanding({
       )}
 
       {/* ── Financing (Wisetack prequalify) ──────────────────────────────── */}
-      <section id="financing" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 scroll-mt-16">
+      <section id="financing" className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20 scroll-mt-28">
         <SectionLabel no="03" title="Pay over time" />
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
@@ -359,7 +359,7 @@ export function LpServiceLanding({
       </section>
 
       {/* ── FAQ ──────────────────────────────────────────────────────────── */}
-      <section className="bg-warm-bg border-t border-border">
+      <section id="faq" className="bg-warm-bg border-t border-border scroll-mt-28">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12 lg:py-20">
           <div className="max-w-3xl">
             <SectionLabel no="04" title="Straight answers" />

@@ -134,6 +134,17 @@ const LP_CONTENT: Record<
   },
 };
 
+// Anchor menu for the rich landing pages — numbers match the on-page section
+// labels in LpServiceLanding.
+const LP_MENU_SECTIONS = [
+  { href: "#work", label: "Recent Work" },
+  { href: "#estimate", label: "Free Estimate" },
+  { href: "#benefits", label: "Why Bobby's", no: "01" },
+  { href: "#process", label: "The Process", no: "02" },
+  { href: "#financing", label: "Pay Over Time", no: "03" },
+  { href: "#faq", label: "Straight Answers", no: "04" },
+];
+
 // ── Static params ────────────────────────────────────────────────────────────
 
 export function generateStaticParams() {
@@ -177,7 +188,7 @@ export default async function LpServicePage({
         <Suspense fallback={null}>
           <UtmSaver />
         </Suspense>
-        <LpTopBar />
+        <LpTopBar sections={LP_MENU_SECTIONS} />
         <div className="pb-16 lg:pb-0">
           <LpServiceLanding content={richContent}>
             {service === "stamped-concrete" ? (
