@@ -100,7 +100,9 @@
     padding-bottom: env(safe-area-inset-bottom, 0px);
   }
   h1, h2 {
-    font-family: var(--font-display), Georgia, serif;
+    /* --font-display lives in @theme inline, which never emits a runtime CSS
+       variable — reference the next/font variable directly. */
+    font-family: var(--font-dm-serif), Georgia, serif;
     @apply tracking-tight font-normal;
     color: inherit;
   }
@@ -130,7 +132,7 @@
     text-wrap: balance;
   }
   .font-display {
-    font-family: var(--font-display), Georgia, serif;
+    font-family: var(--font-dm-serif), Georgia, serif;
   }
   .fade-in {
     animation: fadeIn 0.7s ease-out forwards;

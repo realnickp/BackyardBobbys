@@ -18,7 +18,7 @@ import { UtmSaver } from "@/components/lp/UtmSaver";
 import { LpTopBar } from "@/components/lp/LpTopBar";
 import { LpStickyCTA } from "@/components/lp/LpStickyCTA";
 import { LpSiteLinks } from "@/components/lp/LpSiteLinks";
-import { ServicePageTemplate } from "@/components/shared/ServicePageTemplate";
+import { LpServiceLanding } from "@/components/lp/LpServiceLanding";
 import { StampedConcreteStyles } from "@/components/shared/StampedConcreteStyles";
 import { SERVICE_CONTENT } from "@/lib/service-content";
 
@@ -179,11 +179,11 @@ export default async function LpServicePage({
         </Suspense>
         <LpTopBar />
         <div className="pb-16 lg:pb-0">
-          <ServicePageTemplate {...richContent} adLanding>
+          <LpServiceLanding content={richContent}>
             {service === "stamped-concrete" ? (
               <StampedConcreteStyles leadSource="google_ads" />
             ) : null}
-          </ServicePageTemplate>
+          </LpServiceLanding>
           <LpSiteLinks serviceTitle={richContent.title} />
         </div>
         <LpStickyCTA serviceSlug={service} />
