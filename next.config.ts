@@ -54,6 +54,8 @@ const nextConfig: NextConfig = {
 
       // Old contact/quote paths
       { source: "/contact-us", destination: "/contact", permanent: true },
+      { source: "/about-us", destination: "/about", permanent: true },
+      { source: "/about-us/", destination: "/about", permanent: true },
       { source: "/free-estimate", destination: "/quote", permanent: true },
       { source: "/estimate", destination: "/quote", permanent: true },
       { source: "/get-a-quote", destination: "/quote", permanent: true },
@@ -68,6 +70,21 @@ const nextConfig: NextConfig = {
       { source: "/how-proper-excavation-sets-the-stage-for-a-lasting-outdoor-project/", destination: "/blog/excavation-grading-drainage-basics", permanent: true },
       { source: "/wood-vs-vinyl-fencing-which-is-best-for-your-home", destination: "/blog/best-fence-materials-maryland", permanent: true },
       { source: "/wood-vs-vinyl-fencing-which-is-best-for-your-home/", destination: "/blog/best-fence-materials-maryland", permanent: true },
+      { source: "/gravel-vs-concrete-shed-base", destination: "/blog/gravel-pad-vs-concrete-shed-base", permanent: true },
+      { source: "/gravel-vs-concrete-shed-base/", destination: "/blog/gravel-pad-vs-concrete-shed-base", permanent: true },
+      { source: "/why-fall-is-the-perfect-time-to-start-building-your-dream-deck", destination: "/blog/composite-vs-wood-decks-maryland", permanent: true },
+      { source: "/why-fall-is-the-perfect-time-to-start-building-your-dream-deck/", destination: "/blog/composite-vs-wood-decks-maryland", permanent: true },
+      { source: "/paver-patio-designs-that-will-elevate-your-outdoor-living-space", destination: "/services/hardscaping", permanent: true },
+      { source: "/paver-patio-designs-that-will-elevate-your-outdoor-living-space/", destination: "/services/hardscaping", permanent: true },
+
+      // Dropped services from the old site
+      { source: "/junk-hauling", destination: "/services/excavation-and-demolition", permanent: true },
+      { source: "/junk-hauling/", destination: "/services/excavation-and-demolition", permanent: true },
+
+      // WordPress archive pages that have no equivalent
+      { source: "/author/:path*", destination: "/blog", permanent: true },
+      { source: "/category/:path*", destination: "/blog", permanent: true },
+      { source: "/tag/:path*", destination: "/blog", permanent: true },
 
       // Trailing slash variants for service pages
       { source: "/services/roofing/", destination: "/services/roofing", permanent: true },
