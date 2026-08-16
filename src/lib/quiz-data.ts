@@ -371,6 +371,87 @@ export const QUIZ_DATA: Record<string, QuizQuestion[]> = {
     },
   ],
 
+  "patios-and-walkways": [
+    {
+      question: "What are we building?",
+      subtext:
+        "Patios, walkways, pool decks: Bobby builds them all, in every style. Pick what you have in mind and he'll take it from there.",
+      options: [
+        { label: "Patio", emoji: "🏖️" },
+        { label: "Walkway / front entry", emoji: "👣" },
+        { label: "Pool deck", emoji: "🏊" },
+        { label: "More than one of these", emoji: "✨" },
+      ],
+    },
+    {
+      question: "Approximately how large?",
+      subtext:
+        "A rough guess is fine. Bobby measures everything precisely at your free estimate, and there's no wrong answer here.",
+      options: [
+        { label: "Under 200 sq ft", emoji: "📐" },
+        { label: "200–500 sq ft", emoji: "🏡" },
+        { label: "500+ sq ft", emoji: "🔥" },
+        { label: "Not sure yet", emoji: "🤔" },
+      ],
+    },
+    {
+      question: "What surface are you leaning toward?",
+      subtext:
+        "Bobby installs every one of these, so you'll get an honest recommendation, not a sales pitch for whichever material a company happens to sell.",
+      options: [
+        { label: "Stamped concrete", emoji: "🪨" },
+        { label: "Broom-finished concrete", emoji: "⬜" },
+        { label: "Pavers / brick", emoji: "🧱" },
+        { label: "Help me decide", emoji: "💭" },
+      ],
+    },
+    {
+      question: "Is there an existing surface to deal with?",
+      subtext:
+        "Bobby's crew handles tear-out, hauling, and disposal as part of the job, so you never have to coordinate a separate contractor.",
+      options: [
+        { label: "Starting fresh", emoji: "✨" },
+        { label: "Old concrete to remove", emoji: "🔨" },
+        { label: "Pavers or stone to pull up", emoji: "🧱" },
+        { label: "Not sure", emoji: "🤔" },
+      ],
+    },
+    {
+      question: "What's the sun and use situation?",
+      subtext:
+        "Pool decks get a non-slip finish as standard, and full-sun surfaces call for lighter colors and UV-rated sealers. Bobby specs all of this for your exact conditions.",
+      options: [
+        { label: "Full sun most of the day", emoji: "☀️" },
+        { label: "Mix of sun and shade", emoji: "🌤️" },
+        { label: "Mostly shaded", emoji: "🌿" },
+        { label: "Pool deck — needs anti-slip finish", emoji: "🏊" },
+      ],
+    },
+    {
+      question: "What's your rough budget in mind?",
+      subtext:
+        "This helps Bobby show up with the right options for your situation. There's no wrong answer, and he works at every price point.",
+      options: [
+        { label: "Under $5,000", emoji: "💵" },
+        { label: "$5,000–$12,000", emoji: "💰" },
+        { label: "$12,000–$25,000", emoji: "💎" },
+        { label: "Still figuring it out", emoji: "🤔" },
+      ],
+    },
+    DECISION_STAGE_QUESTION,
+    {
+      question: "When do you want to get started?",
+      subtext:
+        "Bobby's calendar fills fast in the warm months. The sooner you lock in your estimate, the better your spot in line.",
+      options: [
+        { label: "ASAP — I'm ready!", emoji: "⚡" },
+        { label: "Within 3 months", emoji: "📅" },
+        { label: "This summer", emoji: "☀️" },
+        { label: "Just exploring", emoji: "🔍" },
+      ],
+    },
+  ],
+
   "driveway-installation": [
     {
       question: "What type of driveway work do you need?",

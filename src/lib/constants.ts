@@ -416,6 +416,13 @@ export const PRIMARY_SERVICES = [
     image: "/images/stamped-concrete-driveway-decorative-01.webp",
   },
   {
+    title: "Patios & Walkways",
+    slug: "patios-and-walkways",
+    shortDesc: "Custom patios, walkways, and pool decks built for outdoor living.",
+    icon: "Sun",
+    image: "/images/stamped-concrete-img.webp",
+  },
+  {
     title: "Hardscaping",
     slug: "hardscaping",
     shortDesc: "Patios, walkways, and retaining walls that transform your yard.",
@@ -556,6 +563,23 @@ export const STAMPED_CONCRETE_STYLES: StampedConcreteStyle[] = [
 ];
 
 export const GALLERY_ITEMS = [
+  // ── Patios & Walkways ──────────────────────────────────────────────────────
+  { src: "/images/stamped-concrete-img.webp", alt: "Round stamped concrete patio with fire pit and walkway in Anne Arundel County", category: "Patios & Walkways", width: 2000, height: 1333 },
+  { src: "/images/hardscape-stamped-concrete-flagstone-patio.jpg", alt: "Flagstone-pattern concrete patio with stone seating wall behind a Maryland home", category: "Patios & Walkways", width: 720, height: 960 },
+  { src: "/images/hardscape-stamped-flagstone-wall-closeup.jpg", alt: "Sealed flagstone-pattern patio with stone wall cap close-up", category: "Patios & Walkways", width: 720, height: 540 },
+  { src: "/images/patio-under-deck-stamped-concrete.png", alt: "Concrete patio poured under an elevated deck for shaded outdoor living", category: "Patios & Walkways", width: 680, height: 510 },
+  { src: "/images/stamped-18x18-slate.png", alt: "Slate-pattern concrete patio in diamond layout with drainage channel", category: "Patios & Walkways", width: 1920, height: 1440 },
+  { src: "/images/stamped-cesar-stone.jpg", alt: "New concrete pool deck poured and textured around an in-ground pool", category: "Patios & Walkways", width: 1920, height: 1440 },
+  { src: "/images/Patio-Red-Block-with-Compas-rotated.webp", alt: "Backyard patio with decorative compass rose medallion and dark border", category: "Patios & Walkways", width: 320, height: 240 },
+  { src: "/images/Stamped-Patio-with-planter-2-rotated.webp", alt: "Curved backyard patio with pergola and planting beds in Maryland", category: "Patios & Walkways", width: 320, height: 240 },
+  { src: "/images/Back-patio-Back-Wall-Close-Up-rotated.webp", alt: "Back patio with stone knee wall and cap detail", category: "Patios & Walkways", width: 320, height: 240 },
+  { src: "/images/paver-walkway-interlocking-bricks-01.jpeg", alt: "Interlocking paver walkway with circle inlay leading to a front porch", category: "Patios & Walkways", width: 1123, height: 1123 },
+  { src: "/images/paver-installation-concrete-stones-02.webp", alt: "Crew hand-setting interlocking pavers on a screeded base", category: "Patios & Walkways", width: 2048, height: 1365 },
+  { src: "/images/stamped-ashlar-slate.jpg", alt: "Curved walkway with slate pattern and broom-finished border at a front entry", category: "Patios & Walkways", width: 1920, height: 1440 },
+  { src: "/images/stamped-basketweave-brick.jpg", alt: "Brick basketweave walkway with contrasting border beside porch steps", category: "Patios & Walkways", width: 461, height: 615 },
+  { src: "/images/stamped-london-cobblestone.jpg", alt: "Cobblestone-pattern patio and drive with dark contrasting border", category: "Patios & Walkways", width: 1920, height: 1440 },
+  { src: "/images/hardscape-stamped-walkway-to-dock.jpg", alt: "Custom walkway with grapevine border leading down to a private dock", category: "Patios & Walkways", width: 720, height: 960 },
+
   // ── Decks ──────────────────────────────────────────────────────────────────
   { src: "/images/wood-deck-construction-01.webp", alt: "Custom wood deck with railing overlooking wooded backyard in Anne Arundel County", category: "Decks", width: 1200, height: 800 },
   { src: "/images/deck-composite-railing-steps.jpg", alt: "Composite deck with black aluminum railing and wide steps in Maryland backyard", category: "Decks", width: 1200, height: 800 },

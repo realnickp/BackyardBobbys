@@ -5,7 +5,7 @@
 // (`/lp/[slug]`). Both render the same <ServicePageTemplate> from this data, so
 // the two page sets can never drift apart.
 //
-// Only the five services we run paid ads for live here. The remaining service
+// Only the services we run paid ads for live here. The remaining service
 // pages keep their own inline content.
 
 export interface ServiceContent {
@@ -83,6 +83,62 @@ export const SERVICE_CONTENT: Record<string, ServiceContent> = {
       { title: "Decks", slug: "decks" },
     ],
     galleryCategory: "Stamped Concrete",
+  },
+
+  // ── Patios & Walkways ─────────────────────────────────────────────────────
+  "patios-and-walkways": {
+    title: "Patios & Walkways",
+    slug: "patios-and-walkways",
+    heroImage: "/images/stamped-concrete-img.webp",
+    heroAlt:
+      "Round stamped concrete patio with fire pit built by Backyard Bobby's in Anne Arundel County Maryland",
+    headline: "Custom Patios, Walkways & Pool Decks Built for Maryland Outdoor Living",
+    subheadline:
+      "Broom-finished concrete, stamped patterns, or pavers: we build every style of patio, walkway, and pool deck, not just one. Each surface is engineered for Anne Arundel County's clay soil and freeze-thaw winters, and we help you pick the style that fits your home and budget.",
+    factNugget:
+      "Backyard Bobby's has built patios, walkways, and pool decks across Annapolis, Severna Park, Pasadena, Crofton, Millersville, and throughout Anne Arundel County. Every surface starts with a compacted stone base engineered for local clay soil, and every pool deck gets a non-slip finish as standard. Licensed MHIC #05-163777. Most patios finish in 2 to 5 working days; installed costs typically run $8 to $22 per square foot for concrete and $18 to $30+ for pavers.",
+    serviceOffers: [
+      { name: "Concrete Patio Installation", description: "Broom-finished and decorative concrete patios poured on compacted stone bases" },
+      { name: "Stamped Concrete Patios & Walkways", description: "Stone, slate, and brick stamp patterns with integral color and borders" },
+      { name: "Paver Patios & Walkways", description: "Interlocking paver surfaces with polymeric sand joints and edge restraints" },
+      { name: "Pool Deck Installation", description: "Non-slip concrete pool decks with texture additives and heat-reflective light colors" },
+      { name: "Front Entry & Garden Walkways", description: "Welcoming front walks and garden paths graded for proper drainage" },
+      { name: "Patio Extensions & Replacements", description: "Expanding, replacing, or tearing out and rebuilding existing patios and walks" },
+    ],
+    intro: [
+      "A patio is where your family actually lives from April through October. A front walkway is the first thing every guest touches on the way to your door. A pool deck is where the kids spend their whole summer barefoot. These surfaces get used harder than almost anything else on your property, so they deserve to be built right. At Backyard Bobby's, we design and build patios, walkways, and pool decks in every major surface: stamped concrete that looks like natural stone, classic broom-finished concrete, and interlocking pavers.",
+      "Because we install all of them, we have no reason to steer you toward one. What we will do is walk your yard with you, talk through how you plan to use the space, and give you an honest recommendation based on your budget, your soil, and how much upkeep you want to sign up for. Bring up any surface you've seen and liked; odds are we've built it somewhere in Anne Arundel County.",
+      "What makes an outdoor surface last in Maryland has little to do with what you see on the surface. Our clay soil holds water, and our winters freeze and thaw over and over. The projects that survive are the ones with real excavation, a compacted stone base, drainage planned from the start, and joints placed where they belong. That below-the-surface work is where we refuse to cut corners, because it's the difference between a patio that looks right for 25 years and one that heaves in two winters.",
+    ],
+    benefits: [
+      { title: "Every Surface Option Under One Roof", description: "Stamped concrete, broom-finished concrete, and pavers, all installed by the same crew. We recommend what actually fits your project and budget, not whichever material we happen to sell." },
+      { title: "Engineered for Clay Soil & Freeze-Thaw", description: "We dig past the soft stuff, compact stone base in layers, and pour air-entrained concrete mixes built for Maryland winters, with control joints planned on paper before the truck ever arrives." },
+      { title: "Pool Decks Done Safely", description: "Every pool deck we build gets a non-slip texture or grit-in-the-sealer finish as standard, light heat-reflective color options, and proper pitch so splash-out drains away from the pool." },
+      { title: "Drainage Planned From Day One", description: "Patios and walkways are graded to move water away from your house and your foundation. Where the yard works against us, we build in channel drains and drainage solutions before the surface goes down." },
+      { title: "Detail Work You Can See", description: "Contrasting borders, clean saw cuts, tight edges, and patterns lined up the way they should be. Bobby brings sample chips and stamp patterns to your estimate so you choose colors in your own light, not off a screen." },
+      { title: "Licensed, Insured & Local", description: "MHIC license #05-163777 with full liability coverage, which puts your project under Maryland's Home Improvement Guaranty Fund. Bobby has lived and worked in Anne Arundel County his whole life." },
+    ],
+    process: [
+      { step: 1, title: "Design Consultation & Layout", description: "We meet at your property, measure the space, and talk through how you'll actually use it. You'll see stamp patterns, color samples, and paver options in your own outdoor light, and we mark the footprint so you can walk the layout before anything is dug." },
+      { step: 2, title: "Excavation & Base Prep", description: "We excavate past topsoil and soft clay, establish grade so water drains away from your home and pool, and build a compacted stone base in layers. This hidden work is what decides whether the surface lasts, so it gets the most attention." },
+      { step: 3, title: "Pour or Set the Surface", description: "For concrete, we pour, color, stamp, and finish with joints cut on time and in the right places. For pavers, we screed the bedding, hand-set the pattern, cut clean edges, and lock everything with edge restraints and polymeric sand." },
+      { step: 4, title: "Cure, Seal & Final Walkthrough", description: "Concrete cures properly before it's sealed, pool decks get their non-slip additive in every coat, and we walk the finished surface with you. You'll get straightforward care instructions, including when to reseal and what to keep off it the first winter." },
+    ],
+    faqs: [
+      { question: "How much does a new patio cost in Anne Arundel County?", answer: "Broom-finished concrete patios typically run $8 to $12 per square foot installed. Stamped concrete runs $12 to $22 depending on pattern and color detail. Paver patios run $18 to $30 and up. Most patios we build are 300 to 500 square feet, so full projects usually land between $3,000 and $12,000. Access, excavation needs, and tear-out of an old surface move the number, and we spell all of it out in the estimate." },
+      { question: "Should I choose stamped concrete or pavers?", answer: "We install both, so you'll get a straight answer. Stamped concrete gives you the high-end stone look for less money and has no joints for weeds. Pavers cost more but individual units can be lifted and reset if anything shifts, and they shrug off winter salt better. The right choice depends on your budget, the site, and how you feel about resealing every few years. We'll walk you through it at the estimate." },
+      { question: "Will my pool deck get slippery or too hot?", answer: "Not the way we build them. Every pool deck gets a textured finish plus a grit additive mixed into the sealer, which gives bare feet grip without changing the look. For heat, color does most of the work: light buff and sand tones stay far more comfortable in July sun than charcoal. Bobby brings color chips to the estimate so you can feel the difference outside in daylight." },
+      { question: "How long does a patio or walkway take to install?", answer: "Most concrete patios and walkways are formed, poured, and finished in 2 to 3 working days, then need about a week of curing before furniture goes on. Paver projects typically take 3 to 5 working days depending on size and pattern. Pool decks and projects that need drainage work or tear-out run a bit longer, and we give you the schedule in writing before we start." },
+      { question: "Will the concrete crack?", answer: "All concrete develops some hairline cracking over its life, and anyone who promises otherwise is not being straight with you. What we control is where and how much: a properly compacted base, full slab thickness, an air-entrained mix designed for freeze-thaw, and control joints planned so any cracking happens inside the joint lines where you'll never notice it." },
+      { question: "Do I need a permit for a patio or walkway?", answer: "Ground-level patios and walkways generally don't require a permit in Anne Arundel County. Projects within the Chesapeake Bay Critical Area, within 1,000 feet of the Bay or its tidal tributaries, can trigger additional review because of impervious surface limits. We know the county requirements and handle any paperwork your project needs." },
+    ],
+    relatedServices: [
+      { title: "Stamped Concrete", slug: "stamped-concrete" },
+      { title: "Hardscaping", slug: "hardscaping" },
+      { title: "Driveway Installation", slug: "driveway-installation" },
+      { title: "Excavation & Demolition", slug: "excavation-and-demolition" },
+    ],
+    galleryCategory: "Patios & Walkways",
   },
 
   // ── Hardscaping ───────────────────────────────────────────────────────────
