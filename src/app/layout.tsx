@@ -75,11 +75,6 @@ export const metadata: Metadata = {
     "site preparation Maryland",
     SITE.license,
   ],
-  appleWebApp: {
-    capable: true,
-    title: "BB Leads",
-    statusBarStyle: "default",
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
