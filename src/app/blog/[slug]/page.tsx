@@ -36,6 +36,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function inlineMd(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
+    .replace(
+      /\[([^\]]+)\]\(([^)]+)\)/g,
+      '<a href="$2" class="text-brand font-medium underline underline-offset-2 hover:text-brand-dark transition-colors">$1</a>'
+    );
+}
+
 function renderMarkdown(content: string) {
   const lines = content.split("\n");
   const elements: React.ReactNode[] = [];
@@ -88,7 +97,7 @@ function renderMarkdown(content: string) {
             <thead>
               <tr className="bg-warm-bg">
                 {headers.map((h, hi) => (
-                  <th key={hi} className="px-4 py-3 text-left font-bold text-foreground border-b border-border/40" dangerouslySetInnerHTML={{ __html: h.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>") }} />
+                  <th key={hi} className="px-4 py-3 text-left font-bold text-foreground border-b border-border/40" dangerouslySetInnerHTML={{ __html: inlineMd(h) }} />
                 ))}
               </tr>
             </thead>
@@ -96,7 +105,7 @@ function renderMarkdown(content: string) {
               {rows.map((row, ri) => (
                 <tr key={ri} className={ri % 2 === 1 ? "bg-warm-bg/50" : ""}>
                   {row.map((cell, ci) => (
-                    <td key={ci} className="px-4 py-3 text-muted-foreground border-b border-border/20" dangerouslySetInnerHTML={{ __html: cell.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>") }} />
+                    <td key={ci} className="px-4 py-3 text-muted-foreground border-b border-border/20" dangerouslySetInnerHTML={{ __html: inlineMd(cell) }} />
                   ))}
                 </tr>
               ))}
@@ -123,20 +132,18 @@ function renderMarkdown(content: string) {
       );
     } else if (trimmed.startsWith("- ") || trimmed.startsWith("* ")) {
       inList = true;
-      const content = trimmed
-        .replace(/^[-*] /, "")
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      const content = inlineMd(trimmed.replace(/^[-*] /, ""));
       listItems.push(content);
     } else if (/^\d+\. /.test(trimmed)) {
       flushList();
       inList = true;
-      const content = trimmed.replace(/^\d+\. /, "").replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      const content = inlineMd(trimmed.replace(/^\d+\. /, ""));
       listItems.push(content);
     } else if (trimmed === "") {
       flushList();
     } else {
       flushList();
-      const html = trimmed.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
+      const html = inlineMd(trimmed);
       elements.push(
         <p key={`p-${i}`} className="text-muted-foreground leading-relaxed mb-4" dangerouslySetInnerHTML={{ __html: html }} />
       );

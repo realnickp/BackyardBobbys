@@ -53,7 +53,7 @@ export default function BlogPage() {
       {/* ─── BLOG CARD GRID ─── */}
       <Section>
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-          {BLOG_POSTS.map((post) => (
+          {[...BLOG_POSTS].sort((a, b) => b.date.localeCompare(a.date)).map((post) => (
             <Link
               key={post.slug}
               href={`/blog/${post.slug}`}
