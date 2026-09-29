@@ -27,6 +27,12 @@ const nextConfig: NextConfig = {
   },
   async redirects() {
     return [
+      // Short link for review requests (texts, emails, cards): opens the Google write-a-review form
+      {
+        source: "/review",
+        destination: "https://search.google.com/local/writereview?placeid=ChIJ17Vq4W0i_6QRo4V-WRCo9mA",
+        permanent: false,
+      },
       // Old site URLs (underscores) → new URLs (hyphens)
       { source: "/services/gravel_pads", destination: "/services/gravel-pads-and-concrete-foundations", permanent: true },
       { source: "/services/stamped_concrete", destination: "/services/stamped-concrete", permanent: true },

@@ -37,7 +37,7 @@ export function LocalBusinessSchema() {
     url: SITE.url,
     sameAs: [
       "https://www.facebook.com/backyardbobbys",
-      "https://www.google.com/maps/place/Backyard+Bobbys",
+      "https://www.google.com/maps?cid=6986956660086310307",
       "https://www.yelp.com/biz/backyard-bobbys-millersville",
     ],
     founder: BOBBY_PERSON,

@@ -8,6 +8,7 @@ import { TestimonialCard } from "@/components/shared/TestimonialCard";
 import { ProcessSteps } from "@/components/shared/ProcessSteps";
 import { AreaGrid } from "@/components/shared/AreaGrid";
 import { FAQAccordion } from "@/components/shared/FAQAccordion";
+import { FAQPageSchema } from "@/components/shared/SchemaOrg";
 import { CTAButton } from "@/components/shared/CTAButton";
 import { GalleryGrid } from "@/components/shared/GalleryGrid";
 import { FinancingCallout } from "@/components/shared/FinancingCallout";
@@ -57,6 +58,7 @@ const HOME_FAQS = [
 export default function HomePage() {
   return (
     <>
+      <FAQPageSchema faqs={HOME_FAQS} />
       {/* ===== HERO: Split Layout with Image Collage ===== */}
       <section className="relative min-h-[90vh] lg:min-h-screen overflow-hidden">
         {/* Mobile: image background visible */}
