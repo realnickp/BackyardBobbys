@@ -116,6 +116,24 @@ function renderMarkdown(content: string) {
       continue;
     }
 
+    const imageMatch = trimmed.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+    if (imageMatch) {
+      flushList();
+      elements.push(
+        <figure key={`img-${i}`} className="my-8">
+          <Image
+            src={imageMatch[2]}
+            alt={imageMatch[1]}
+            width={1600}
+            height={900}
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="w-full h-auto rounded-2xl"
+          />
+        </figure>
+      );
+      continue;
+    }
+
     if (trimmed.startsWith("## ")) {
       flushList();
       elements.push(
