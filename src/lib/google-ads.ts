@@ -44,6 +44,8 @@ export function trackConversion(
 ) {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return;
 
+  trackGa4Lead(conversion);
+
   const label = ADS_CONVERSION_LABELS[conversion];
   if (!label) return;
 
@@ -51,4 +53,26 @@ export function trackConversion(
     send_to: `${GOOGLE_ADS_ID}/${label}`,
     ...params,
   });
+}
+
+// GA4 event names for the same moments, so Analytics shows leads too.
+// generate_lead is GA4's recommended lead event; mark it as a key event in
+// GA4 Admin → Events. Phone taps get their own event so they stay separate.
+const GA4_EVENTS: Record<AdsConversion, { name: string; lead_type: string }> = {
+  form_submit: { name: "generate_lead", lead_type: "form" },
+  project_builder: { name: "generate_lead", lead_type: "project_builder" },
+  phone_call: { name: "phone_call_click", lead_type: "phone" },
+};
+
+/** Sends the matching GA4 event. Never throws: tracking must not affect a lead. */
+function trackGa4Lead(conversion: AdsConversion) {
+  const measurementId = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID;
+  if (!measurementId) return;
+
+  try {
+    const { name, lead_type } = GA4_EVENTS[conversion];
+    window.gtag?.("event", name, { send_to: measurementId, lead_type });
+  } catch {
+    // ignore: analytics only
+  }
 }
